@@ -6,6 +6,6 @@ authors = ["Naaktgeboren, C.", ]
 license = "MIT"
 description = "Academic book template in Typst"
 keywords = ["academic", "book", "academia", "textbook", "research"]
-categories = ["layout", "scripting"]
+categories = ["layout", "scripting", "book"]
 disciplines = ["all", ]
 compiler = "0.11.1"
