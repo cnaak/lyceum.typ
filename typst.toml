@@ -9,3 +9,8 @@ keywords = ["academic", "book", "academia", "textbook", "research"]
 categories = ["layout", "scripting", "book"]
 disciplines = [, ]
 compiler = "0.11.1"
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
