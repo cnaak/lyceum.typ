@@ -7,7 +7,7 @@ license = "MIT"
 description = "Academic book template in Typst"
 keywords = ["academic", "book", "academia", "textbook", "research"]
 categories = ["layout", "scripting", "book"]
-disciplines = [, ]
+disciplines = []
 compiler = "0.11.1"
 
 [template]
