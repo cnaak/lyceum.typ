@@ -36,4 +36,22 @@
     // Another institution...
   ),
 
+  // Publisher structure
+  publisher: (
+    name: (
+      value: "ABZ-XYC-ÖÖÖ Publishing Tents",
+      short: "ABZ-XYC-ÖÖÖ",
+    ),
+    location: "Far City, Far Country",
+    url: "www9.abz-xyc-ööö-pubtent.com.far",
+  ),
+
+  // Serial number structure
+  serial-number: (
+    isbn: "",
+    doi: "",
+    ddc: "",
+    udc: "",
+  ),
+
 )
