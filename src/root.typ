@@ -1,3 +1,6 @@
+/// Top-level function for book metadata and general formatting settings
+///
+/// - 
 #let book(
 
   // Book title structure
@@ -11,7 +14,7 @@
     (
       institution: "",
       research-group: "",
-      location: "Far City, Far Country",
+      location: "City, Country",
       roles: (
         author-list: (
           ( // First author
@@ -39,11 +42,11 @@
   // Publisher structure
   publisher: (
     name: (
-      value: "ABZ-XYC-ÖÖÖ Publishing Tents",
-      short: "ABZ-XYC-ÖÖÖ",
+      value: "",
+      short: "",
     ),
-    location: "Far City, Far Country",
-    url: "www9.abz-xyc-ööö-pubtent.com.far",
+    location: "",
+    url: "",
   ),
 
   // Serial number structure
