@@ -1,6 +1,18 @@
 /// Top-level function for book metadata and general formatting settings
 ///
-/// - 
+/// - title (dictionary)
+///   with "value" and "short" keys and string values
+///
+/// - affiliations (array)
+///   of affiliation dictionaries, with institution and authors/contributors data
+///
+/// - publisher (dictionary)
+///   with "name", "location", and "url" keys
+///
+/// - serial-number (dictionary)
+///   with "isbn", "doi", "ddc", and "udc" keys
+///
+/// 
 #let book(
 
   // Book title structure
@@ -55,6 +67,25 @@
     doi: "",
     ddc: "",
     udc: "",
+  ),
+
+  // Format structure - other parameters are ignored
+  format: (
+    page: (
+      width: 155mm,
+      height: 230mm,
+      // or paper: "a5",
+      flipped: false,
+      margin: (
+        inside:   30mm,
+        outside:  25mm,
+        rest:     25mm,
+      ),
+      binding: left,
+      fill: rgb("#e6deca"), // ivory
+    ),
+    text: (
+    ),
   ),
 
 )
