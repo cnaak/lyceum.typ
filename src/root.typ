@@ -1,18 +1,19 @@
 /// Top-level function for book metadata and general formatting settings
 ///
 /// - title (dictionary)
-///   with "value" and "short" keys and string values
+///   with "value" and "short" keys and string values.
 ///
 /// - affiliations (array)
-///   of affiliation dictionaries, with institution and authors/contributors data
+///   of affiliation dictionaries, with institution and authors/contributors data.
 ///
 /// - publisher (dictionary)
-///   with "name", "location", and "url" keys
+///   with "name", "location", and "url" keys.
 ///
 /// - serial-number (dictionary)
-///   with "isbn", "doi", "ddc", and "udc" keys
+///   with "isbn", "doi", "ddc", and "udc" keys.
 ///
-/// 
+/// - format (dictionary)
+///   with "page", and "text" keyed sub-dictionaries.
 #let book(
 
   // Book title structure
@@ -85,7 +86,13 @@
       fill: rgb("#e6deca"), // ivory
     ),
     text: (
+      font: "Crimson Pro",
+      size: 11pt,
+      lang: "en",
+      region: "US",
     ),
   ),
 
-)
+) = {
+}
+
