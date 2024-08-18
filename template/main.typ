@@ -1,39 +1,60 @@
 #import "@preview/lyceum:0.1.0": book
 
 #show: book.with(
-  title: "Book title",
+
+  // Book title structure
+  title: (
+    value: "Title: Complement",
+    short: "Title",
+  ),
+
+  // Affiliations structure
   affiliations: (
     (
-      institution: "One Institution",
-      research-group: "Socrates Research Group",
-      location: "Far City, Far Country",
-      affiliated: (
-        (
-          name: "An Author's Name",
-          role: "author",
-          corresponding: true,
-          email: "name@socrates.one.edu.far",
-        ),(
-          name: "Beltrane Foo",
-          role: "author",
-          corresponding: false,
+      institution: "",
+      research-group: "",
+      location: "City, Country",
+      roles: (
+        author-list: (
+          ( // First author
+            name: "Baz",
+            given-name: "Foo Bar",
+            prefix: "Dr.",
+            suffix: "III",
+            alias: "Codename",
+          ), ( // Second author
+            name: "Zab",
+            given-name: "Oof Rab",
+            prefix: "MSc.",
+          ), // Other authors..
         ),
-      ),
-    ),(
-      institution: "Another Institution",
-      research-group: "Plato Research Group",
-      location: "Near City, Near Country",
-      affiliated: (
-        (
-          name: "Feldchor Bar",
-          role: "author",
-          corresponding: false,
-          email: "barf@plato.another.edu.near",
-        ),
-      ),
+        // Other role lists, including and limited to:
+        //    translator, afterword, foreword, introduction, annotator, commentator, holder,
+        //    compiler, collaborator, organizer, producer, executive-producer, writer, director,
+        //    illustrator, editor.
+        // as in "translator-list", "afterword-list", etc...
+      )
     ),
+    // Another institution...
   ),
-  publisher: "Zpecial8 Books, Inc.",
-  date: datetime.today().display(),
+
+  // Publisher structure
+  publisher: (
+    name: (
+      value: "",
+      short: "",
+    ),
+    location: "",
+    url: "",
+  ),
+
+  // Serial number structure
+  serial-number: (
+    isbn: "",
+    doi: "",
+    ddc: "",
+    udc: "",
+  ),
+
 )
 
