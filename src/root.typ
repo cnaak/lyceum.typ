@@ -1,6 +1,5 @@
 #import "./src/util.typ": *
 
-
 /// Top-level function for book metadata and general formatting settings
 ///
 /// - title (none, string, array, dictionary)
@@ -25,6 +24,7 @@
       "short",
     )
   )
+
   META.author = ()
   for an-author in author {
     META.author.insert(
@@ -39,12 +39,24 @@
       )
     )
   }
+  let AUTHORS = ()
+  for AUTH in META.author {
+    AUTHORS.push(
+      name-to-short(
+        (AUTH.name, AUTH.given-name).join(", ")
+      )
+    )
+  }
+
+  META.keywords = array-from(keywords, missing: "")
+
+  META.date = date
 
   // Sets up document metadata
   document(
     title: META.title.value,
-    author: META...,
-    keywords: META...,
+    author: AUTHORS.join(" and "),
+    keywords: META.keywords,
     date: META.date,
   )
 
