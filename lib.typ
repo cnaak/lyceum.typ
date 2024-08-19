@@ -1,2 +1,2 @@
-#import "./src/root.typ": book
+#import "src/root.typ": book
 
