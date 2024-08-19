@@ -12,7 +12,7 @@
 ///   The book subject keywords
 ///
 /// -> none
-#let book(title: "", author: "", keywords: ("",), date: datetime.today()) = {
+#let book(title: "", author: "", keywords: (""), date: datetime.today()) = {
 
   // Complete META
   // =============
