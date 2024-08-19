@@ -42,6 +42,37 @@
   return RET
 }
 
+/// This function returns an array with the provided strings, based on the provided item.
+///
+/// - item (none, string, array)
+///   the data source for the return array
+///
+/// -> array
+#let array-from(item, missing: "") = {
+  // Initializations
+  let RET = ()
+  // Empty tests
+  if true in (
+    type(item) == type(none),
+    item == "",
+    item == (),
+  ) {
+    return (missing, )
+  }
+  // String processing
+  if type(item) == string {
+    RET.push(item)
+  }
+  // Array processing: flatten -> string
+  if type(item) == array {
+    item = flatten(item)
+    for ii in item {
+      RET.push(str(ii))
+    }
+  }
+  return RET
+}
+
 /// This function returns first name initials of the provided `first-names`.
 ///
 /// #example(`#initials-of("Foo Bar des-Ormeaux")`)
