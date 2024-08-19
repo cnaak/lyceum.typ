@@ -3,8 +3,11 @@
 /// - title (dictionary)
 ///   with "value" and "short" keys and string values.
 ///
+/// - authors (array)
+///   of author info dictionaries, in order.
+///
 /// - affiliations (array)
-///   of affiliation dictionaries, with institution and authors/contributors data.
+///   of affiliation dictionaries, with institution and other contributors data.
 ///
 /// - publisher (dictionary)
 ///   with "name", "location", and "url" keys.
@@ -20,6 +23,26 @@
   title: (
     value: "Title: Complement",
     short: "Title",
+  ),
+
+  // Authors structure
+  authors: ((
+      name: "Smith",
+      given-name: "Foo Bar",
+      preffix: "Dr.",
+      suffix: "III",
+      affiliation: (
+        institution: (
+          name: "",
+          location: "",
+        ),
+        research-group: (
+          name: "",
+          location: "",
+        ),
+        email: "smithfb@institution.org",
+      ),
+    ),
   ),
 
   // Affiliations structure
