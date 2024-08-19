@@ -1,121 +1,50 @@
+#import "./src/util.typ": *
+
 /// Top-level function for book metadata and general formatting settings
 ///
-/// - title (dictionary)
-///   with "value" and "short" keys and string values.
+/// - title (string, dictionary)
+///   The title of the book item
 ///
-/// - authors (array)
-///   of author info dictionaries, in order.
-///
-/// - affiliations (array)
-///   of affiliation dictionaries, with institution and other contributors data.
-///
-/// - publisher (dictionary)
-///   with "name", "location", and "url" keys.
-///
-/// - serial-number (dictionary)
-///   with "isbn", "doi", "ddc", and "udc" keys.
-///
-/// - format (dictionary)
-///   with "page", and "text" keyed sub-dictionaries.
-#let book(
+/// -> none
+#let book(title, author, keywords, date) = {
 
-  // Book title structure
-  title: (
-    value: "Title: Complement",
-    short: "Title",
-  ),
+  // Complete META
+  // =============
+  let META = (:)
 
-  // Authors structure
-  authors: ((
-      name: "Smith",
-      given-name: "Foo Bar",
-      preffix: "Dr.",
-      suffix: "III",
-      affiliation: (
-        institution: (
-          name: "",
-          location: "",
-        ),
-        research-group: (
-          name: "",
-          location: "",
-        ),
-        email: "smithfb@institution.org",
-      ),
-    ),
-  ),
+  // META.title
+  // ----------
+  if true in (
+    type(title) == type(none),
+    title == "",
+    title == (),
+    title == (:),
+  ) { META.insert(title: (value: "", short: "",)) } else {
+    if type(title) == string {
+      META.insert(title: (value: title, short: ""))
+    }
+    if type(title) == array {
+      title = flatten(title)
+      for ii in range(title.len()) {
+        title.at(ii) = str(title.at(ii))
+      }
+      META.insert(title: (value: title.join(" "), short: ""))
+    }
+    if type(title) == dictionary {
+      META.insert(title: (:))
+      if "value" in title { META.title.value = title.value }
+      if "short" in title { META.title.short = title.short }
+    }
+  }
 
-  // Affiliations structure
-  affiliations: (
-    (
-      institution: "",
-      research-group: "",
-      location: "City, Country",
-      roles: (
-        author-list: (
-          ( // First author
-            name: "Baz",
-            given-name: "Foo Bar",
-            prefix: "Dr.",
-            suffix: "III",
-            alias: "Codename",
-          ), ( // Second author
-            name: "Zab",
-            given-name: "Oof Rab",
-            prefix: "MSc.",
-          ), // Other authors..
-        ),
-        // Other role lists, including and limited to:
-        //    translator, afterword, foreword, introduction, annotator, commentator, holder,
-        //    compiler, collaborator, organizer, producer, executive-producer, writer, director,
-        //    illustrator, editor.
-        // as in "translator-list", "afterword-list", etc...
-      )
-    ),
-    // Another institution...
-  ),
+  // Sets up document metadata
+  document(
+    title: META.title.value,
+    author: META...,
+    keywords: META...,
+    date: META.date,
+  )
 
-  // Publisher structure
-  publisher: (
-    name: (
-      value: "",
-      short: "",
-    ),
-    location: "",
-    url: "",
-  ),
-
-  // Serial number structure
-  serial-number: (
-    isbn: "",
-    doi: "",
-    ddc: "",
-    udc: "",
-  ),
-
-  // Format structure - other parameters are ignored
-  format: (
-    page: (
-      width: 155mm,
-      height: 230mm,
-      // or paper: "a5",
-      flipped: false,
-      margin: (
-        inside:   30mm,
-        outside:  25mm,
-        rest:     25mm,
-      ),
-      binding: left,
-      fill: rgb("#e6deca"), // ivory
-    ),
-    text: (
-      font: "Crimson Pro",
-      size: 11pt,
-      lang: "en",
-      region: "US",
-    ),
-  ),
-
-) = {
+  // Typesets the title page
 }
 
