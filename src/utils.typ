@@ -1,3 +1,47 @@
+/// This function returns a dictionary with the provided keys, based on the provided item.
+///
+/// - item (none, string, array, dictionary)
+///   the data source for the return dictionary
+///
+/// -> dictionary
+#let dict-from(item, keys: ("value", "short"), missing: "") = {
+  // Initializations
+  let RET = (:)
+  for key in keys {
+    RET.insert(key, missing)
+  }
+  // Empty tests
+  if true in (
+    type(item) == type(none),
+    item == "",
+    item == (),
+    item == (:),
+  ) {
+    return RET
+  }
+  // String processing
+  if type(item) == string {
+    RET.at(keys.at(0)) = item
+  }
+  // Array processing: flatten -> string -> join
+  if type(item) == array {
+    item = flatten(item)
+    for ii in range(item.len()) {
+      item.at(ii) = str(item.at(ii))
+    }
+    RET.at(keys.at(0)) = item.join(" ")
+  }
+  // Dictionary processing: get fields
+  if type(item) == dictionary {
+    for key in keys {
+      if key in item {
+        RET.at(key) = item.at(key)
+      }
+    }
+  }
+  return RET
+}
+
 /// This function returns first name initials of the provided `first-names`.
 ///
 /// #example(`#initials-of("Foo Bar des-Ormeaux")`)
