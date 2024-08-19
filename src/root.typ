@@ -1,4 +1,4 @@
-#import "./src/util.typ": *
+#import "util.typ": *
 
 /// Top-level function for book metadata and general formatting settings
 ///
