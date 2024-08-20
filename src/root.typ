@@ -73,7 +73,7 @@
 
   META.keywords = array-from(keywords, missing: "")
 
-  META.date = dict-from(date, keys: ("year", "month", "day"))
+  META.date = dict-from(date, keys: ("year", "month", "day"), missing: "")
 
   // Sets up document metadata
   set document(
