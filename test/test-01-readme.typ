@@ -2,7 +2,7 @@
 
 #show: book.with(
   title: "Title: Complement",
-  author: "Me, Myself, and I",
+  author: "Myself I",
   keywords: ("cornucopia", "verborhea"),
 )
 
