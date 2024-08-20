@@ -1,6 +1,20 @@
 #import "utils.typ": *
 #import "meta.typ": *
 
+/// Book's front-matter setup function
+#let front-matter() = {
+  // Meta-data marking
+  matter-meta("FRONT")
+  // Format settings
+  set page(
+    numbering: "i",
+  )
+  set heading(
+    numbering: none,
+    outlined: true,
+  )
+}
+
 /// Top-level function for book metadata and general formatting settings
 ///
 /// - title (none, string, array, dictionary)
@@ -104,8 +118,8 @@
   // Writes the root metadata into the document
   root-meta(META, AUTHORS)
 
-  // Writes the matter metadata into the document
-  matter-meta("FRONT")
+  // Sets-up FRONT-MATTER
+  front-matter()
 
   // Typesets the title page
   [
