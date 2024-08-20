@@ -62,7 +62,7 @@
   META.date = date
 
   // Sets up document metadata
-  document(
+  set document(
     title: META.title.value,
     author: AUTHORS.join(" and "),
     keywords: META.keywords,
