@@ -11,6 +11,9 @@
 /// - keywords (none, string, array)
 ///   The book subject keywords
 ///
+/// - date (none, auto, datetime)
+///   The book date
+///
 /// - body (contents)
 ///   The book's body
 ///
@@ -73,15 +76,28 @@
 
   META.keywords = array-from(keywords, missing: "")
 
-  META.date = dict-from(date, keys: ("year", "month", "day"), missing: "")
+  if date == auto {
+    META.date = datetime.today()
+  }
+  if type(date) == datetime {
+    META.date = date
+  }
 
   // Sets up document metadata
-  set document(
-    title: META.title.value,
-    author: AUTHORS.join(" and "),
-    keywords: META.keywords,
-    date: META.date,
-  )
+  if "date" in META {
+    set document(
+      title: META.title.value,
+      author: AUTHORS.join(" and "),
+      keywords: META.keywords,
+      date: META.date,
+    )
+  } else {
+    set document(
+      title: META.title.value,
+      author: AUTHORS.join(" and "),
+      keywords: META.keywords,
+    )
+  }
 
   // Typesets the title page
   META
