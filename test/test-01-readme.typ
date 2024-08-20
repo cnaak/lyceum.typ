@@ -4,6 +4,5 @@
   title: "Title: Complement",
   author: "Me, Myself, and I",
   keywords: ("cornucopia", "verborhea"),
-  date: datetime.today()
 )
 
