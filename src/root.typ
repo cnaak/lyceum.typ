@@ -51,6 +51,8 @@
             "given-name",
             "preffix",
             "suffix",
+            "short",
+            "bibliography",
           )
         )
       )
@@ -67,6 +69,8 @@
           "given-name",
           "preffix",
           "suffix",
+          "short",
+          "bibliography",
         )
       )
     )
@@ -96,14 +100,17 @@
     keywords: META.keywords,
   )
 
+  metadata(
+    SECT: "FRONT", // or BODY, or BACK, for *-MATTER
+    META: META,
+    AUTH: AUTHORS,
+  ) <root>
+
   // Typesets the title page
   [
-    #META
-
-    title = "#META.title.value"
-
-    authors = #AUTHORS.join(" and ")
-
+    #context {
+      query(<root>)
+    }
   ]
 }
 
