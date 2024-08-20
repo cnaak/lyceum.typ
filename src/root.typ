@@ -75,10 +75,6 @@
       AUTHORS.push(
         (AUTH.name, AUTH.given-name).join(", ")
       )
-    } else if "full" in AUTH {
-      AUTHORS.push(
-        AUTH.full
-      )
     }
   }
 
@@ -94,14 +90,14 @@
   // Sets up document metadata
   if "date" in META {
     set document(
-      title: META.title.value,
+      title: [#META.title.value],
       author: AUTHORS.join(" and "),
       keywords: META.keywords,
       date: META.date,
     )
   } else {
     set document(
-      title: META.title.value,
+      title: [#META.title.value],
       author: AUTHORS.join(" and "),
       keywords: META.keywords,
     )
