@@ -3,12 +3,13 @@
 #show: book.with(
   title: "My Book Title",
   author: (
-    "Yours, Truly",
-    "Rebecca St-James",
-    "Jéan-Mark des-Ormeaux",
-    "Καίσαρος Αὐγούστου",
-    "Jaapje van-'s-Gravendeel",
-    "Johannes D. van-der-Waals",
+    "Foo Bar",
+//    "Yours, Truly",
+//    "Rebecca St-James",
+//    "Jéan-Mark des-Ormeaux",
+//    "Καίσαρος Αὐγούστου",
+//    "Jaapje van-'s-Gravendeel",
+//    "Johannes D. van-der-Waals",
   ),
   keywords: ("cornucopia", "verborhea"),
 )
