@@ -1,8 +1,15 @@
 #import "@local/lyceum:0.1.0": book
 
 #show: book.with(
-  title: "Title: Complement",
-  author: "Myself I",
+  title: "My Book Title",
+  author: (
+    "Yours, Truly",
+    "Rebecca St-James",
+    "Jéan-Mark des-Ormeaux",
+    "Καίσαρος Αὐγούστου",
+    "Jaapje van-'s-Gravendeel",
+    "Johannes D. van-der-Waals",
+  ),
   keywords: ("cornucopia", "verborhea"),
 )
 
