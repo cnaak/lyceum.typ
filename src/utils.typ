@@ -100,7 +100,7 @@
     // Possibly "Name, Some Author"
     let name-split = full-name.split(",")
     let last-name = name-split.at(0).replace(regex("\s"), "")
-    let first-names = name-split.at(1)
+    let first-names = name-split.at(1).trim(regex("\s"), repeat: true)
     RET.insert("name", last-name)
     RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
