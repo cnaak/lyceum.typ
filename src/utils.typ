@@ -104,6 +104,7 @@
     RET.insert("name", last-name)
     RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
+    RET.insert("bibliography", (last-name, first-names).join(", "))
     return RET
   }
   if full-name.contains(regex("\s")) {
@@ -114,6 +115,7 @@
     RET.insert("name", last-name)
     RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
+    RET.insert("bibliography", (last-name, first-names).join(", "))
     return RET
   }
   if full-name.contains(regex("\p{Uppercase}")) {
@@ -124,6 +126,7 @@
     RET.insert("name", last-name)
     RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
+    RET.insert("bibliography", (last-name, first-names).join(", "))
     return RET
   }
   // "somethingelse"
