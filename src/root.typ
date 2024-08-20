@@ -121,11 +121,15 @@
   // Sets-up FRONT-MATTER
   front-matter()
 
-  // Typesets the title page
+  // Title page
   [
     #context {
       query(<matter>)
     }
   ]
+
+  // Book's body
+  body
+
 }
 
