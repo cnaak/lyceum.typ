@@ -36,7 +36,7 @@
 
   META.author = ()
   for an-author in author {
-    META.author.insert(
+    META.author.push(
       dict-from(
         author, keys: (
           "name",
