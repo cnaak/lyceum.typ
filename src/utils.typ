@@ -20,7 +20,7 @@
     return RET
   }
   // String processing
-  if type(item) == string {
+  if type(item) == type("") {
     RET.at(keys.at(0)) = item
   }
   // Array processing: flatten -> string -> join
