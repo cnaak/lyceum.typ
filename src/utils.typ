@@ -88,37 +88,46 @@
   return ret.join("")
 }
 
-/// This function returns a short form of the provided `full-name`.
+/// Name splitting function that attempts at extracting name constituents from a given full-name
 ///
-/// #example(`#name-to-short("Pétry, Foo Bar des-Ormeaux")`)
+/// - full-name (string)
+///   The name to split into it's constituents
 ///
-/// - full-name (string): The provided full name to shorten, either in `Last, First`, or `First
-///   Last` forms. In case of malformed `full-name`, no abbreviation is performed nor attempted,
-///   and the `full-name` is returned without modifications.
-/// -> string
-#let name-to-short(full-name) = {
+/// -> dictionary
+#let name-splitting(full-name) = {
+  let RET = (:)
   if full-name.contains(",") {
-    // "Name, Some Author" --> "NameSA"
+    // Possibly "Name, Some Author"
     let name-split = full-name.split(",")
     let last-name = name-split.at(0).replace(regex("\s"), "")
     let first-names = name-split.at(1)
-    return last-name + initials-of(first-names)
+    RET.insert("name", last-name)
+    RET.insert("given", first-names)
+    RET.insert("short", last-name + initials-of(first-names))
+    return RET
   }
   if full-name.contains(regex("\s")) {
-    // "Some Author Name"  --> "NameSA"
+    // Possibly "Some Author Name"
     let name-split = full-name.split(regex("\s"))
     let last-name = name-split.pop()
     let first-names = name-split
-    return last-name + initials-of(first-names.join(" "))
+    RET.insert("name", last-name)
+    RET.insert("given", first-names)
+    RET.insert("short", last-name + initials-of(first-names))
+    return RET
   }
   if full-name.contains(regex("\p{Uppercase}")) {
-    // "SomethingLikeThis" --> "ThisSL"
+    // Possibly "SomethingLikeThis"
     let name-split = full-name.split(regex("\p{Uppercase}"))
     let last-name = name-split.pop()
     let first-names = name-split
-    return last-name + initials-of(first-names.join(" "))
+    RET.insert("name", last-name)
+    RET.insert("given", first-names)
+    RET.insert("short", last-name + initials-of(first-names))
+    return RET
   }
   // "somethingelse"
-  return full-name
+  return (full: full-name)
 }
+
 
