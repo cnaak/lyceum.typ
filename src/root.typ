@@ -42,12 +42,14 @@
     for an-author in author {
       META.author.push(
         dict-from(
-          an-author, keys: (
+          name-splitting(an-author), keys: (
             "name",
             "given-name",
             "preffix",
             "suffix",
             "alias",
+            "short",
+            "full",
           )
         )
       )
@@ -55,23 +57,29 @@
   } else {
     META.author.push(
       dict-from(
-        author, keys: (
+        name-splitting(author), keys: (
           "name",
           "given-name",
           "preffix",
           "suffix",
           "alias",
+          "short",
+          "full",
         )
       )
     )
   }
   let AUTHORS = ()
   for AUTH in META.author {
-    AUTHORS.push(
-      name-to-short(
+    if "name" in AUTH and "given-name" in AUTH {
+      AUTHORS.push(
         (AUTH.name, AUTH.given-name).join(", ")
       )
-    )
+    } else if "full" in AUTH {
+      AUTHORS.push(
+        AUTH.full
+      )
+    }
   }
 
   META.keywords = array-from(keywords, missing: "")
