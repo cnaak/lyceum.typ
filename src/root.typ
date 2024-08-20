@@ -100,6 +100,13 @@
   }
 
   // Typesets the title page
-  [#META]
+  [
+    #META
+
+    title = #META.title.value
+
+    authors = #AUTHORS.join(" and ")
+
+  ]
 }
 
