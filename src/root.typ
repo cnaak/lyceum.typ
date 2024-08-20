@@ -48,19 +48,19 @@
           )
         )
       )
-    } else {
-      META.author.push(
-        dict-from(
-          author, keys: (
-            "name",
-            "given-name",
-            "preffix",
-            "suffix",
-            "alias",
-          )
+    }
+  } else {
+    META.author.push(
+      dict-from(
+        author, keys: (
+          "name",
+          "given-name",
+          "preffix",
+          "suffix",
+          "alias",
         )
       )
-    }
+    )
   }
   let AUTHORS = ()
   for AUTH in META.author {
