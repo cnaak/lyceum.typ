@@ -60,7 +60,7 @@
     return (missing, )
   }
   // String processing
-  if type(item) == string {
+  if type(item) == type("") {
     RET.push(item)
   }
   // Array processing: flatten -> string
