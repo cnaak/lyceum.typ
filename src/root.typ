@@ -49,6 +49,7 @@
             "suffix",
             "alias",
             "short",
+            "bibliography",
           )
         )
       )
@@ -63,6 +64,7 @@
           "suffix",
           "alias",
           "short",
+          "bibliography",
         )
       )
     )
