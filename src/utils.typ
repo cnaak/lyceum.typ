@@ -95,7 +95,7 @@
 ///
 /// -> dictionary
 #let name-splitting(full-name) = {
-  let RET = (:)
+  let RET = (full: full-name)
   if full-name.contains(",") {
     // Possibly "Name, Some Author"
     let name-split = full-name.split(",")
@@ -127,7 +127,7 @@
     return RET
   }
   // "somethingelse"
-  return (full: full-name)
+  return RET
 }
 
 
