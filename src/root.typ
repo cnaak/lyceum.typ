@@ -100,6 +100,6 @@
   }
 
   // Typesets the title page
-  META.display()
+  [#META]
 }
 
