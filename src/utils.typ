@@ -25,7 +25,7 @@
   }
   // Array processing: flatten -> string -> join
   if type(item) == array {
-    item = flatten(item)
+    item = item.flatten()
     for ii in range(item.len()) {
       item.at(ii) = str(item.at(ii))
     }
@@ -65,7 +65,7 @@
   }
   // Array processing: flatten -> string
   if type(item) == array {
-    item = flatten(item)
+    item = item.flatten()
     for ii in item {
       RET.push(str(ii))
     }
