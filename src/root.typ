@@ -35,10 +35,10 @@
   )
 
   META.author = ()
-  for an-author in author {
+  for an-author in array-from(author) {
     META.author.push(
       dict-from(
-        author, keys: (
+        an-author, keys: (
           "name",
           "given-name",
           "preffix",
