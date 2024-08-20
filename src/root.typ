@@ -103,11 +103,18 @@
     )
   }
 
+  set document(
+    title: [#META.title.value],
+    author: AUTHORS.join(" and "),
+    keywords: META.keywords,
+    date: datetime.today(),
+  )
+
   // Typesets the title page
   [
     #META
 
-    title = #META.title.value
+    title = "#META.title.value"
 
     authors = #AUTHORS.join(" and ")
 

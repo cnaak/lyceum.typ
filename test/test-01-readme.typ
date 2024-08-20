@@ -4,7 +4,7 @@
   title: "My Book Title",
   author: (
     "Foo Bar",
-//    "Yours, Truly",
+    "Yours, Truly",
 //    "Rebecca St-James",
 //    "Jéan-Mark des-Ormeaux",
 //    "Καίσαρος Αὐγούστου",
