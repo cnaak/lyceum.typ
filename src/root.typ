@@ -100,11 +100,14 @@
     keywords: META.keywords,
   )
 
-  metadata(
-    SECT: "FRONT", // or BODY, or BACK, for *-MATTER
-    META: META,
-    AUTH: AUTHORS,
-  ) <root>
+  // Writes the metadata at the current point in the document
+  [
+    #metadata(
+      SECT: "FRONT", // or BODY, or BACK, for *-MATTER
+      META: META,
+      AUTH: AUTHORS,
+    ) <root>
+  ]
 
   // Typesets the title page
   [
