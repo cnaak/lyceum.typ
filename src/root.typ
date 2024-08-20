@@ -30,7 +30,7 @@
   // =============
   let META = (:)
 
-  META.title  = dict-from(
+  META.title = dict-from(
     title, keys: (
       "value",
       "short",
@@ -100,6 +100,6 @@
   }
 
   // Typesets the title page
-  META
+  META.display()
 }
 
