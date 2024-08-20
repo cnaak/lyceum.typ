@@ -8,7 +8,12 @@
     "Rebecca St-James",
     "Jéan-Mark des-Ormeaux",
     "Καίσαρος Αὐγούστου",
-    "Jaapje van-'s-Gravendeel",
+    (
+      name: "van-'s-Gravendeel",
+      given-name: "Jaapjun",
+      preffix: "Sir",
+      suffix: "III",
+    ),
     "Johannes D. van-der-Waals",
   ),
   keywords: ("cornucopia", "verborhea"),

@@ -42,7 +42,11 @@
     for an-author in author {
       META.author.push(
         dict-from(
-          name-splitting(an-author), keys: (
+          if type(an-author) == type("") {
+            name-splitting(an-author)
+          } else {
+            an-author
+          }, keys: (
             "name",
             "given-name",
             "preffix",
@@ -57,7 +61,11 @@
   } else {
     META.author.push(
       dict-from(
-        name-splitting(author), keys: (
+        if type(an-author) == type("") {
+          name-splitting(author)
+        } else {
+          an-author
+        }, keys: (
           "name",
           "given-name",
           "preffix",
@@ -88,26 +96,10 @@
   }
 
   // Sets up document metadata
-  if "date" in META {
-    set document(
-      title: [#META.title.value],
-      author: AUTHORS.join(" and "),
-      keywords: META.keywords,
-      date: META.date,
-    )
-  } else {
-    set document(
-      title: [#META.title.value],
-      author: AUTHORS.join(" and "),
-      keywords: META.keywords,
-    )
-  }
-
   set document(
     title: [#META.title.value],
     author: AUTHORS.join(" and "),
     keywords: META.keywords,
-    //date: datetime.today(),
   )
 
   // Typesets the title page
