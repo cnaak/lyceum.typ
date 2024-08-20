@@ -110,7 +110,7 @@
     // Possibly "Some Author Name"
     let name-split = full-name.split(regex("\s"))
     let last-name = name-split.pop()
-    let first-names = name-split
+    let first-names = name-split.join(" ")
     RET.insert("name", last-name)
     RET.insert("given", first-names)
     RET.insert("short", last-name + initials-of(first-names))
@@ -120,7 +120,7 @@
     // Possibly "SomethingLikeThis"
     let name-split = full-name.split(regex("\p{Uppercase}"))
     let last-name = name-split.pop()
-    let first-names = name-split
+    let first-names = name-split.join(" ")
     RET.insert("name", last-name)
     RET.insert("given", first-names)
     RET.insert("short", last-name + initials-of(first-names))
