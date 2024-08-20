@@ -107,7 +107,7 @@
     title: [#META.title.value],
     author: AUTHORS.join(" and "),
     keywords: META.keywords,
-    date: datetime.today(),
+    //date: datetime.today(),
   )
 
   // Typesets the title page
