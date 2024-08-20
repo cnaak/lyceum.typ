@@ -11,12 +11,16 @@
 /// - keywords (none, string, array)
 ///   The book subject keywords
 ///
+/// - body (contents)
+///   The book's body
+///
 /// -> none
 #let book(
   title: "",
   author: "",
   keywords: (""),
-  date: datetime.today()
+  date: datetime.today(),
+  body
 ) = {
 
   // Complete META
