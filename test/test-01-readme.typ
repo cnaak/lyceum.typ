@@ -16,3 +16,5 @@
   keywords: ("polyglossia", "logomania"),
 )
 
+after show
+
