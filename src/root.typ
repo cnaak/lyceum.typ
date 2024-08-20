@@ -16,10 +16,10 @@
 ///
 /// -> none
 #let book(
-  title: "",
-  author: "",
-  keywords: (""),
-  date: datetime.today(),
+  title: none,
+  author: none,
+  keywords: none,
+  date: none,
   body
 ) = {
 
@@ -35,18 +35,32 @@
   )
 
   META.author = ()
-  for an-author in array-from(author) {
-    META.author.push(
-      dict-from(
-        an-author, keys: (
-          "name",
-          "given-name",
-          "preffix",
-          "suffix",
-          "alias",
+  if type(author) == array {
+    for an-author in author {
+      META.author.push(
+        dict-from(
+          an-author, keys: (
+            "name",
+            "given-name",
+            "preffix",
+            "suffix",
+            "alias",
+          )
         )
       )
-    )
+    } else {
+      META.author.push(
+        dict-from(
+          author, keys: (
+            "name",
+            "given-name",
+            "preffix",
+            "suffix",
+            "alias",
+          )
+        )
+      )
+    }
   }
   let AUTHORS = ()
   for AUTH in META.author {
@@ -59,7 +73,7 @@
 
   META.keywords = array-from(keywords, missing: "")
 
-  META.date = date
+  META.date = dict-from(date, keys: ("year", "month", "day"))
 
   // Sets up document metadata
   set document(
