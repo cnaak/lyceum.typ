@@ -107,12 +107,15 @@
         META: META,
         AUTH: AUTHORS,
     )) <root>
+    #metadata(
+      "FRONT", // or BODY, or BACK, for *-MATTER
+    ) <matter>
   ]
 
   // Typesets the title page
   [
     #context {
-      query(<root>)
+      query(<matter>)
     }
   ]
 }
