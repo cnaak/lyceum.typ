@@ -19,6 +19,9 @@
 
 /// Writes the "matter" metadata at the current point in the document
 ///
+/// This is used by the "-matter" functions, and is not meant to be a direct
+/// user's function.
+///
 /// - the-matter (string)
 ///   One of the allowed "matter" indicators, i.e.,
 ///   whether: "FRONT", "BODY", "BACK" -matter.
