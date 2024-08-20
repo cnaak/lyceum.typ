@@ -3,9 +3,7 @@
 #show: book.with(
   title: "My Book Title",
   author: (
-    "Foo Bar",
     "Yours, Truly",
-    "Rebecca St-James",
     "Jéan-Mark des-Ormeaux",
     "Καίσαρος Αὐγούστου",
     (
@@ -14,8 +12,7 @@
       preffix: "Sir",
       suffix: "III",
     ),
-    "Johannes D. van-der-Waals",
   ),
-  keywords: ("cornucopia", "verborhea"),
+  keywords: ("polyglossia", "logomania"),
 )
 

@@ -51,9 +51,6 @@
             "given-name",
             "preffix",
             "suffix",
-            "alias",
-            "short",
-            "bibliography",
           )
         )
       )
@@ -70,9 +67,6 @@
           "given-name",
           "preffix",
           "suffix",
-          "alias",
-          "short",
-          "bibliography",
         )
       )
     )
