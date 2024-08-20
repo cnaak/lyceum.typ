@@ -49,7 +49,6 @@
             "suffix",
             "alias",
             "short",
-            "full",
           )
         )
       )
@@ -64,7 +63,6 @@
           "suffix",
           "alias",
           "short",
-          "full",
         )
       )
     )
