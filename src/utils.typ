@@ -102,7 +102,7 @@
     let last-name = name-split.at(0).replace(regex("\s"), "")
     let first-names = name-split.at(1)
     RET.insert("name", last-name)
-    RET.insert("given", first-names)
+    RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
     return RET
   }
@@ -112,7 +112,7 @@
     let last-name = name-split.pop()
     let first-names = name-split.join(" ")
     RET.insert("name", last-name)
-    RET.insert("given", first-names)
+    RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
     return RET
   }
@@ -122,7 +122,7 @@
     let last-name = name-split.pop()
     let first-names = name-split.join(" ")
     RET.insert("name", last-name)
-    RET.insert("given", first-names)
+    RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
     return RET
   }
