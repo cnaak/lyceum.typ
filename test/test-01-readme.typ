@@ -1,8 +1,9 @@
 #import "@local/lyceum:0.1.0": *
 
 #let (
+  //META, 
   title, authors, keywords, date
-) = template.with(
+) = template(
   title: "My Book Title",
   authors: (
     "Yours, Truly",
@@ -21,17 +22,24 @@
 
 This is after `template` call. Are global metadata available? Let's check!
 
+/*
 = Metadata
 
 == Title
-#title
+#META.title
 
 == Authors
-#authors
+#META.authors
 
 == Keywords
-#keywords
+#META.keywords
 
 == Date
-#date
+#META.date
+*/
 
+#pagebreak()
+
+text
+
+#pagebreak()
