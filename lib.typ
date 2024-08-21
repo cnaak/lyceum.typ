@@ -290,6 +290,7 @@
 
   // Format settings
   set page(
+    margin: (top: 16pt, bottom: 24pt),
     numbering: "i",
     number-align: center + bottom,
   )
