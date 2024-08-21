@@ -295,7 +295,7 @@
     number-align: center + bottom,
   )
   set heading(
-    numbering: none,
+    numbering: "1",
     outlined: true,
   )
 
