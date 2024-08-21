@@ -19,6 +19,21 @@
   date: auto,
 )
 
+#let FMT() = {
+  set page(
+    margin: (top: 25mm, bottom: 25mm),
+    numbering: "i",
+    number-align: center + bottom,
+  )
+  set heading(
+    numbering: "1",
+    outlined: true,
+  )
+  [Am I here?]
+}                                      
+
+#FMT()
+
 This is after `template` call. Are global metadata available? Let's check!
 
 = Metadata
