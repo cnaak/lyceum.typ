@@ -188,14 +188,6 @@
 #let front-matter() = {
   // Meta-data marking
   matter-meta("FRONT")
-  // Format settings
-  set page(
-    numbering: "i",
-  )
-  set heading(
-    numbering: none,
-    outlined: true,
-  )
 }
 
 /// Top-level function for template metadata and general formatting settings
@@ -296,6 +288,17 @@
   // Sets-up FRONT-MATTER
   front-matter()
 
-  return META
+  // Format settings
+  set page(
+    numbering: "i",
+  )
+  set heading(
+    numbering: none,
+    outlined: true,
+  )
+
+  return (
+    META: META,
+  )
 }
 
