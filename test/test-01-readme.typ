@@ -1,8 +1,10 @@
-#import "@local/lyceum:0.1.0": book
+#import "@local/lyceum:0.1.0": *
 
-#show: book.with(
+#let (
+  title, authors, keywords, date
+) = template.with(
   title: "My Book Title",
-  author: (
+  authors: (
     "Yours, Truly",
     "Jéan-Mark des-Ormeaux",
     "Καίσαρος Αὐγούστου",
@@ -14,23 +16,22 @@
     ),
   ),
   keywords: ("polyglossia", "logomania"),
+  date: auto,
 )
 
-after show
+This is after `template` call. Are global metadata available? Let's check!
 
-#pagebreak()
+= Metadata
 
-after that
+== Title
+#title
 
-#pagebreak()
+== Authors
+#authors
 
-after that
+== Keywords
+#keywords
 
-#pagebreak()
-
-after that
-
-#pagebreak()
-
-after that
+== Date
+#date
 
