@@ -144,13 +144,13 @@
 
 /// Writes the "root" metadata at the current point in the document
 ///
-/// This is used by `book`, and is _not_ meant to be a user's function.
+/// This is used by `template`, and is _not_ meant to be a user's function.
 ///
 /// - the-meta (dictionary)
-///   The `book`'s top-level `META` dictionary.
+///   The `template`'s top-level `META` dictionary.
 ///
 /// - the auth (dictionary)
-///   The `book`'s compiled `AUTHORS` dictionary.
+///   The `template`'s compiled `AUTHORS` dictionary.
 ///
 /// -> none
 #let root-meta(the-meta, the-auth) = [
@@ -198,30 +198,26 @@
   )
 }
 
-/// Top-level function for book metadata and general formatting settings
+/// Top-level function for template metadata and general formatting settings
 ///
 /// - title (none, string, array, dictionary)
-///   The title of the book item
+///   The title of the template item
 ///
-/// - author (none, string, array, dictionary)
-///   The author data of the book
+/// - authors (none, string, array, dictionary)
+///   The authors data of the template
 ///
 /// - keywords (none, string, array)
-///   The book subject keywords
+///   The template subject keywords
 ///
 /// - date (none, auto, datetime)
-///   The book date
-///
-/// - body (contents)
-///   The book's body
+///   The template date
 ///
 /// -> none
-#let book(
+#let template(
   title: none,
-  author: none,
+  authors: none,
   keywords: none,
   date: none,
-  body
 ) = {
 
   // Complete META
@@ -235,10 +231,10 @@
     )
   )
 
-  META.author = ()
-  if type(author) == array {
-    for an-author in author {
-      META.author.push(
+  META.authors = ()
+  if type(authors) == array {
+    for an-author in authors {
+      META.authors.push(
         dict-from(
           if type(an-author) == type("") {
             name-splitting(an-author)
@@ -249,17 +245,15 @@
             "given-name",
             "preffix",
             "suffix",
-            "short",
-            "bibliography",
           )
         )
       )
     }
   } else {
-    META.author.push(
+    META.authors.push(
       dict-from(
         if type(an-author) == type("") {
-          name-splitting(author)
+          name-splitting(authors)
         } else {
           an-author
         }, keys: (
@@ -267,14 +261,12 @@
           "given-name",
           "preffix",
           "suffix",
-          "short",
-          "bibliography",
         )
       )
     )
   }
   let AUTHORS = ()
-  for AUTH in META.author {
+  for AUTH in META.authors {
     if "name" in AUTH and "given-name" in AUTH {
       AUTHORS.push(
         (AUTH.name, AUTH.given-name).join(", ")
@@ -310,9 +302,6 @@
       query(<matter>)
     }
   ]
-
-  // Book's body
-  body
 
 }
 
