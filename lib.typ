@@ -291,6 +291,7 @@
   // Format settings
   set page(
     numbering: "i",
+    number-align: center + bottom,
   )
   set heading(
     numbering: none,
