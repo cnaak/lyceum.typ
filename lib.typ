@@ -296,13 +296,6 @@
   // Sets-up FRONT-MATTER
   front-matter()
 
-  // Title page
-  [
-    #context {
-      query(<matter>)
-    }
-  ]
-
   return META
 }
 
