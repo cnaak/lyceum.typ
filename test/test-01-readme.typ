@@ -1,8 +1,7 @@
 #import "@local/lyceum:0.1.0": *
 
 #let (
-  //META, 
-  title, authors, keywords, date
+  META, 
 ) = template(
   title: "My Book Title",
   authors: (
@@ -22,7 +21,6 @@
 
 This is after `template` call. Are global metadata available? Let's check!
 
-/*
 = Metadata
 
 == Title
@@ -36,7 +34,6 @@ This is after `template` call. Are global metadata available? Let's check!
 
 == Date
 #META.date
-*/
 
 #pagebreak()
 
