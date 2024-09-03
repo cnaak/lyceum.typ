@@ -262,14 +262,10 @@
   )
 
   // Metadata writings
-  metadata(
-    META
-  )<lyceum-meta>
+  [#metadata(META)<lyceum-meta>]
 
   // Writes the root metadata into the document
-  metadata(
-    AUTHORS
-  )<lyceum-auth>
+  [#metadata(AUTHORS)<lyceum-auth>]
 
   // Sets-up FRONT-MATTER
   matter-meta("FRONT")
