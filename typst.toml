@@ -11,6 +11,6 @@ disciplines = []
 compiler = "0.11.1"
 
 [template]
-path = "template"
+path = "stencil"
 entrypoint = "main.typ"
 thumbnail = "thumbnail.png"
