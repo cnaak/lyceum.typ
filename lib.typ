@@ -190,7 +190,7 @@
   matter-meta("FRONT")
 }
 
-/// Top-level function for template metadata and general formatting settings
+/// Top-level function for the lyceum template global show rule
 ///
 /// - title (none, string, array, dictionary)
 ///   The title of the template item
@@ -204,12 +204,16 @@
 /// - date (none, auto, datetime)
 ///   The template date
 ///
+/// - body (contents)
+///   The entire document contents passed by the main `show` rule.
+///
 /// -> none
-#let template(
+#let lyceum(
   title: none,
   authors: none,
   keywords: none,
   date: none,
+  body
 ) = {
 
   // Complete META
@@ -299,8 +303,6 @@
     outlined: true,
   )
 
-  return (
-    META: META,
-  )
+  body
 }
 
