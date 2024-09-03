@@ -19,17 +19,19 @@
 
 = Metadata
 
-== Title
-#META.title
+With the `lyceum` template, the document's metadata is only accessible by querying:
 
-== Authors
-#META.authors
+#context {
+  let META = query(lyceum-meta)
+  let AUTH = query(lyceum-auth)
+  let MATT = query(lyecum-matter)
+}
 
-== Keywords
-#META.keywords
+Metadata is #META.
 
-== Date
-#META.date
+Authoring is #AUTH.
+
+Matter is #MATT.
 
 #pagebreak()
 
