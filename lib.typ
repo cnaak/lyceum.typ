@@ -280,7 +280,7 @@
   )
   for A in META.authors {
     self-bib-entry.push("    - name: " + A.name)
-    self-bib-entry.push("      given: " + A.given)
+    self-bib-entry.push("      given-name: " + A.given-name)
     self-bib-entry.push("      preffix: " + A.preffix)
     self-bib-entry.push("      suffix: " + A.suffix)
   }
