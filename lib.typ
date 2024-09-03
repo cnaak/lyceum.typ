@@ -270,6 +270,22 @@
   // Sets-up FRONT-MATTER
   matter-meta("FRONT")
 
+  // Sets-up self-bib-entry
+  [#metadata(
+"self-bib-entry:\
+  title:\
+    value: #META.title\
+    short: #META.short\
+  author:\
+#for A in META.authors {
+  "    - name: " + A.name + "\n"
+  "      given: " + A.given + "\n"
+  "      preffix: " + A.preffix + "\n"
+  "      suffix: " + A.suffix + "\n"
+}
+  date: #META.date.year
+") <self-bib-entry>]
+
   // Format settings
   set page(
     margin: (top: 16pt, bottom: 24pt),
