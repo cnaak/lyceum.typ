@@ -274,8 +274,8 @@
   let self-bib-entry = (
     "self-bib-entry:",
     "  title:",
-    "    value: " + META.title,
-    "    short: " + META.short,
+    "    value: " + META.title.value,
+    "    short: " + META.title.short,
     "  author:",
   )
   for A in META.authors {
