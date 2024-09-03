@@ -1,8 +1,6 @@
 #import "@local/lyceum:0.1.0": *
 
-#let (
-  META, 
-) = template(
+#show: lyceum.with(
   title: "My Book Title",
   authors: (
     "Yours, Truly",
@@ -18,23 +16,6 @@
   keywords: ("polyglossia", "logomania"),
   date: auto,
 )
-
-#let FMT() = {
-  set page(
-    margin: (top: 25mm, bottom: 25mm),
-    numbering: "i",
-    number-align: center + bottom,
-  )
-  set heading(
-    numbering: "1",
-    outlined: true,
-  )
-  [Am I here?]
-}                                      
-
-#FMT()
-
-This is after `template` call. Are global metadata available? Let's check!
 
 = Metadata
 
@@ -52,6 +33,5 @@ This is after `template` call. Are global metadata available? Let's check!
 
 #pagebreak()
 
-text
+Text after the page break.
 
-#pagebreak()
