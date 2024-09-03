@@ -142,25 +142,6 @@
 //                                     Metadata Functions                                     //
 //============================================================================================//
 
-/// Writes the "root" metadata at the current point in the document
-///
-/// This is used by `template`, and is _not_ meant to be a user's function.
-///
-/// - the-meta (dictionary)
-///   The `template`'s top-level `META` dictionary.
-///
-/// - the auth (dictionary)
-///   The `template`'s compiled `AUTHORS` dictionary.
-///
-/// -> none
-#let root-meta(the-meta, the-auth) = [
-  #metadata((
-      SECT: "FRONT", // or BODY, or BACK, for *-MATTER
-      META: the-meta,
-      AUTH: the-auth,
-  )) <root>
-]
-
 /// Writes the "matter" metadata at the current point in the document
 ///
 /// This is used by the "-matter" functions, and is not meant to be a direct
@@ -175,7 +156,7 @@
 /// -> none
 #let matter-meta(the-matter) = {
   if type(the-matter) == type("") {
-    if the-matter in ("FRONT", "BODY", "BACK") [#metadata(the-matter) <matter>]
+    if the-matter in ("FRONT", "BODY", "BACK") [#metadata(the-matter)<lyceum-matter>]
   }
 }
 
@@ -183,12 +164,6 @@
 //============================================================================================//
 //                                       User Functions                                       //
 //============================================================================================//
-
-/// Book's front-matter setup function
-#let front-matter() = {
-  // Meta-data marking
-  matter-meta("FRONT")
-}
 
 /// Top-level function for the lyceum template global show rule
 ///
@@ -286,11 +261,18 @@
     keywords: META.keywords,
   )
 
+  // Metadata writings
+  metadata(
+    META
+  )<lyceum-meta>
+
   // Writes the root metadata into the document
-  root-meta(META, AUTHORS)
+  metadata(
+    AUTHORS
+  )<lyceum-auth>
 
   // Sets-up FRONT-MATTER
-  front-matter()
+  matter-meta("FRONT")
 
   // Format settings
   set page(
