@@ -2,8 +2,8 @@
 
 #show: book.with(
   title: "Title: Complement",
-  author: "Me, Myself, and I",
-  keywords: ("cornucopia", "verborhea"),
+  author: "Lastname, Given Middle",
+  keywords: ("keyword-a", "keyword-b"),
   date: datetime.today()
 )
 
