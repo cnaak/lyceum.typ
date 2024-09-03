@@ -284,7 +284,7 @@
     self-bib-entry.push("      preffix: " + A.preffix)
     self-bib-entry.push("      suffix: " + A.suffix)
   }
-  self-bib-entry.push("  date: " + META.date.year)
+  self-bib-entry.push("  date: " + str(META.date.year()) + "-" + str(META.date.month()))
   [#metadata(self-bib-entry.join("\n"))<self-bib-entry>]
 
   // Format settings
