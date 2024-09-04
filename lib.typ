@@ -6,16 +6,18 @@
 //============================================================================================//
 
 #let lyceum(
-  title: none,
-  authors: none,
-  keywords: none,
-  date: none,
+  meta: (
+    title: (value: "Book Title", short: "Title"),
+    authors: ((preffix: "Dr.", given-name: "John", name: "Smith", suffix: "II"), ),
+    publisher: "SOME Publishing Company",
+    location: "Faraway City, Far Country",
+    keywords: ("key1", "key2"),
+    date: auto, // auto => datetime.today()
+  ),
   body
 ) = {
 
-  // Complete META
-  // =============
-  let META = (:)
+  let META = meta-parse(meta)
 
   // META.title
   META.title = dict-from(
