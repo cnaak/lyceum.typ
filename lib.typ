@@ -266,11 +266,11 @@
   // META.bibkey
   META.bibkey =
     if AUTHORS.len() == 1 {
-      str(META.date.year()) + "-" + AUTHORS.at(0) + "-" + initials-of(META.title.value)
+      str(META.date.year()) + "-" + AUTHORS.at(0)
     } else if AUTHORS.len() >= 2 {
-      str(META.date.year()) + "-" + (AUTHORS.first(), AUTHORS.last()).join("+") + \
-      "-" + initials-of(META.title.value)
+      str(META.date.year()) + "-" + (AUTHORS.first(), AUTHORS.last()).join("+")
     }
+  META.bibkey += "-" + initials-of(META.title.value)
 
   // Sets up document metadata
   set document(
