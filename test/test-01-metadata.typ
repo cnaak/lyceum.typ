@@ -31,6 +31,16 @@ Authoring is #AUTH.
 
 Matter is #MATT.
 
+#pagebreak()
+
+= Self Bibliography Entry
+
+The `lyceum` template self-generated bib entry is
+
+#let SELF = context to-string(query(<self-bib-entry>).at(0).value)
+
+#raw(SELF)
+
 /*
 #matter-meta("BODY")
 
