@@ -4,8 +4,8 @@
   title: "My Book Title",
   authors: (
     "Yours, Truly",
-//    "Jéan-Mark des-Ormeaux",
-//    "Καίσαρος Αὐγούστου",
+    "Jéan-Mark des-Ormeaux",
+    "Καίσαρος Αὐγούστου",
     (
       name: "van-'s-Gravendeel",
       given-name: "Jaapjun",
@@ -33,15 +33,6 @@ Matter is #MATT.
 
 #pagebreak()
 
-= Self Bibliography Entry
-
-The `lyceum` template self-generated bib entry is
-
-#let SELF = context to-string(query(<self-bib-entry>).at(0).value)
-
-#raw(SELF)
-
-/*
 #matter-meta("BODY")
 
 This belongs to the `"BODY"` matter.
@@ -49,4 +40,4 @@ This belongs to the `"BODY"` matter.
 #matter-meta("BACK")
 
 And this belongs to the `"BACK"` matter.
-*/
+
