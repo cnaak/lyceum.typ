@@ -108,7 +108,6 @@
     RET.insert("name", last-name)
     RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
-    RET.insert("bibliography", (last-name, first-names).join(", "))
     return RET
   }
   if full-name.contains(regex("\s")) {
@@ -119,7 +118,6 @@
     RET.insert("name", last-name)
     RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
-    RET.insert("bibliography", (last-name, first-names).join(", "))
     return RET
   }
   if full-name.contains(regex("\p{Uppercase}")) {
@@ -130,7 +128,6 @@
     RET.insert("name", last-name)
     RET.insert("given-name", first-names)
     RET.insert("short", last-name + initials-of(first-names))
-    RET.insert("bibliography", (last-name, first-names).join(", "))
     return RET
   }
   // "somethingelse"
@@ -195,6 +192,7 @@
   // =============
   let META = (:)
 
+  // META.title
   META.title = dict-from(
     title, keys: (
       "value",
@@ -202,6 +200,7 @@
     )
   )
 
+  // META.authors - Pass 1
   META.authors = ()
   if type(authors) == array {
     for an-author in authors {
@@ -216,6 +215,7 @@
             "given-name",
             "preffix",
             "suffix",
+            "short",
           )
         )
       )
@@ -232,27 +232,46 @@
           "given-name",
           "preffix",
           "suffix",
+          "short",
         )
       )
     )
   }
-  let AUTHORS = ()
-  for AUTH in META.authors {
-    if "name" in AUTH and "given-name" in AUTH {
-      AUTHORS.push(
-        (AUTH.name, AUTH.given-name).join(", ")
-      )
+
+  // META.authors - Pass 2
+  for i in META.authors.len() {
+    if META.authors.at(i).short == "" {
+      META.authors.at(i).short =
+        META.authors.at(i).name + initials-of(META.authors.at(i).given-name)
     }
   }
 
+  // AUTHORS - A convenient compilation from META.authors
+  let AUTHORS = ()
+  for AUTH in META.authors {
+    AUTHORS.push(AUTH.short)
+  }
+
+  // META.keywords
   META.keywords = array-from(keywords, missing: "")
 
+  // META.date
   if date == auto {
     META.date = datetime.today()
   }
   if type(date) == datetime {
     META.date = date
   }
+
+  // META.bibkey
+  META.bibkey =
+    if AUTHORS.len() == 1 {
+      str(META.date.year()) + "-" + AUTHORS.at(0) +
+      "-" + initials-of(META.title.value)
+    } else if AUTHORS.len() >= 2 {
+      str(META.date.year()) + "-" + (AUTHORS.first(), AUTHORS.last()).join("+") +
+      "-" + initials-of(META.title.value)
+    }
 
   // Sets up document metadata
   set document(
@@ -272,7 +291,7 @@
 
   // Sets-up self-bib-entry
   let self-bib-entry = (
-    "self-bib-entry:",
+    META.bibkey + ":",
     "  title:",
     "    value: " + META.title.value,
     "    short: " + META.title.short,
