@@ -239,7 +239,7 @@
   }
 
   // META.authors - Pass 2
-  for i in META.authors.len() {
+  for i in range(META.authors.len()) {
     if META.authors.at(i).short == "" {
       META.authors.at(i).short =  META.authors.at(i).name
       META.authors.at(i).short += initials-of(META.authors.at(i).given-name)
