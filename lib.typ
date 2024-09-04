@@ -1,50 +1,10 @@
-#import "src/meta-parsing"
-
-//============================================================================================//
-//                                     Metadata Functions                                     //
-//============================================================================================//
-
-/// Writes the "matter" metadata at the current point in the document
-///
-/// This is used by the "-matter" functions, and is not meant to be a direct
-/// user's function.
-///
-/// - the-matter (string)
-///   One of the allowed "matter" indicators, i.e.,
-///   whether: "FRONT", "BODY", "BACK" -matter.
-///
-///   In case of invalid argument, the function silently exits, doing nothing.
-///
-/// -> none
-#let matter-meta(the-matter) = {
-  if type(the-matter) == type("") {
-    if the-matter in ("FRONT", "BODY", "BACK") [#metadata(the-matter)<lyceum-matter>]
-  }
-}
-
+#import "src/meta-parsing.typ"
+#import "src/book-matter.typ"
 
 //============================================================================================//
 //                                       User Functions                                       //
 //============================================================================================//
 
-/// Top-level function for the lyceum template global show rule
-///
-/// - title (none, string, array, dictionary)
-///   The title of the template item
-///
-/// - authors (none, string, array, dictionary)
-///   The authors data of the template
-///
-/// - keywords (none, string, array)
-///   The template subject keywords
-///
-/// - date (none, auto, datetime)
-///   The template date
-///
-/// - body (contents)
-///   The entire document contents passed by the main `show` rule.
-///
-/// -> none
 #let lyceum(
   title: none,
   authors: none,
