@@ -234,7 +234,7 @@
     META.self-bib-entry.push("      preffix: " + A.preffix)
     META.self-bib-entry.push("      suffix: " + A.suffix)
   }
-  META.self-bib-entry.push("  date: " + str(META.date.year()) + "-" + str(META.date.month()))
+  META.self-bib-entry.push("  date: " + META.date.display())
 
   // Return values
   return (META, AUTHORS)
