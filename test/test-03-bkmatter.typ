@@ -17,20 +17,9 @@
 `>>> SET-FRONT-MATTER()` \
 #SET-FRONT-MATTER()
 
-`>>> GET-CUR-MATTER()` \
-#{
-  type(GET-CUR-MATTER())
-}
-
 `>>> SET-BODY-MATTER()` \
 #SET-BODY-MATTER()
 
-`>>> GET-CUR-MATTER()` \
-#GET-CUR-MATTER()
-
 `>>> SET-BACK-MATTER()` \
 #SET-BACK-MATTER()
-
-`>>> GET-CUR-MATTER()` \
-#GET-CUR-MATTER()
 
