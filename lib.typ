@@ -65,6 +65,18 @@
   //                               Formatting - Page                                //
   //--------------------------------------------------------------------------------//
 
+  // page-numbering-function
+  let page-numbering-function() = context {
+    let the-matter = query(selector(<lyceum-matter>).before(here())).last().value
+    if the-matter == "FRONT" {
+      return "i"
+    } else if the-matter == "BODY" {
+      return "--- 1 of 1 ---"
+    } else if the-matter == "BACK" {
+      return "--- 1 of 1 ---"
+    }
+  },
+
   // Page parameters controlled by input arguments
   set page(
     width: page-width,
@@ -74,16 +86,7 @@
     binding: page-binding,
     columns: 1,
     fill: color.hsl(page-fill-hue, 15%, 90%),
-    numbering: lambda => context {
-      let the-matter = query(selector(<lyceum-matter>).before(here())).last().value
-      if the-matter == "FRONT" {
-        "i"
-      } else if the-matter == "BODY" {
-        "--- 1 of 1 ---"
-      } else if the-matter == "BACK" {
-        "--- 1 of 1 ---"
-      }
-    },
+    numbering: page-numbering-function,
     number-align: center + bottom,
   )
 
