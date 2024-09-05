@@ -64,8 +64,7 @@
     #v(1fr)
     #block(width: 100%,)[
       #set text(size: 18pt)
-      #set alignment(center)
-      #META.title.value
+      #align(center)[#META.title.value]
     ]
     #v(1fr)
     #block(width: 100%,)[
@@ -78,7 +77,7 @@
       #set text(size: 10pt)
       #META.publisher,
       #META.location \
-      #META.date.display()
+      #align(center)[#META.date.display()]
     ]
   ]
 }
