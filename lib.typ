@@ -75,7 +75,7 @@
     } else if the-matter == "BACK" {
       return "--- 1 of 1 ---"
     }
-  },
+  }
 
   // Page parameters controlled by input arguments
   set page(
