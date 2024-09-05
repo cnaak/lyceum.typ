@@ -21,25 +21,15 @@
 
 = Metadata
 
-With the `lyceum` template, the document's metadata is only accessible by querying:
+With the `lyceum` academic book template, the  metadata is only accessible to the user/writer by
+querying:
 
 #let META = context query(<lyceum-meta>).at(0).value
 #let AUTH = context query(<lyceum-auth>).at(0).value
-#let MATT = context query(<lyceum-matter>)
 
-Metadata is #META.
+The `<lyceum-meta>` metadata tag contains: \
+#META.
 
-Authoring is #AUTH.
-
-Matter is #MATT.
-
-#pagebreak()
-
-// #matter-meta("BODY")
-
-This belongs to the `"BODY"` matter.
-
-// #matter-meta("BACK")
-
-And this belongs to the `"BACK"` matter.
+The `<lyceum-auth>` metadata tag contains: \
+#AUTH.
 
