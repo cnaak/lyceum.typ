@@ -7,13 +7,10 @@
 //                                      Matter Functions                                      //
 //--------------------------------------------------------------------------------------------//
 
-#let matters-so-far() = context {
-  return (query(selector(<lyceum-matter>).before(here())), )
-}
 
-#let SET-FRONT-MATTER() = {
+#let SET-FRONT-MATTER() = context {
   assert(
-    "FRONT" not in matters-so-far().flatten(),
+    "FRONT" not in query(selector(<lyceum-matter>).before(here())),
     message: "[lyceum]: can't set FRONT matter more than once!",
   )
   [#metadata("FRONT")<lyceum-matter>]
