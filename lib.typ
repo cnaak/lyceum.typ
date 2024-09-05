@@ -77,6 +77,8 @@
     }
   }
 
+  [#page-numbering-function().fields()]
+
   // Page parameters controlled by input arguments
   set page(
     width: page-width,
@@ -86,7 +88,7 @@
     binding: page-binding,
     columns: 1,
     fill: color.hsl(page-fill-hue, 15%, 90%),
-    numbering: page-numbering-function().fields(),
+    numbering: page-numbering-function().text,
     number-align: center + bottom,
   )
 
