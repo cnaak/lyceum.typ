@@ -8,7 +8,7 @@
 //--------------------------------------------------------------------------------------------//
 
 #let is-no-matter() = context { // Tests whether no matter has been set
-  let m-arr = query(<lyceum-matter>)
+  let m-arr = query(<lyceum-matter>).at(here())
   [#m-arr]
 }
 
