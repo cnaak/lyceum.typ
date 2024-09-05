@@ -66,13 +66,13 @@
       #set text(size: 32pt)
       #align(center)[*#META.title.value*]
     ]
-    #v(2fr)
+    #v(4fr)
     #block(width: 100%,)[
       #set text(size: 14pt)
       *#META.authors.first().name,*
       *#META.authors.first().given-name*
     ]
-    #v(1fr)
+    #v(2fr)
     #block(width: 100%,)[
       #set text(size: 12pt)
       #META.publisher, \
