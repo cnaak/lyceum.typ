@@ -52,11 +52,11 @@
 
 #let GET-CUR-MATTER() = context {
   let ret = query(selector(<lyceum-matter>).before(here()))
-  if ret.len() == 0 {
-    return ""
-  } else {
-    return ret.last().value
+  let RET = ""
+  if ret.len() > 0 {
+    RET = ret.last().value
   }
+  RET
 }
 
 
