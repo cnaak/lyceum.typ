@@ -86,7 +86,7 @@
     binding: page-binding,
     columns: 1,
     fill: color.hsl(page-fill-hue, 15%, 90%),
-    numbering: page-numbering-function().body(),
+    numbering: page-numbering-function().fields(),
     number-align: center + bottom,
   )
 
