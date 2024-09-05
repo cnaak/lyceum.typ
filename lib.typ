@@ -78,7 +78,7 @@
     height: page-height,
     flipped: false,
     margin: page-margin,
-    binding: page-biding,
+    binding: page-binding,
     columns: 1,
     fill: color.hsl(page-fill-hue, 12%, 90%),
   )
