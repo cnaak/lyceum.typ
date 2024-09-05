@@ -7,6 +7,7 @@
 
 #let lyceum(
   // Bibliography metadata
+  // ---------------------
   title: (
     value: "Default Lyceum Title",
     short: "Default",
@@ -27,6 +28,7 @@
   ),
   date: auto,
   // Formatting metadata
+  // -------------------
   page-width: 155mm,
   page-height: 230mm,
   page-margin: (
