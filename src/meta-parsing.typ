@@ -220,27 +220,8 @@
     }
   META.bibkey += "-" + initials-of(META.title.value)
 
-  return META
-}
-
-  // Sets up document metadata
-  set document(
-    title: [#META.title.value],
-    author: AUTHORS.join(" and "),
-    keywords: META.keywords,
-  )
-
-  // Metadata writings
-  [#metadata(META)<lyceum-meta>]
-
-  // Writes the root metadata into the document
-  [#metadata(AUTHORS)<lyceum-auth>]
-
-  // Sets-up FRONT-MATTER
-  matter-meta("FRONT")
-
-  // Sets-up self-bib-entry
-  let self-bib-entry = (
+  // META.self-bib-entry
+  META.self-bib-entry = (
     META.bibkey + ":",
     "  title:",
     "    value: " + META.title.value,
@@ -248,11 +229,15 @@
     "  author:",
   )
   for A in META.authors {
-    self-bib-entry.push("    - name: " + A.name)
-    self-bib-entry.push("      given-name: " + A.given-name)
-    self-bib-entry.push("      preffix: " + A.preffix)
-    self-bib-entry.push("      suffix: " + A.suffix)
+    META.self-bib-entry.push("    - name: " + A.name)
+    META.self-bib-entry.push("      given-name: " + A.given-name)
+    META.self-bib-entry.push("      preffix: " + A.preffix)
+    META.self-bib-entry.push("      suffix: " + A.suffix)
   }
-  self-bib-entry.push("  date: " + str(META.date.year()) + "-" + str(META.date.month()))
-  [#metadata(self-bib-entry.join("\n"))<self-bib-entry>]
+  META.self-bib-entry.push("  date: " + str(META.date.year()) + "-" + str(META.date.month()))
+
+  // Return values
+  return (META, AUTHORS)
+}
+
 
