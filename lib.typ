@@ -74,7 +74,7 @@
     binding: page-binding,
     columns: 1,
     fill: color.hsl(page-fill-hue, 15%, 90%),
-    numbering: context {
+    numbering: lambda => context {
       let the-matter = query(selector(<lyceum-matter>).before(here())).last().value
       if the-matter == "FRONT" {
         "i"
