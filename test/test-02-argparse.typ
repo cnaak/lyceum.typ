@@ -1,22 +1,17 @@
 #import "@local/lyceum:0.1.0": *
 
 #show: lyceum.with(
-  /*
-  title: "My Book Title",
-  authors: (
-    "Yours, Truly",
-    "Jéan-Mark des-Ormeaux",
-    "Καίσαρος Αὐγούστου",
-    (
-      name: "van-'s-Gravendeel",
-      given-name: "Jaapjun",
-      preffix: "Sir",
-      suffix: "III",
+  meta: (
+    title: "Attonitus Neurons",
+    authors: (
+      "Domina Cassava",
+      (
+        name: "van Nun",
+        given-name: "Paulus",
+      ),
     ),
+    keywords: ("cavillatio", "cassava", "stirpe", "ventum"),
   ),
-  keywords: ("polyglossia", "logomania"),
-  date: auto,
-  */
 )
 
 = Metadata
