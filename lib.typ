@@ -1,4 +1,4 @@
-#import "src/meta-parsing.typ"
+#import "src/meta-parsing.typ" meta-parse
 #import "src/book-matter.typ"
 
 //============================================================================================//
