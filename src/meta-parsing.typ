@@ -193,6 +193,14 @@
     }
   }
 
+  // META.location
+  META.location = ""
+  if "location" in meta {
+    if type(meta.location) == type("") {
+      META.location = meta.location
+    }
+  }
+
   // META.keywords
   if "keywords" in meta {
     META.keywords = array-from(meta.keywords, missing: "")
@@ -242,6 +250,8 @@
     META.self-bib-entry.push("      preffix: " + A.preffix)
     META.self-bib-entry.push("      suffix: " + A.suffix)
   }
+  META.self-bib-entry.push("  publisher: " + META.publisher)
+  META.self-bib-entry.push("  location: " + META.location)
   META.self-bib-entry.push("  date: " + META.date.display())
 
   // Return values
