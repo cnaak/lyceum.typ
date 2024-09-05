@@ -135,4 +135,124 @@
 }
 
 
+#let meta-parse(meta) = {
+  // META initialization
+  let META = (:)
+
+  // META.title
+  META.title = dict-from(
+    meta.title, keys: (
+      "value",
+      "short",
+    )
+  )
+
+  // META.authors - Pass 1
+  META.authors = ()
+  if type(meta.authors) == array {
+    for an-author in meta.authors {
+      META.authors.push(
+        dict-from(
+          if type(an-author) == type("") {
+            name-splitting(an-author)
+          } else {
+            an-author
+          }, keys: (
+            "name",
+            "given-name",
+            "preffix",
+            "suffix",
+            "short",
+          )
+        )
+      )
+    }
+  } else {
+    META.authors.push(
+      dict-from(
+        if type(meta.authors) == type("") {
+          name-splitting(meta.authors)
+        } else {
+          meta.authors
+        }, keys: (
+          "name",
+          "given-name",
+          "preffix",
+          "suffix",
+          "short",
+        )
+      )
+    )
+  }
+
+  // META.authors - Pass 2
+  for i in range(META.authors.len()) {
+    if META.authors.at(i).short == "" {
+      META.authors.at(i).short =  META.authors.at(i).name
+      META.authors.at(i).short += initials-of(META.authors.at(i).given-name)
+    }
+  }
+
+  // META.keywords
+  META.keywords = array-from(meta.keywords, missing: "")
+
+  // META.date
+  if meta.date == auto {
+    META.date = datetime.today()
+  }
+  if type(meta.date) == datetime {
+    META.date = meta.date
+  } else if meta.date == none {
+    META.date = datetime.today()
+  }
+
+  // AUTHORS - A convenient compilation from META.authors
+  let AUTHORS = ()
+  for AUTH in META.authors {
+    AUTHORS.push(AUTH.short)
+  }
+
+  // META.bibkey
+  META.bibkey = if AUTHORS.len() == 1 {
+      str(META.date.year()) + "-" + AUTHORS.at(0)
+    } else if AUTHORS.len() >= 2 {
+      str(META.date.year()) + "-" + (AUTHORS.first(), AUTHORS.last()).join("+")
+    }
+  META.bibkey += "-" + initials-of(META.title.value)
+
+  return META
+}
+
+  // Sets up document metadata
+  set document(
+    title: [#META.title.value],
+    author: AUTHORS.join(" and "),
+    keywords: META.keywords,
+  )
+
+  // Metadata writings
+  [#metadata(META)<lyceum-meta>]
+
+  // Writes the root metadata into the document
+  [#metadata(AUTHORS)<lyceum-auth>]
+
+  // Sets-up FRONT-MATTER
+  matter-meta("FRONT")
+
+  // Sets-up self-bib-entry
+  let self-bib-entry = (
+    META.bibkey + ":",
+    "  title:",
+    "    value: " + META.title.value,
+    "    short: " + META.title.short,
+    "  author:",
+  )
+  for A in META.authors {
+    self-bib-entry.push("    - name: " + A.name)
+    self-bib-entry.push("      given-name: " + A.given-name)
+    self-bib-entry.push("      preffix: " + A.preffix)
+    self-bib-entry.push("      suffix: " + A.suffix)
+  }
+  self-bib-entry.push("  date: " + str(META.date.year()) + "-" + str(META.date.month()))
+  [#metadata(self-bib-entry.join("\n"))<self-bib-entry>]
 
