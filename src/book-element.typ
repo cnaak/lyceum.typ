@@ -61,21 +61,21 @@
     header: none,
     footer: none,
   )[
-    #v(1fr)
+    #v(40mm)
     #block(width: 100%,)[
-      #set text(size: 18pt)
-      #align(center)[#META.title.value]
+      #set text(size: 32pt)
+      #align(center)[*#META.title.value*]
     ]
-    #v(1fr)
+    #v(2fr)
     #block(width: 100%,)[
       #set text(size: 12pt)
-      #META.authors.first().given-name,
-      #META.authors.first().name
+      *#META.authors.first().name,*
+      *#META.authors.first().given-name*
     ]
-    #v(20mm)
+    #v(1fr)
     #block(width: 100%,)[
       #set text(size: 10pt)
-      #META.publisher,
+      #META.publisher, \
       #META.location \
       #align(center)[#META.date.display()]
     ]
