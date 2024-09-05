@@ -50,13 +50,36 @@
   [#metadata("BACK")<lyceum-matter>]
 }
 
-#let GET-CUR-MATTER() = context {
-  let ret = query(selector(<lyceum-matter>).before(here()))
-  let RET = ""
-  if ret.len() > 0 {
-    RET = ret.last().value
-  }
-  RET
-}
 
+//--------------------------------------------------------------------------------------------//
+//                                   Typesetting Functions                                    //
+//--------------------------------------------------------------------------------------------//
+
+#let MAKE-TITLE-PAGE(META) = {
+  page(
+    numbering: none,
+    header: none,
+    footer: none,
+  )[
+    #v(1fr)
+    #block(width: 100%,)[
+      #set text(size: 18pt)
+      #set alignment(center)
+      #META.title.value
+    ]
+    #v(1fr)
+    #block(width: 100%,)[
+      #set text(size: 12pt)
+      #META.authors.first().given-name,
+      #META.authors.first().name
+    ]
+    #v(20mm)
+    #block(width: 100%,)[
+      #set text(size: 10pt)
+      #META.publisher,
+      #META.location \
+      #META.date.display()
+    ]
+  ]
+}
 
