@@ -98,11 +98,11 @@
         number-align: center + bottom,
         header: none,
       )
-      pagebreak(weak: true, to: "even")
       set heading(
         numbering: none,
         outlined: true,
       )
+      pagebreak(weak: true, to: "even")
       block(width: 100%)[
         #set align(center)
         #set text(20pt, weight: "bold")
@@ -114,11 +114,11 @@
         number-align: center + bottom,
         header: none,
       )
-      pagebreak(weak: true, to: "even")
       set heading(
         numbering: "1.1.",
         outlined: true,
       )
+      pagebreak(weak: true, to: "even")
       block(width: 100%)[
         #set align(center)
         #set text(20pt, weight: "bold")
@@ -130,11 +130,11 @@
         number-align: center + bottom,
         header: none,
       )
-      pagebreak(weak: true, to: "even")
       set heading(
         numbering: "A.",
         outlined: true,
       )
+      pagebreak(weak: true, to: "even")
       block(width: 100%)[
         #set align(center)
         #set text(20pt, weight: "bold")
