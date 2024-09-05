@@ -73,7 +73,7 @@
     } else if the-matter == "BODY" {
       return "--- 1 of 1 ---"
     } else if the-matter == "BACK" {
-      return "--- 1 of 1 ---"
+      return "a"
     }
   }
 
@@ -86,7 +86,7 @@
     binding: page-binding,
     columns: 1,
     fill: color.hsl(page-fill-hue, 15%, 90%),
-    numbering: page-numbering-function(),
+    numbering: page-numbering-function().body(),
     number-align: center + bottom,
   )
 
