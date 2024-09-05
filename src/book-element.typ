@@ -1,10 +1,20 @@
 //============================================================================================//
-//                                      book-matter.typ                                       //
+//                                      book-element.typ                                      //
 //============================================================================================//
 
-#let matter-meta(the-matter) = {
-  if type(the-matter) == type("") {
-    if the-matter in ("FRONT", "BODY", "BACK") [#metadata(the-matter)<lyceum-matter>]
+
+//--------------------------------------------------------------------------------------------//
+//                                      Matter Functions                                      //
+//--------------------------------------------------------------------------------------------//
+
+#let is-no-matter() = context { // Tests whether no matter has been set
+  let m-arr = query(<lyceum-matter>)
+  [#m-arr]
+}
+
+#let SET-BOOK-MATTER(the-matter) = {
+  if the-matter in ("FRONT", "BODY", "BACK") {
+    [#metadata(the-matter)<lyceum-matter>]
   }
 }
 
