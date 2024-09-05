@@ -14,9 +14,22 @@
   location: "Narnia Australis",
 )
 
-First call to `is-no-matter()` \
+`>>> is-no-matter()` \
 #is-no-matter()
 
-First call to `SET-BOOK-MATTER("FRONT")` \
+`>>> SET-BOOK-MATTER("FRONT")` \
 #SET-BOOK-MATTER("FRONT")
+
+`>>> is-no-matter()` \
+#is-no-matter()
+
+`>>> SET-BOOK-MATTER("BODY")` \
+#SET-BOOK-MATTER("BODY")
+
+`>>> is-no-matter()` \
+#is-no-matter()
+
+`>>> SET-BOOK-MATTER("BACK")` \
+#SET-BOOK-MATTER("BACK")
+
 
