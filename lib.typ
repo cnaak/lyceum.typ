@@ -94,48 +94,48 @@
     let cur-matter = matter-before-here.last().value
     pagebreak(weak: false, to: "even")
     if cur-matter == "FRONT" {
-      set page(
+      /*set page(
         numbering: "i",
         number-align: center + bottom,
         header: none,
-      )
+      )*/
       set heading(
         numbering: none,
         outlined: true,
       )
       block(width: 100%)[
         #set align(center)
-        #set text(28pt, weight: "bold")
+        #set text(20pt, weight: "bold")
         #it.body
       ]
     } else if cur-matter == "BODY" {
-      set page(
+      /*set page(
         numbering: "1",
         number-align: center + bottom,
         header: none,
-      )
+      )*/
       set heading(
         numbering: "1.1.",
         outlined: true,
       )
       block(width: 100%)[
         #set align(center)
-        #set text(28pt, weight: "bold")
+        #set text(20pt, weight: "bold")
         #it.body
       ]
     } else if cur-matter == "BACK" {
-      set page(
+      /*set page(
         numbering: "1",
         number-align: center + bottom,
         header: none,
-      )
+      )*/
       set heading(
         numbering: "A.",
         outlined: true,
       )
       block(width: 100%)[
         #set align(center)
-        #set text(28pt, weight: "bold")
+        #set text(20pt, weight: "bold")
         #it.body
       ]
     }
