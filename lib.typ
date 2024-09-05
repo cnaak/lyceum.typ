@@ -88,7 +88,7 @@
     binding: page-binding,
     columns: 1,
     fill: color.hsl(page-fill-hue, 15%, 90%),
-    //numbering: page-numbering-function().text,
+    numbering: n => numbering(page-numbering-function(), n),
     number-align: center + bottom,
   )
 
