@@ -38,10 +38,10 @@
   [#metadata(AUTHORS)<lyceum-auth>]
 
   // Writes the self-bib-entry
-  [#metadata(self-bib-entry.join("\n"))<self-bib-entry>]
+  [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
   // Sets-up FRONT-MATTER
-  matter-meta("FRONT")
+  // matter-meta("FRONT")
 
   body
 }
