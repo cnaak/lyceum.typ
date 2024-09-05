@@ -74,6 +74,17 @@
     binding: page-binding,
     columns: 1,
     fill: color.hsl(page-fill-hue, 15%, 90%),
+    numbering: context {
+      let the-matter = query(selector(<lyceum-matter>).before(here())).last().value
+      if the-matter == "FRONT" {
+        "i"
+      } else if the-matter == "BODY" {
+        "--- 1 of 1 ---"
+      } else if the-matter == "BACK" {
+        "--- 1 of 1 ---"
+      }
+    },
+    number-align: center + bottom,
   )
 
   // Metadata writings
@@ -92,49 +103,32 @@
   show heading.where(level: 1): it => context {
     let matter-before-here = query(selector(<lyceum-matter>).before(here()))
     let cur-matter = matter-before-here.last().value
+    pagebreak(weak: true, to: "even")
     if cur-matter == "FRONT" {
-      set page(
-        numbering: "i",
-        number-align: center + bottom,
-        header: none,
-      )
       set heading(
         numbering: none,
         outlined: true,
       )
-      pagebreak(weak: true, to: "even")
       block(width: 100%)[
         #set align(center)
         #set text(20pt, weight: "bold")
         #it.body
       ]
     } else if cur-matter == "BODY" {
-      set page(
-        numbering: "1",
-        number-align: center + bottom,
-        header: none,
-      )
       set heading(
         numbering: "1.1.",
         outlined: true,
       )
-      pagebreak(weak: true, to: "even")
       block(width: 100%)[
         #set align(center)
         #set text(20pt, weight: "bold")
         #it.body
       ]
     } else if cur-matter == "BACK" {
-      set page(
-        numbering: "1",
-        number-align: center + bottom,
-        header: none,
-      )
       set heading(
         numbering: "A.",
         outlined: true,
       )
-      pagebreak(weak: true, to: "even")
       block(width: 100%)[
         #set align(center)
         #set text(20pt, weight: "bold")
