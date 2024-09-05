@@ -92,13 +92,13 @@
   show heading.where(level: 1): it => context {
     let matter-before-here = query(selector(<lyceum-matter>).before(here()))
     let cur-matter = matter-before-here.last().value
-    pagebreak(weak: false, to: "even")
     if cur-matter == "FRONT" {
-      /*set page(
+      set page(
         numbering: "i",
         number-align: center + bottom,
         header: none,
-      )*/
+      )
+      pagebreak(weak: true, to: "even")
       set heading(
         numbering: none,
         outlined: true,
@@ -109,11 +109,12 @@
         #it.body
       ]
     } else if cur-matter == "BODY" {
-      /*set page(
+      set page(
         numbering: "1",
         number-align: center + bottom,
         header: none,
-      )*/
+      )
+      pagebreak(weak: true, to: "even")
       set heading(
         numbering: "1.1.",
         outlined: true,
@@ -124,11 +125,12 @@
         #it.body
       ]
     } else if cur-matter == "BACK" {
-      /*set page(
+      set page(
         numbering: "1",
         number-align: center + bottom,
         header: none,
-      )*/
+      )
+      pagebreak(weak: true, to: "even")
       set heading(
         numbering: "A.",
         outlined: true,
