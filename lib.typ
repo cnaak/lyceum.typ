@@ -86,6 +86,62 @@
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
   //--------------------------------------------------------------------------------//
+  //                                   Show Rules                                   //
+  //--------------------------------------------------------------------------------//
+
+  show heading.where(level: 1): it => context {
+    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+    let cur-matter = matter-before-here.last().value
+    pagebreak(weak: false, to: "even")
+    if cur-matter == "FRONT" {
+      set page(
+        numbering: "i",
+        number-align: center + bottom,
+        header: none,
+      )
+      set heading(
+        numbering: none,
+        outlined: true,
+      )
+      block(width: 100%)[
+        #set align(center)
+        #set text(28pt, weight: "bold")
+        #it.body
+      ]
+    } else if cur-matter == "BODY" {
+      set page(
+        numbering: "1",
+        number-align: center + bottom,
+        header: none,
+      )
+      set heading(
+        numbering: "1.1.",
+        outlined: true,
+      )
+      block(width: 100%)[
+        #set align(center)
+        #set text(28pt, weight: "bold")
+        #it.body
+      ]
+    } else if cur-matter == "BACK" {
+      set page(
+        numbering: "1",
+        number-align: center + bottom,
+        header: none,
+      )
+      set heading(
+        numbering: "A.",
+        outlined: true,
+      )
+      block(width: 100%)[
+        #set align(center)
+        #set text(28pt, weight: "bold")
+        #it.body
+      ]
+    }
+  }
+
+  //--------------------------------------------------------------------------------//
   //                                  Front Matter                                  //
   //--------------------------------------------------------------------------------//
 
