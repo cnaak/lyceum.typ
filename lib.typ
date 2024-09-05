@@ -76,9 +76,6 @@
     fill: color.hsl(page-fill-hue, 15%, 90%),
   )
 
-  // Sets-up FRONT-MATTER
-  // matter-meta("FRONT")
-
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
 
@@ -87,6 +84,24 @@
 
   // Writes the self-bib-entry
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
+
+  //--------------------------------------------------------------------------------//
+  //                                  Front Matter                                  //
+  //--------------------------------------------------------------------------------//
+
+  // Title page
+  MAKE-TITLE-PAGE(META)
+
+  // Set front matter mark
+  SET-FRONT-MATTER()
+
+  // Set front matter formattings
+
+  set page(
+    numbering: "i",
+    number-align: center + bottom,
+    header: none,
+  )
 
   body
 }
