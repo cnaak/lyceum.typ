@@ -11,7 +11,7 @@
   ),
   keywords: ("cavillatio", "cassava", "stirpe", "ventum"),
   publisher: "Portae Sinistrae Inferorum",
-  location: "Hades, Gehenna",
+  location: "Narnia Australis",
 )
 
 = Metadata
