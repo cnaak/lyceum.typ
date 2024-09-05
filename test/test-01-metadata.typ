@@ -1,6 +1,7 @@
 #import "@local/lyceum:0.1.0": *
 
 #show: lyceum.with(
+  /*
   title: "My Book Title",
   authors: (
     "Yours, Truly",
@@ -15,6 +16,7 @@
   ),
   keywords: ("polyglossia", "logomania"),
   date: auto,
+  */
 )
 
 = Metadata
@@ -33,11 +35,11 @@ Matter is #MATT.
 
 #pagebreak()
 
-#matter-meta("BODY")
+// #matter-meta("BODY")
 
 This belongs to the `"BODY"` matter.
 
-#matter-meta("BACK")
+// #matter-meta("BACK")
 
 And this belongs to the `"BACK"` matter.
 
