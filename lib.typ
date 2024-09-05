@@ -6,12 +6,35 @@
 //============================================================================================//
 
 #let lyceum(
-  title: (value: "Default Lyceum Title", short: "Default"),
-  authors: ((preffix: "Dr.", given-name: "Lyceum", name: "Default", suffix: "Jr."), ),
+  // Bibliography metadata
+  title: (
+    value: "Default Lyceum Title",
+    short: "Default",
+  ),
+  authors: (
+    (
+      preffix: "Dr.",
+      given-name: "Lyceum",
+      name: "Default",
+      suffix: "Jr.",
+    ),
+  ),
   publisher: "Default Lyceum Publisher",
   location: "Default City, Lyceum Country",
-  keywords: ("lyceum", "default"),
-  date: auto, // auto => datetime.today()
+  keywords: (
+    "lyceum",
+    "default",
+  ),
+  date: auto,
+  // Formatting metadata
+  page-width: 155mm,
+  page-height: 230mm,
+  page-margin: (
+    inside: 30mm,
+    rest: 25mm,
+  ),
+  page-binding: left,
+  page-fill-hue: 45deg, // for ivory-like
   body
 ) = {
 
@@ -44,6 +67,21 @@
 
   // Writes the self-bib-entry
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
+
+  //--------------------------------------------------------------------------------//
+  //                               Formatting - Page                                //
+  //--------------------------------------------------------------------------------//
+
+  // Page parameters controlled by input arguments
+  set page(
+    width: page-width,
+    height: page-height,
+    flipped: false,
+    margin: page-margin,
+    binding: page-biding,
+    columns: 1,
+    fill: color.hsl(page-fill-hue, 12%, 90%),
+  )
 
   // Sets-up FRONT-MATTER
   // matter-meta("FRONT")
