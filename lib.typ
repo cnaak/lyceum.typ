@@ -59,15 +59,6 @@
     keywords: META.keywords,
   )
 
-  // Metadata writings
-  [#metadata(META)<lyceum-meta>]
-
-  // Writes the root metadata into the document
-  [#metadata(AUTHORS)<lyceum-auth>]
-
-  // Writes the self-bib-entry
-  [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
-
   //--------------------------------------------------------------------------------//
   //                               Formatting - Page                                //
   //--------------------------------------------------------------------------------//
@@ -85,6 +76,15 @@
 
   // Sets-up FRONT-MATTER
   // matter-meta("FRONT")
+
+  // Metadata writings
+  [#metadata(META)<lyceum-meta>]
+
+  // Writes the root metadata into the document
+  [#metadata(AUTHORS)<lyceum-auth>]
+
+  // Writes the self-bib-entry
+  [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
   body
 }
