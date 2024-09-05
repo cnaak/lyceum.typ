@@ -17,8 +17,31 @@
   body
 ) = {
 
-  // Metadata
-  let META = meta-parse(meta)
+  //--------------------------------------------------------------------------------//
+  //                                    Metadata                                    //
+  //--------------------------------------------------------------------------------//
+
+  // Parse metadata information
+  let (META, AUTHORS) = meta-parse(meta)
+
+  // Sets up document metadata
+  set document(
+    title: [#META.title.value],
+    author: AUTHORS.join(" and "),
+    keywords: META.keywords,
+  )
+
+  // Metadata writings
+  [#metadata(META)<lyceum-meta>]
+
+  // Writes the root metadata into the document
+  [#metadata(AUTHORS)<lyceum-auth>]
+
+  // Writes the self-bib-entry
+  [#metadata(self-bib-entry.join("\n"))<self-bib-entry>]
+
+  // Sets-up FRONT-MATTER
+  matter-meta("FRONT")
 
   body
 }
