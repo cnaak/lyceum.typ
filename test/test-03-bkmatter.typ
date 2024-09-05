@@ -14,9 +14,6 @@
   location: "Narnia Australis",
 )
 
-`>>> SET-FRONT-MATTER()` \
-#SET-FRONT-MATTER()
-
 `>>> SET-BODY-MATTER()` \
 #SET-BODY-MATTER()
 
