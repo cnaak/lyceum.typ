@@ -9,14 +9,17 @@
 
 #let SET-FRONT-MATTER() = context {
   let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-  let front-in-document = "FRONT" in matter-before-here
-  assert.eq(
-    front-in-document, false,
+  let values-before-here = ()
+  for elem in matter-before-here {
+    values-before-here.push(elem.value)
+  }
+  assert(
+    "FRONT" not in values-before-here,
     message: "[lyceum]: can't set FRONT matter more than once!",
   )
   [
     `matter-before-here` = #matter-before-here \
-    `front-in-document` = #front-in-document \
+    `values-before-here` = #values-before-here \
   ]
   [#metadata("FRONT")<lyceum-matter>]
 }
