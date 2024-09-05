@@ -1,5 +1,5 @@
-thumbnail.png: test/test-01-readme.pdf
-	pdftoppm test/test-01-readme.pdf tmp-01 -png
-	magick montage tmp-01-*png -geometry +2+2 -tile 4x2 thumbnail.png
+thumbnail.png: test/test-02-argparse.pdf
+	pdftoppm -scale-to 480 $< tmp-01 -png
+	magick montage tmp-01-*png -geometry +1+0 -tile 2x2 thumbnail.png
 	rm -v tmp-01-*png
 
