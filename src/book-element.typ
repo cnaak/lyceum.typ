@@ -68,15 +68,19 @@
     ]
     #v(2fr)
     #block(width: 100%,)[
-      #set text(size: 12pt)
+      #set text(size: 14pt)
       *#META.authors.first().name,*
       *#META.authors.first().given-name*
     ]
     #v(1fr)
     #block(width: 100%,)[
-      #set text(size: 10pt)
+      #set text(size: 12pt)
       #META.publisher, \
-      #META.location \
+      #META.location
+    ]
+    #v(1fr)
+    #block(width: 100%,)[
+      #set text(size: 12pt)
       #align(center)[#META.date.display()]
     ]
   ]
