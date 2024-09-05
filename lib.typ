@@ -71,7 +71,7 @@
     margin: page-margin,
     binding: page-binding,
     columns: 1,
-    fill: color.hsl(page-fill-hue, 12%, 90%),
+    fill: color.hsl(page-fill-hue, 15%, 90%),
   )
 
   // Sets-up FRONT-MATTER
