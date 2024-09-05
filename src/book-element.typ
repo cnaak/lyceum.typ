@@ -13,7 +13,7 @@
 
 #let SET-FRONT-MATTER() = {
   assert(
-    "FRONT" not in matters-so-far(),
+    ("FRONT" not in matters-so-far()),
     message: "[lyceum]: can't set FRONT matter more than once!",
   )
   [#metadata("FRONT")<lyceum-matter>]
