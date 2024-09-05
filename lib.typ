@@ -1,5 +1,5 @@
 #import "src/meta-parsing.typ": meta-parse
-#import "src/book-matter.typ"
+#import "src/book-element.typ": *
 
 //============================================================================================//
 //                                       User Functions                                       //
