@@ -14,14 +14,8 @@
   location: "Narnia Australis",
 )
 
-`>>> matters-so-far()` \
-#matters-so-far()
-
 `>>> SET-FRONT-MATTER()` \
 #SET-FRONT-MATTER()
-
-`>>> matters-so-far()` \
-#matters-so-far()
 
 `>>> SET-FRONT-MATTER()` \
 #SET-FRONT-MATTER()
