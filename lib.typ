@@ -6,14 +6,12 @@
 //============================================================================================//
 
 #let lyceum(
-  meta: (
-    title: (value: "Book Title", short: "Title"),
-    authors: ((preffix: "Dr.", given-name: "John", name: "Smith", suffix: "II"), ),
-    publisher: "SOME Publishing Company",
-    location: "Faraway City, Far Country",
-    keywords: ("key1", "key2"),
-    date: auto, // auto => datetime.today()
-  ),
+  title: (value: "Default Lyceum Title", short: "Default"),
+  authors: ((preffix: "Dr.", given-name: "Lyceum", name: "Default", suffix: "Jr."), ),
+  publisher: "Default Lyceum Publisher",
+  location: "Default City, Lyceum Country",
+  keywords: ("lyceum", "default"),
+  date: auto, // auto => datetime.today()
   body
 ) = {
 
@@ -22,7 +20,14 @@
   //--------------------------------------------------------------------------------//
 
   // Parse metadata information
-  let (META, AUTHORS) = meta-parse(meta)
+  let (META, AUTHORS) = meta-parse((
+    title: title,
+    authors: authors,
+    publisher: publisher,
+    location: location,
+    keywords: keywords,
+    date: date,
+  ))
 
   // Sets up document metadata
   set document(
