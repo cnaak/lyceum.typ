@@ -7,15 +7,16 @@
 //                                      Matter Functions                                      //
 //--------------------------------------------------------------------------------------------//
 
-#let is-no-matter() = context { // Tests whether no matter has been set
-  let m-arr = query(selector(<lyceum-matter>).before(here()))
-  [#m-arr]
+#let matters-so-far() = context {
+  return query(selector(<lyceum-matter>).before(here()))
 }
 
-#let SET-BOOK-MATTER(the-matter) = {
-  if the-matter in ("FRONT", "BODY", "BACK") {
-    [#metadata(the-matter)<lyceum-matter>]
-  }
+#let SET-FRONT-MATTER() = {
+  assert(
+    "FRONT" not in matters-so-far(),
+    message: "[lyceum]: can't set FRONT matter more than once!",
+  )
+  [#metadata("FRONT")<lyceum-matter>]
 }
 
 
