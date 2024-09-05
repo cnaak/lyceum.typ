@@ -122,23 +122,45 @@
   let META = (:)
 
   // META.title
-  META.title = dict-from(
-    meta.title, keys: (
-      "value",
-      "short",
+  if "title" in meta {
+    META.title = dict-from(
+      meta.title, keys: (
+        "value",
+        "short",
+      )
     )
-  )
+  } else {
+    META.title = dict-from(none, keys: ("value", "short"))
+  }
 
   // META.authors - Pass 1
   META.authors = ()
-  if type(meta.authors) == array {
-    for an-author in meta.authors {
+  if "authors" in meta {
+    if type(meta.authors) == array {
+      for an-author in meta.authors {
+        META.authors.push(
+          dict-from(
+            if type(an-author) == type("") {
+              name-splitting(an-author)
+            } else {
+              an-author
+            }, keys: (
+              "name",
+              "given-name",
+              "preffix",
+              "suffix",
+              "short",
+            )
+          )
+        )
+      }
+    } else {
       META.authors.push(
         dict-from(
-          if type(an-author) == type("") {
-            name-splitting(an-author)
+          if type(meta.authors) == type("") {
+            name-splitting(meta.authors)
           } else {
-            an-author
+            meta.authors
           }, keys: (
             "name",
             "given-name",
@@ -150,20 +172,8 @@
       )
     }
   } else {
-    META.authors.push(
-      dict-from(
-        if type(meta.authors) == type("") {
-          name-splitting(meta.authors)
-        } else {
-          meta.authors
-        }, keys: (
-          "name",
-          "given-name",
-          "preffix",
-          "suffix",
-          "short",
-        )
-      )
+    META.authors = (
+      dict-from(none, keys: ("name", "given-name", "preffix", "suffix", "short")),
     )
   }
 
@@ -175,17 +185,33 @@
     }
   }
 
+  // META.publisher
+  META.publisher = ""
+  if "publisher" in meta {
+    if type(meta.publisher) == type("") {
+      META.publisher = meta.publisher
+    }
+  }
+
   // META.keywords
-  META.keywords = array-from(meta.keywords, missing: "")
+  if "keywords" in meta {
+    META.keywords = array-from(meta.keywords, missing: "")
+  } else {
+    META.keywords = ("", )
+  }
 
   // META.date
-  if meta.date == auto {
-    META.date = datetime.today()
-  }
-  if type(meta.date) == datetime {
-    META.date = meta.date
-  } else if meta.date == none {
-    META.date = datetime.today()
+  if "date" in meta {
+    if meta.date == auto {
+      META.date = datetime.today()
+    }
+    if type(meta.date) == type(datetime.today()) {
+      META.date = meta.date
+    } else if meta.date == none {
+      META.date = datetime(year: 1900, month: 01, day: 01)
+    }
+  } else {
+    META.date = datetime(year: 1900, month: 01, day: 01)
   }
 
   // AUTHORS - A convenient compilation from META.authors
