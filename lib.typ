@@ -156,7 +156,7 @@
   show heading.where(level: 1): it => context {
     let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
     let MEA = (top-gap: 70pt, sq-side: 60pt, it-hgt: 80pt)
-    let COL = (sq-shade: rgb("#00000060"), sq-text: rgb("#000000A0"))
+    let COL = (sq-shade: rgb("#00000070"), sq-text: rgb("#000000A0"))
     let SIZ = (it-siz: 2 * the-text.size, sq-num-size: 0.7 * MEA.sq-side)
     pagebreak(weak: true, to: "odd")
     if cur-matter == "FRONT" {
@@ -176,13 +176,13 @@
           ]
         ]
       )
-      place(top + right, dx: -1.35 * MEA.sq-side,
+      place(top + right, dx: -1.275 * MEA.sq-side,
         rotate(-90deg, origin: top + right)[
           #box(width: MEA.sq-side)[
             #align(center + horizon)[
               #text(
                 font: "EB Garamond",
-                size: 0.325 * SIZ.sq-num-size,
+                size: 0.275 * SIZ.sq-num-size,
                 weight: "bold",
                 fill: COL.sq-text)[Chapter]
             ]
@@ -205,13 +205,13 @@
           ]
         ]
       )
-      place(top + right, dx: -1.35 * MEA.sq-side,
+      place(top + right, dx: -1.275 * MEA.sq-side,
         rotate(-90deg, origin: top + right)[
           #box(width: MEA.sq-side)[
             #align(center + horizon)[
               #text(
                 font: "EB Garamond",
-                size: 0.325 * SIZ.sq-num-size,
+                size: 0.275 * SIZ.sq-num-size,
                 weight: "bold",
                 fill: COL.sq-text)[Appendix]
             ]
