@@ -155,30 +155,33 @@
 
   show heading.where(level: 1): it => context {
     let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
+    let MEA = (top-gap: 40mm, sq-side: 30mm, it-hgt: 25mm)
+    let COL = (sq-shade: luma(160), )
+    let SIZ = (it-siz: 2 * the-text.size)
     pagebreak(weak: true, to: "odd")
     if cur-matter == "FRONT" {
-      v(40mm)
+      v(MEA.top-gap)
       set align(center + top)
-      set text(20pt, weight: "bold")
-      block(width: 100%, height: 40mm)[#it.body]
+      set text(SIZ.it-siz, weight: "bold")
+      block(width: 100%, height: MEA.it-hgt)[#it.body]
     } else if cur-matter == "BODY" {
       place(top + right,
-        box(width: 35mm, height: 35mm, fill: luma(220))[
+        box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade)[
           #align(center + horizon)[#counter(heading).display("1")]
         ])
-      v(40mm)
+      v(MEA.top-gap)
       set align(center + top)
-      set text(20pt, weight: "bold")
-      block(width: 100%, height: 40mm)[#it.body]
+      set text(SIZ.it-siz, weight: "bold")
+      block(width: 100%, height: MEA.it-hgt)[#it.body]
     } else if cur-matter == "BACK" {
       place(top + right,
-        box(width: 35mm, height: 35mm, fill: luma(220))[
+        box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade)[
           #align(center + horizon)[#counter(heading).display("A")]
         ])
-      v(40mm)
+      v(MEA.top-gap)
       set align(center + top)
-      set text(20pt, weight: "bold")
-      block(width: 100%, height: 40mm)[#it.body]
+      set text(SIZ.it-siz, weight: "bold")
+      block(width: 100%, height: MEA.it-hgt)[#it.body]
     }
   }
 
