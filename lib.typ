@@ -63,6 +63,14 @@
       location: "Foo City, Bar Country",
     ),
   ),
+  editors: (
+    (
+      preffix: "Dr.",
+      given-name: "Erudit",
+      name: "Wise",
+      suffix: "FRS",
+    ),
+  ),
   publisher: "Default Lyceum Publisher",
   location: "Default City, Lyceum Country",
   keywords: ("lyceum", "default"),
@@ -73,7 +81,7 @@
     size: (width: 155mm, height: 230mm), // TODO: paper name
     margin: (inside: 30mm, rest: 25mm),
     binding: left,
-    fill-hue: 45deg, // 45deg for ivory-like, none for white
+    fill-hue: 45deg, // 45deg for ivory-like, TODO: allow for white
   ),
   the-text: (
     font: ("EB Garamond", "Linux Libertine"),
@@ -99,10 +107,12 @@
   let (META, AUTHORS) = meta-parse((
     title: title,
     authors: authors,
+    editors: editors,
     publisher: publisher,
     location: location,
     keywords: keywords,
     date: date,
+    lang: lang.name,
   ))
 
   // Sets up document metadata

@@ -179,7 +179,19 @@
     }
   } else {
     META.authors = (
-      dict-from(none, keys: ("name", "given-name", "preffix", "suffix", "short")),
+      dict-from(
+        none,
+        keys: (
+          "name",
+          "given-name",
+          "preffix",
+          "suffix",
+          "short",
+          "email",
+          "affiliation",
+          "location",
+        )
+      ),
     )
   }
 
@@ -188,6 +200,67 @@
     if META.authors.at(i).short == "" {
       META.authors.at(i).short =  META.authors.at(i).name
       META.authors.at(i).short += initials-of(META.authors.at(i).given-name)
+    }
+  }
+
+  // META.editors - Pass 1
+  META.editors = ()
+  if "editors" in meta {
+    if type(meta.editors) == array {
+      for an-editor in meta.editors {
+        META.editors.push(
+          dict-from(
+            if type(an-editor) == type("") {
+              name-splitting(an-editor)
+            } else {
+              an-editor
+            }, keys: (
+              "name",
+              "given-name",
+              "preffix",
+              "suffix",
+              "short",
+            )
+          )
+        )
+      }
+    } else {
+      META.editors.push(
+        dict-from(
+          if type(meta.editors) == type("") {
+            name-splitting(meta.editors)
+          } else {
+            meta.editors
+          }, keys: (
+            "name",
+            "given-name",
+            "preffix",
+            "suffix",
+            "short",
+          )
+        )
+      )
+    }
+  } else {
+    META.editors = (
+      dict-from(
+        none,
+        keys: (
+          "name",
+          "given-name",
+          "preffix",
+          "suffix",
+          "short",
+        )
+      ),
+    )
+  }
+
+  // META.editors - Pass 2
+  for i in range(META.editors.len()) {
+    if META.editors.at(i).short == "" {
+      META.editors.at(i).short =  META.editors.at(i).name
+      META.editors.at(i).short += initials-of(META.editors.at(i).given-name)
     }
   }
 
@@ -228,6 +301,18 @@
     META.date = datetime(year: 1900, month: 01, day: 01)
   }
 
+  // META.lang
+  let default-lang = "en"   // Defaults to "en"
+  if "lang" in meta {
+    if meta.lang in (auto, none, "") {
+      META.lang = default-lang
+    } else {
+      META.lang = meta.lang
+    }
+  } else {
+    META.lang = default-lang
+  }
+
   // AUTHORS - A convenient compilation from META.authors
   let AUTHORS = ()
   for AUTH in META.authors {
@@ -236,11 +321,13 @@
 
   // META.bibkey
   META.bibkey = if AUTHORS.len() == 1 {
-      str(META.date.year()) + "-" + AUTHORS.at(0)
-    } else if AUTHORS.len() >= 2 {
-      str(META.date.year()) + "-" + (AUTHORS.first(), AUTHORS.last()).join("+")
-    }
+    str(META.date.year()) + "-" + AUTHORS.at(0)
+  } else if AUTHORS.len() >= 2 {
+    str(META.date.year()) + "-" + (AUTHORS.first(), AUTHORS.last()).join("+")
+  }
   META.bibkey += "-" + initials-of(META.title.value)
+  META.bibkey += "~" + META.lang
+
 
   // META.self-bib-entry
   META.self-bib-entry = (
@@ -256,9 +343,17 @@
     META.self-bib-entry.push("      preffix: " + A.preffix)
     META.self-bib-entry.push("      suffix: " + A.suffix)
   }
+  META.self-bib-entry.push("  editor:")
+  for E in META.editors {
+    META.self-bib-entry.push("    - name: " + E.name)
+    META.self-bib-entry.push("      given-name: " + E.given-name)
+    META.self-bib-entry.push("      preffix: " + E.preffix)
+    META.self-bib-entry.push("      suffix: " + E.suffix)
+  }
   META.self-bib-entry.push("  publisher: " + META.publisher)
   META.self-bib-entry.push("  location: " + META.location)
   META.self-bib-entry.push("  date: " + META.date.display())
+  META.self-bib-entry.push("  language: " + META.lang)
 
   // Return values
   return (META, AUTHORS)
