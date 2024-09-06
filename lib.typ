@@ -168,18 +168,22 @@
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
           #align(center + horizon)[
-            #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold", fill: COL.sq-shade)[
+            #text(
+              font: "Alegreya",
+              size: SIZ.sq-num-size,
+              weight: "extrabold",
+              fill: COL.sq-shade.darken(60%))[
               #counter(heading).display("1")
             ]]])
       place(top + right, dx: -1.25 * MEA.sq-side,
         box(width: MEA.sq-side)[
           #rotate(-90deg, origin: top + right)[
-            #align(center)[
+            #align(center + horizon)[
               #text(
                 font: "EB Garamond",
                 size: 0.3 * SIZ.sq-num-size,
                 weight: "bold",
-                fill: COL.sq-shade)[Chapter]
+                fill: COL.sq-shade.darken(60%))[Chapter]
             ]
           ]
         ]
