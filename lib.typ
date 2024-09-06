@@ -153,40 +153,42 @@
   //                                   Show Rules                                   //
   //--------------------------------------------------------------------------------//
 
+  set heading(
+    numbering: _ => context {
+      let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
+      if cur-matter == "FRONT" { none }
+      if cur-matter ==  "BODY" { "1.1.1." }
+      if cur-matter ==  "BACK" { "A.1.1." }
+    },
+    outlined: true,
+  )
+
   show heading.where(level: 1): it => context {
-    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-    let cur-matter = matter-before-here.last().value
-    pagebreak(weak: true, to: "even")
+    let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
+    pagebreak(weak: true, to: "odd")
     if cur-matter == "FRONT" {
-      set heading(
-        numbering: none,
-        outlined: true,
-      )
-      block(width: 100%)[
-        #set align(center)
-        #set text(20pt, weight: "bold")
-        #it.body
-      ]
+      v(40mm)
+      set align(center + top)
+      set text(20pt, weight: "bold")
+      block(width: 100%, height: 40mm)[#it.body]
     } else if cur-matter == "BODY" {
-      set heading(
-        numbering: "1.1.",
-        outlined: true,
-      )
-      block(width: 100%)[
-        #set align(center)
-        #set text(20pt, weight: "bold")
-        #it.body
-      ]
+      place(top + right,
+        box(width: 35mm, height: 35mm, fill: luma(220))[
+          #align(center + middle)[#counter(heading).display("1")]
+        ])
+      set align(center + top)
+      set text(20pt, weight: "bold")
+      place(top + left, dx = 0mm, dy = 40mm,
+        block(width: 100%, height: 40mm)[#it.body])
     } else if cur-matter == "BACK" {
-      set heading(
-        numbering: "A.",
-        outlined: true,
-      )
-      block(width: 100%)[
-        #set align(center)
-        #set text(20pt, weight: "bold")
-        #it.body
-      ]
+      place(top + right,
+        box(width: 35mm, height: 35mm, fill: luma(220))[
+          #align(center + middle)[#counter(heading).display("A")]
+        ])
+      set align(center + top)
+      set text(20pt, weight: "bold")
+      place(top + left, dx = 0mm, dy = 40mm,
+        block(width: 100%, height: 40mm)[#it.body])
     }
   }
 
