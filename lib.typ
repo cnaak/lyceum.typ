@@ -174,13 +174,13 @@
               weight: "extrabold")[
               #counter(heading).display("1")
             ]]])
-      place(top + right, dx: -1.25 * MEA.sq-side,
+      place(top + right, dx: -1.35 * MEA.sq-side,
         rotate(-90deg, origin: top + right)[
-          #box(width: MEA.sq-side, stroke: 0.3pt)[
+          #box(width: MEA.sq-side)[
             #align(center + horizon)[
               #text(
                 font: "EB Garamond",
-                size: 0.4 * SIZ.sq-num-size,
+                size: 0.375 * SIZ.sq-num-size,
                 weight: "bold")[Chapter]
             ]
           ]
