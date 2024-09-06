@@ -66,8 +66,8 @@
     #for the-CHU in CHU {
       grid(
         columns: (1fr,) * PARS.auth-chunk-size,
-        column-gutter: 0pt,
-        row-gutter: 36pt,
+        column-gutter: 12pt,
+        row-gutter: 48pt,
         ..the-CHU.map(
           auth-indx => [
             #if auth-indx <= META.authors.len() {
