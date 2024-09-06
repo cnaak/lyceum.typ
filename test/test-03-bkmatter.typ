@@ -1,42 +1,24 @@
 #import "@local/lyceum:0.1.0": *
+#show: lyceum.with()
 
-#show: lyceum.with(
-  title: "Attonitus Neurons",
-  authors: (
-    "Domina Cassava",
-    (
-      name: "van-Nun",
-      given-name: "Paulus",
-    ),
-  ),
-  keywords: ("cavillatio", "cassava", "stirpe", "ventum"),
-  publisher: "Portae Sinistrae Inferorum",
-  location: "Narnia Australis",
-)
+= Preface
+#lorem(60)
 
-= Praesentatio
-
-#lorem(20)
-
-= Praefatio
-
-#lorem(15)
-
-= Tabula Contentorum
-
+= Contents
 #outline(title: none)
 
-`>>> SET-BODY-MATTER()` \
 #SET-BODY-MATTER()
 
-= Ruinatio Educationis
+= Introduction
+#lorem(60)
 
-#lorem(30)
+#SET-APPENDIX()
 
-`>>> SET-BACK-MATTER()` \
+= Code Listings
+#lorem(50)
+
 #SET-BACK-MATTER()
 
-= Casus Primus: Terra Narnia Australis
-
-#lorem(17)
+= Index
+#lorem(30)
 

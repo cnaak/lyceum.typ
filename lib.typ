@@ -49,6 +49,10 @@
 }
 
 #let MAKE-TITLE-PAGE(META) = [
+  // Control
+  #let PARS = (
+    auth-chunk-size: 2,
+  )
   // Book Title on Title Page
   #v(40mm)
   #block(width: 100%,)[
@@ -61,8 +65,26 @@
   // First Author on Title Page
   #block(width: 100%,)[
     #set text(size: 14pt)
-    *#META.authors.first().name,*
-    *#META.authors.first().given-name*
+    #let CHU = range(META.authors.len()).chunks(PARS.auth-chunk-size)
+    #for the-CHU in CHU {
+      grid(
+        columns: (1fr,) * PARS.auth-chunk-size,
+        row-gutter: 24pt,
+        ..the-CHU.map(
+          auth-indx => [
+            #if auth-indx <= META.authors.len() {
+              align(center)[
+                *#META.authors.at(auth-indx).name,*
+                *#META.authors.at(auth-indx).given-name* \
+                #META.authors.at(auth-indx).affiliation \
+                #raw(#META.authors.at(auth-indx).email) \
+                #META.authors.at(auth-indx).location
+              ]
+            }
+          ]
+        )
+      )
+    }
   ]
   #v(3fr)
   // Publisher block
