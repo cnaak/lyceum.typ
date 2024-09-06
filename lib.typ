@@ -156,7 +156,7 @@
   show heading.where(level: 1): it => context {
     let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
     let MEA = (top-gap: 70pt, sq-side: 60pt, it-hgt: 80pt)
-    let COL = (sq-shade: rgb("#00000060"), sq-text: rgb("#00000020"))
+    let COL = (sq-shade: rgb("#00000080"), sq-text: rgb("#000000D0"))
     let SIZ = (it-siz: 2 * the-text.size, sq-num-size: 0.7 * MEA.sq-side)
     pagebreak(weak: true, to: "odd")
     if cur-matter == "FRONT" {
@@ -182,7 +182,7 @@
             #align(center + horizon)[
               #text(
                 font: "EB Garamond",
-                size: 0.375 * SIZ.sq-num-size,
+                size: 0.325 * SIZ.sq-num-size,
                 weight: "bold",
                 fill: COL.sq-text)[Chapter]
             ]
@@ -211,7 +211,7 @@
             #align(center + horizon)[
               #text(
                 font: "EB Garamond",
-                size: 0.375 * SIZ.sq-num-size,
+                size: 0.325 * SIZ.sq-num-size,
                 weight: "bold",
                 fill: COL.sq-text)[Appendix]
             ]
