@@ -33,41 +33,36 @@
   [#metadata("BACK")<lyceum-matter>]
 }
 
-#let MAKE-TITLE-PAGE(META) = {
-  page(
-    numbering: none,
-    header: none,
-    footer: none,
-  )[// Book Title on Title Page
-    #v(40mm)
-    #block(width: 100%,)[
-      #set text(size: 32pt)
-      #align(center)[*#META.title.value*]
-    ]
-    #v(3fr)
-    // TODO: Loop over authors in a grid
-    // TODO: Author affiliations
-    // First Author on Title Page
-    #block(width: 100%,)[
-      #set text(size: 14pt)
-      *#META.authors.first().name,*
-      *#META.authors.first().given-name*
-    ]
-    #v(3fr)
-    // Publisher block
-    #block(width: 100%,)[
-      #set text(size: 12pt)
-      #META.publisher, \
-      #META.location
-    ]
-    #v(1fr)
-    // Date block
-    #block(width: 100%,)[
-      #set text(size: 12pt)
-      #align(center)[#META.date.display()]
-    ]
+#let MAKE-TITLE-PAGE(META) = [
+  // Book Title on Title Page
+  #v(40mm)
+  #block(width: 100%,)[
+    #set text(size: 32pt)
+    #align(center)[*#META.title.value*]
   ]
-}
+  #v(3fr)
+  // TODO: Loop over authors in a grid
+  // TODO: Author affiliations
+  // First Author on Title Page
+  #block(width: 100%,)[
+    #set text(size: 14pt)
+    *#META.authors.first().name,*
+    *#META.authors.first().given-name*
+  ]
+  #v(3fr)
+  // Publisher block
+  #block(width: 100%,)[
+    #set text(size: 12pt)
+    #META.publisher, \
+    #META.location
+  ]
+  #v(1fr)
+  // Date block
+  #block(width: 100%,)[
+    #set text(size: 12pt)
+    #align(center)[#META.date.display()]
+  ]
+]
 
 #let lyceum(
   // Document metadata
