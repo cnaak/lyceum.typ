@@ -50,18 +50,15 @@
 
 #let MAKE-TITLE-PAGE(META) = [
   // Control
-  #let PARS = (
-    auth-chunk-size: 2,
-  )
+  #let PARS = (auth-chunk-size: 2, )
+  #let MEA = (top-gap: 70pt, )
   // Book Title on Title Page
-  #v(40mm)
+  #v(MEA.top-gap)
   #block(width: 100%,)[
     #set text(size: 32pt)
     #align(center)[*#META.title.value*]
   ]
   #v(3fr)
-  // TODO: Loop over authors in a grid
-  // TODO: Author affiliations
   // First Author on Title Page
   #block(width: 100%,)[
     #set text(size: 14pt)
