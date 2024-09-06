@@ -157,7 +157,7 @@
     let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
     let MEA = (top-gap: 40mm, sq-side: 30mm, it-hgt: 25mm)
     let COL = (sq-shade: luma(160), )
-    let SIZ = (it-siz: 2 * the-text.size)
+    let SIZ = (it-siz: 2 * the-text.size, sq-num-size: 0.8 * MEA.sq-side)
     pagebreak(weak: true, to: "odd")
     if cur-matter == "FRONT" {
       v(MEA.top-gap)
@@ -167,7 +167,7 @@
     } else if cur-matter == "BODY" {
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade)[
-          #align(center + horizon)[#counter(heading).display("1")]
+          #align(center + horizon)[#text(size: SIZ.sq-num-size)[#counter(heading).display("1")]]
         ])
       v(MEA.top-gap)
       set align(center + top)
@@ -176,7 +176,7 @@
     } else if cur-matter == "BACK" {
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade)[
-          #align(center + horizon)[#counter(heading).display("A")]
+          #align(center + horizon)[#text(size: SIZ.sq-num-size)[#counter(heading).display("1")]]
         ])
       v(MEA.top-gap)
       set align(center + top)
