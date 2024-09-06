@@ -176,7 +176,7 @@
               #counter(heading).display("1")
             ]]])
       place(top + right, dx: -1.25 * MEA.sq-side,
-        box(width: MEA.sq-side)[
+        box(width: MEA.sq-side, stroke: 1pt)[
           #rotate(-90deg, origin: top + right)[
             #align(center + horizon)[
               #text(
