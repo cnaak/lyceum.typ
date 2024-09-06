@@ -274,7 +274,7 @@
                   *#META.authors.at(auth-indx).given-name* \
                   #set text(size: (3/3) * the-text.size)
                   #META.authors.at(auth-indx).affiliation \
-                  #set text(size: (2/3) * the-text.size)
+                  #set text(size: (5/6) * the-text.size)
                   #raw(META.authors.at(auth-indx).email) \
                   #META.authors.at(auth-indx).location
                 ]
@@ -282,6 +282,9 @@
             ]
           )
         )
+        if the-CHU.last() < CHU.flatten.last() {
+          v(the-text.size)
+        }
       }
     ]
     #v(3fr)
