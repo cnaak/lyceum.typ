@@ -82,18 +82,7 @@
   lang: (
     name: "en",
     chapter: "Chapter",
-    section: "Section",
-    subsection: "Sub-Section",
-    subsubsection: "Sub-Sub-Section",
     appendix: "Appendix",
-    biblio: "Bibliography",
-    toc: "Contents",
-    lof: "List of Figures",
-    lot: "List of Tables",
-    eq: ("Equation", "Equations"),
-    fig: ("Figure", "Figures"),
-    tab: ("Table", "Tables"),
-    subfig: ("Sub-Figure", "Sub-Figures")
   ),
   /* TODO: place remaining font definitions some place else
   text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
