@@ -122,7 +122,7 @@
     fig: ("Figure", "Figures"),
     tab: ("Table", "Tables"),
     subfig: ("Sub-Figure", "Sub-Figures")
-  )
+  ),
   /* TODO: place remaining font definitions some place else
   text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
   text-font-serif:   (value: "Garamond Libre", fallback: "Linux Libertine"),
