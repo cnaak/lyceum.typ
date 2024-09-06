@@ -267,7 +267,7 @@
           gutter: the-text.size,
           ..the-CHU.map(
             auth-indx => [
-              align(center)[
+              #align(center)[
                 #set text(size: (4/3) * the-text.size)
                 *#META.authors.at(auth-indx).name,*
                 *#META.authors.at(auth-indx).given-name* \
@@ -281,7 +281,7 @@
           )
         )
         if the-CHU.last() < CHU.flatten().last() [
-          #v(2 * the-text.size)
+          #v((4/3) * the-text.size)
         ]
       }
     ]
