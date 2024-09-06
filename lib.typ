@@ -171,19 +171,17 @@
             #text(
               font: "Alegreya",
               size: SIZ.sq-num-size,
-              weight: "extrabold",
-              fill: COL.sq-shade.darken(60%))[
+              weight: "extrabold")[
               #counter(heading).display("1")
             ]]])
       place(top + right, dx: -1.25 * MEA.sq-side,
         rotate(-90deg, origin: top + right)[
-          #box(width: MEA.sq-side, stroke: 1pt)[
+          #box(width: MEA.sq-side, stroke: 0.3pt)[
             #align(center + horizon)[
               #text(
                 font: "EB Garamond",
-                size: 0.3 * SIZ.sq-num-size,
-                weight: "bold",
-                fill: COL.sq-shade.darken(60%))[Chapter]
+                size: 0.4 * SIZ.sq-num-size,
+                weight: "bold")[Chapter]
             ]
           ]
         ]
