@@ -48,58 +48,6 @@
   [#metadata("BACK")<lyceum-matter>]
 }
 
-#let MAKE-TITLE-PAGE(META) = [
-  // Control
-  #let PARS = (auth-chunk-size: 2, )
-  #let MEA = (top-gap: 70pt, )
-  // Book Title on Title Page
-  #v(MEA.top-gap)
-  #block(width: 100%,)[
-    #set text(size: 32pt)
-    #align(center)[*#META.title.value*]
-  ]
-  #v(3fr)
-  // First Author on Title Page
-  #block(width: 100%,)[
-    #let CHU = range(META.authors.len()).chunks(PARS.auth-chunk-size)
-    #for the-CHU in CHU {
-      grid(
-        columns: (1fr,) * PARS.auth-chunk-size,
-        column-gutter: 12pt,
-        row-gutter: 48pt,
-        ..the-CHU.map(
-          auth-indx => [
-            #if auth-indx <= META.authors.len() {
-              align(center)[
-                #set text(size: 14pt)
-                *#META.authors.at(auth-indx).name,*
-                *#META.authors.at(auth-indx).given-name* \
-                #set text(size: 12pt)
-                #META.authors.at(auth-indx).affiliation \
-                #set text(size: 10pt)
-                #raw(META.authors.at(auth-indx).email) \
-                #META.authors.at(auth-indx).location
-              ]
-            }
-          ]
-        )
-      )
-    }
-  ]
-  #v(3fr)
-  // Publisher block
-  #block(width: 100%,)[
-    #set text(size: 12pt)
-    #META.publisher, \
-    #META.location
-  ]
-  #v(1fr)
-  // Date block
-  #block(width: 100%,)[
-    #set text(size: 12pt)
-    #align(center)[#META.date.display()]
-  ]
-]
 
 #let lyceum(
   // Document metadata
@@ -300,7 +248,56 @@
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
   // Title page
-  MAKE-TITLE-PAGE(META)
+  [ // Title page
+    #let PARS = (auth-chunk-size: 2, )
+    #let MEA = (top-gap: 70pt, )
+    // Book Title on Title Page
+    #v(MEA.top-gap)
+    #block(width: 100%,)[
+      #set text(size: (8/3) * the-text.size)
+      #align(center)[*#META.title.value*]
+    ]
+    #v(3fr)
+    // First Author on Title Page
+    #block(width: 100%,)[
+      #let CHU = range(META.authors.len()).chunks(PARS.auth-chunk-size)
+      #for the-CHU in CHU {
+        grid(
+          columns: (1fr,) * PARS.auth-chunk-size,
+          gutter: the-text.size,
+          ..the-CHU.map(
+            auth-indx => [
+              #if auth-indx <= META.authors.len() {
+                align(center)[
+                  #set text(size: (4/3) * the-text.size)
+                  *#META.authors.at(auth-indx).name,*
+                  *#META.authors.at(auth-indx).given-name* \
+                  #set text(size: (3/3) * the-text.size)
+                  #META.authors.at(auth-indx).affiliation \
+                  #set text(size: (2/3) * the-text.size)
+                  #raw(META.authors.at(auth-indx).email) \
+                  #META.authors.at(auth-indx).location
+                ]
+              }
+            ]
+          )
+        )
+      }
+    ]
+    #v(3fr)
+    // Publisher block
+    #block(width: 100%,)[
+      #set text(size: the-text.size)
+      #META.publisher, \
+      #META.location
+    ]
+    #v(1fr)
+    // Date block
+    #block(width: 100%,)[
+      #set text(size: the-text.size)
+      #align(center)[#META.date.display()]
+    ]
+  ]
 
   // Set front matter mark
   SET-FRONT-MATTER()
