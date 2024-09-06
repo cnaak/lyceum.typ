@@ -91,7 +91,7 @@
     fill-hue: 45deg, // 45deg for ivory-like, none for white
   ),
   the-text: (
-    font: ("Garamond Libre", "Linux Libertine"),
+    font: ("EB Garamond", "Linux Libertine"),
     size: 12pt,
     lang: "en",
   ),
@@ -147,8 +147,8 @@
     numbering: _ => context {
       let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
       if cur-matter == "FRONT" { none }
-      if cur-matter ==  "BODY" { "1.1.1." }
-      if cur-matter ==  "BACK" { "A.1.1." }
+      if cur-matter == "BODY"  { "1.1.1." }
+      if cur-matter == "BACK"  { "A.1.1." }
     },
     outlined: true,
   )
