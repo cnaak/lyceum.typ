@@ -89,15 +89,16 @@
   date: auto,
   // TODO: include support for editor and affiliated people
   // Document general format
-  page: (
+  the-page: (
     size: (width: 155mm, height: 230mm), // TODO: paper name
     margin: (inside: 30mm, rest: 25mm),
     binding: left,
     fill-hue: 45deg, // 45deg for ivory-like, none for white
   ),
-  text: (
+  the-text: (
     font: ("Garamond Libre", "Linux Libertine"),
     size: 12pt,
+    lang: "en",
   ),
   /* TODO: place remaining font definitions some place else
   text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
@@ -127,19 +128,6 @@
     keywords: META.keywords,
   )
 
-  // Page parameters controlled by input arguments
-  set page(
-    width: page.size.width,
-    height: page.size.height,
-    flipped: false,
-    margin: page.margin,
-    binding: page.binding,
-    columns: 1,
-  )
-  if page.fill-hue != none {
-    set page.fill(color.hsl(page.fill-hue, 20%, 80%))
-  }
-
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
 
@@ -149,9 +137,27 @@
   // Writes the self-bib-entry
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
-  //--------------------------------------------------------------------------------//
-  //                                   Show Rules                                   //
-  //--------------------------------------------------------------------------------//
+  // Page parameters controlled by input arguments
+  set page(
+    width: the-page.size.width,
+    height: the-page.size.height,
+    flipped: false,
+    margin: the-page.margin,
+    binding: the-page.binding,
+    columns: 1,
+  )
+  if the-page.fill-hue != none {
+    set page.fill(color.hsl(the-page.fill-hue, 20%, 80%))
+  }
+
+  // Text parameters controlled by input arguments
+  set text(
+    font: the-text.font,
+    fallback: true,
+    weight: "regular",
+    size: the-text.size,
+    lang: the-text.lang,
+  )
 
   set heading(
     numbering: _ => context {
@@ -202,14 +208,7 @@
   // Set front matter mark
   SET-FRONT-MATTER()
 
-  // Set front matter formattings
-
-  set page(
-    numbering: "i",
-    number-align: center + bottom,
-    header: none,
-  )
-
+  // Document body
   body
 }
 
