@@ -1,19 +1,5 @@
 #import "meta-parsing.typ": meta-parse
 
-#let bkROLES = ( // hayagriva role suitable for book production
-  "translator",
-  "afterword",
-  "foreword",
-  "introduction",
-  "annotator",
-  "commentator",
-  "founder",
-  "collaborator",
-  "organizer",
-  "director",
-  "illustrator",
-)
-
 #let SET-FRONT-MATTER() = context {
   let matter-before-here = query(selector(<lyceum-matter>).before(here()))
   assert.eq(matter-before-here.len(), 0,
@@ -88,10 +74,14 @@
   publisher: "Default Lyceum Publisher",
   location: "Default City, Lyceum Country",
   affiliated: (
+    illustrator: (
+      "Alfreda D. Ballew",
+      "Jim M. McKinnis",
+    ),
+    organizer: "Nicholas D. Gladstone",
   ),
   keywords: ("lyceum", "default"),
   date: auto,
-  // TODO: include support for editor and affiliated people
   // Document general format
   the-page: (
     size: (width: 155mm, height: 230mm), // TODO: paper name
@@ -126,6 +116,7 @@
     editors: editors,
     publisher: publisher,
     location: location,
+    affiliated: affiliated,
     keywords: keywords,
     date: date,
     lang: lang.name,

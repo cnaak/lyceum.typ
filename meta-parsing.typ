@@ -4,6 +4,16 @@
 
 
 #let meta-parse(meta) = {
+
+  //--------------------------------------------------------------------------------//
+  //                              Auxiliary Constants                               //
+  //--------------------------------------------------------------------------------//
+
+  let bkROLES = ( // hayagriva documented roles found suitable for book production
+    "translator", "afterword", "foreword", "introduction", "annotator", "commentator",
+    "founder", "collaborator", "organizer", "director", "illustrator",
+  )
+
   //--------------------------------------------------------------------------------//
   //                              Auxiliary Functions                               //
   //--------------------------------------------------------------------------------//
@@ -280,6 +290,23 @@
     }
   }
 
+  // META.affiliated - Pass 1
+  META.affiliated = (:)
+  if "affiliated" in meta {
+    if type(meta.affiliated) == dictionary {
+      for the-role in bkROLES { // Loops over allowed roles
+        if the-role in meta.affiliated {
+          META.affiliated.insert(the-role, ())
+          for a-person in meta.affiliated.at(the-role) {
+            META.affiliated.at(the-role).push(
+              name-splitting(a-person)
+            )
+          }
+        }
+      }
+    }
+  }
+
   // META.keywords
   if "keywords" in meta {
     META.keywords = array-from(meta.keywords, missing: "")
@@ -343,15 +370,30 @@
     META.self-bib-entry.push("      preffix: " + A.preffix)
     META.self-bib-entry.push("      suffix: " + A.suffix)
   }
-  META.self-bib-entry.push("  editor:")
-  for E in META.editors {
-    META.self-bib-entry.push("    - name: " + E.name)
-    META.self-bib-entry.push("      given-name: " + E.given-name)
-    META.self-bib-entry.push("      preffix: " + E.preffix)
-    META.self-bib-entry.push("      suffix: " + E.suffix)
+  if "editors" in META and META.editors.len() > 0 {
+    META.self-bib-entry.push("  editor:")
+    for E in META.editors {
+      META.self-bib-entry.push("    - name: " + E.name)
+      META.self-bib-entry.push("      given-name: " + E.given-name)
+      META.self-bib-entry.push("      preffix: " + E.preffix)
+      META.self-bib-entry.push("      suffix: " + E.suffix)
+    }
   }
   META.self-bib-entry.push("  publisher: " + META.publisher)
   META.self-bib-entry.push("  location: " + META.location)
+  if "affiliated" in META and META.affiliated.len() > 0 {
+    META.self-bib-entry.push("  affiliated:")
+    for (R, A) in META.affiliated {
+      META.self-bib-entry.push("    - role: " + R)
+      META.self-bib-entry.push("      names:")
+      for E in A {
+        META.self-bib-entry.push("      - name: " + E.name)
+        META.self-bib-entry.push("        given-name: " + E.given-name)
+        META.self-bib-entry.push("        preffix: " + E.preffix)
+        META.self-bib-entry.push("        suffix: " + E.suffix)
+      }
+    }
+  }
   META.self-bib-entry.push("  date: " + META.date.display())
   META.self-bib-entry.push("  language: " + META.lang)
 
