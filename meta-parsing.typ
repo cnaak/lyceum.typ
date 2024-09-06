@@ -389,8 +389,6 @@
       for E in A {
         META.self-bib-entry.push("      - name: " + E.name)
         META.self-bib-entry.push("        given-name: " + E.given-name)
-        META.self-bib-entry.push("        preffix: " + E.preffix)
-        META.self-bib-entry.push("        suffix: " + E.suffix)
       }
     }
   }
