@@ -168,14 +168,18 @@
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
           #align(center + horizon)[
-            #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold")[
+            #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold", fill: COL.sq-shade)[
               #counter(heading).display("1")
             ]]])
-      place(top + right, dx: -MEA.sq-side,
+      place(top + right, dx: -1.25 * MEA.sq-side,
         box(width: MEA.sq-side)[
           #rotate(-90deg, origin: top + right)[
-            #text(font: "EB Garamond", size: 0.3 * SIZ.sq-num-size, weight: "bold", fill: COL.sq-shade)[
-              Chapter
+            #align(center)[
+              #text(
+                font: "EB Garamond",
+                size: 0.3 * SIZ.sq-num-size,
+                weight: "bold",
+                fill: COL.sq-shade)[Chapter]
             ]
           ]
         ]
@@ -188,7 +192,7 @@
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
           #align(center + horizon)[
-            #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold")[
+            #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold", fill: COL.sq-shade)[
               #counter(heading).display("A")
             ]]])
       v(MEA.top-gap)
