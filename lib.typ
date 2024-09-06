@@ -182,7 +182,7 @@
     } else if cur-matter == "BODY" {
       place(top + right,
         box(width: 35mm, height: 35mm, fill: luma(220))[
-          #align(center + middle)[#counter(heading).display("1")]
+          #align(center + horizon)[#counter(heading).display("1")]
         ])
       set align(center + top)
       set text(20pt, weight: "bold")
@@ -191,7 +191,7 @@
     } else if cur-matter == "BACK" {
       place(top + right,
         box(width: 35mm, height: 35mm, fill: luma(220))[
-          #align(center + middle)[#counter(heading).display("A")]
+          #align(center + horizon)[#counter(heading).display("A")]
         ])
       set align(center + top)
       set text(20pt, weight: "bold")
