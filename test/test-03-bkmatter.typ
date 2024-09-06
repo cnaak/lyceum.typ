@@ -2,13 +2,13 @@
 #show: lyceum.with(
   authors: (
     (
-      given-name: "Jos", name: "van-Zijt", email: "joszv@uni.edu",
+      given-name: "Jos", name: "van-Zijt", email: "joszv@uni.edu.ncr",
       affiliation: "Uni University", location: "Augment, New Crater",
     ), (
-      given-name: "Pas", name: "Azaval", email: "pasa@oooh.edu",
+      given-name: "Pas", name: "Azaval", email: "pasa@oooh.edu.abs",
       affiliation: "Oooh University", location: "Reductio, Absurdum",
     ), (
-      given-name: "Jeff", name: "Xynon", email: "xynonj@must.edu",
+      given-name: "Jeff L.", name: "Xynon", email: "xynonj@must.edu.mer",
       affiliation: "Must Research Center", location: "Ponth, Meridia",
     ),
   ),
