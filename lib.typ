@@ -1,44 +1,105 @@
 #import "src/meta-parsing.typ": meta-parse
-#import "src/book-element.typ": *
 
-//============================================================================================//
-//                                       User Functions                                       //
-//============================================================================================//
+#let SET-FRONT-MATTER() = context {
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  assert.eq(matter-before-here.len(), 0,
+    message: "[lyceum]: can't SET-FRONT-MATTER() more than once")
+  [#metadata("FRONT")<lyceum-matter>]
+}
+
+#let SET-BODY-MATTER() = context {
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let values-before-here = ()
+  for elem in matter-before-here {
+    values-before-here.push(elem.value)
+  }
+  assert("FRONT" in values-before-here,
+    message: "[lyceum]: SET-BODY-MATTER() must follow SET-FRONT-MATTER()")
+  assert("BODY" not in values-before-here,
+    message: "[lyceum]: can't SET-BODY-MATTER() more than once")
+  [#metadata("BODY")<lyceum-matter>]
+}
+
+#let SET-BACK-MATTER() = context {
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let values-before-here = ()
+  for elem in matter-before-here {
+    values-before-here.push(elem.value)
+  }
+  assert("BODY" in values-before-here,
+    message: "[lyceum]: SET-BACK-MATTER() must follow SET-BODY-MATTER()")
+  assert("BACK" not in values-before-here,
+    message: "[lyceum]: can't SET-BACK-MATTER() more than once")
+  [#metadata("BACK")<lyceum-matter>]
+}
+
+#let MAKE-TITLE-PAGE(META) = {
+  page(
+    numbering: none,
+    header: none,
+    footer: none,
+  )[// Book Title on Title Page
+    #v(40mm)
+    #block(width: 100%,)[
+      #set text(size: 32pt)
+      #align(center)[*#META.title.value*]
+    ]
+    #v(3fr)
+    // TODO: Loop over authors in a grid
+    // TODO: Author affiliations
+    // First Author on Title Page
+    #block(width: 100%,)[
+      #set text(size: 14pt)
+      *#META.authors.first().name,*
+      *#META.authors.first().given-name*
+    ]
+    #v(3fr)
+    // Publisher block
+    #block(width: 100%,)[
+      #set text(size: 12pt)
+      #META.publisher, \
+      #META.location
+    ]
+    #v(1fr)
+    // Date block
+    #block(width: 100%,)[
+      #set text(size: 12pt)
+      #align(center)[#META.date.display()]
+    ]
+  ]
+}
 
 #let lyceum(
   // Document metadata
-  // -----------------
-  title: (
-    value: "Default Lyceum Title",
-    short: "Default",
-  ),
+  title: (value: "Default Lyceum Title", short: "Default"),
   authors: (
     (
       preffix: "Dr.",
       given-name: "Lyceum",
       name: "Default",
-      suffix: "Jr.",
+      suffix: "Jr.", // TODO: implement author email affiliation and location
+      email: "default@organized.org",
+      affiliation: "Organized Organization",
+      location: "Foo City, Bar Country",
     ),
   ),
   publisher: "Default Lyceum Publisher",
   location: "Default City, Lyceum Country",
-  keywords: (
-    "lyceum",
-    "default",
-  ),
+  keywords: ("lyceum", "default"),
   date: auto,
-  // General page specs
-  // ------------------
-  page-width: 155mm,
-  page-height: 230mm,
-  page-margin: (
-    inside: 30mm,
-    rest: 25mm,
+  // TODO: include support for editor and affiliated people
+  // Document general format
+  page: (
+    size: (width: 155mm, height: 230mm), // TODO: paper name
+    margin: (inside: 30mm, rest: 25mm),
+    binding: left,
+    fill-hue: 45deg, // for ivory-like
   ),
-  page-binding: left,
-  page-fill-hue: 45deg, // for ivory-like
-  // General font specs
-  // ------------------
+  text: (
+    font: ("Garamond Libre", "Linux Libertine"),
+    size: 12pt,
+  ),
+  /* TODO: place remaining font definitions some place else
   text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
   text-font-serif:   (value: "Garamond Libre", fallback: "Linux Libertine"),
   text-font-serif-2: (value: "Alegreya", fallback: "Crimson Pro"),
@@ -46,7 +107,7 @@
   text-font-mono:    (value: "JuliaMono", fallback: "Inconsolata"),
   text-font-greek:   (value: "SBL BibLit", fallback: "Linux Libertine"),
   text-font-math:    (value: "TeX Gyre Termes Math", fallback: "TeX Gyre Termes Math"),
-  text-size: 12pt,
+  */
   body
 ) = {
 
