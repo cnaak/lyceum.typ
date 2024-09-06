@@ -77,7 +77,7 @@
                 *#META.authors.at(auth-indx).name,*
                 *#META.authors.at(auth-indx).given-name* \
                 #META.authors.at(auth-indx).affiliation \
-                #raw(#META.authors.at(auth-indx).email) \
+                #raw(META.authors.at(auth-indx).email) \
                 #META.authors.at(auth-indx).location
               ]
             }
