@@ -131,12 +131,8 @@
     margin: the-page.margin,
     binding: the-page.binding,
     columns: 1,
+    fill: color.hsl(the-page.fill-hue, 20%, 80%),
   )
-  if the-page.fill-hue != none {
-    set page(
-      fill: color.hsl(the-page.fill-hue, 20%, 80%),
-    )
-  }
 
   // Text parameters controlled by input arguments
   set text(
