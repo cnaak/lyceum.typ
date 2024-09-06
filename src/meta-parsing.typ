@@ -150,6 +150,9 @@
               "preffix",
               "suffix",
               "short",
+              "email",
+              "affiliation",
+              "location",
             )
           )
         )
