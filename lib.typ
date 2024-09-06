@@ -17,6 +17,7 @@
     message: "[lyceum]: SET-BODY-MATTER() must follow SET-FRONT-MATTER()")
   assert("BODY" not in values-before-here,
     message: "[lyceum]: can't SET-BODY-MATTER() more than once")
+  counter(heading).update(0)
   [#metadata("BODY")<lyceum-matter>]
 }
 
@@ -30,6 +31,7 @@
     message: "[lyceum]: SET-APPENDIX() must follow SET-BODY-MATTER()")
   assert("APPENDIX" not in values-before-here,
     message: "[lyceum]: can't SET-APPENDIX() more than once")
+  counter(heading).update(0)
   [#metadata("APPENDIX")<lyceum-matter>]
 }
 
@@ -188,6 +190,9 @@
     let COL = (sq-shade: rgb("#00000070"), sq-text: rgb("#000000A0"))
     let SIZ = (it-siz: 2 * the-text.size, sq-num-size: 0.7 * MEA.sq-side)
     pagebreak(weak: true, to: "odd")
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(math.equation).update(0)
     if cur-matter == "FRONT" {
       v(MEA.top-gap)
       set align(center + top)
