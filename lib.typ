@@ -171,6 +171,15 @@
             #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold")[
               #counter(heading).display("1")
             ]]])
+      place(top + right, dx: -MEA.sq-side,
+        box(width: MEA.sq-side)[
+          #rotate(-90deg, origin: top + right)[
+            #text(font: "EB Garamond", size: 0.3 * SIZ.sq-num-size, weight: "bold", fill: COL.sq-shade)[
+              Chapter
+            ]
+          ]
+        ]
+      )
       v(MEA.top-gap)
       set align(center + top)
       set text(font: "EB Garamond", SIZ.it-siz, weight: "extrabold")
