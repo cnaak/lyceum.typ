@@ -168,7 +168,7 @@
     fallback: true,
     weight: "regular",
     size: the-text.size,
-    lang: the-text.lang,
+    lang: lang.name,
   )
 
   set heading(
