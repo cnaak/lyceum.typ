@@ -297,9 +297,16 @@
       for the-role in bkROLES { // Loops over allowed roles
         if the-role in meta.affiliated {
           META.affiliated.insert(the-role, ())
-          for a-person in meta.affiliated.at(the-role) {
+          let ppl = meta.affiliated.at(the-role)
+          if type(ppl) == array {
+            for a-person in ppl {
+              META.affiliated.at(the-role).push(
+                name-splitting(a-person)
+              )
+            }
+          } else if type(ppl) == type("") {
             META.affiliated.at(the-role).push(
-              name-splitting(a-person)
+              name-splitting(ppl)
             )
           }
         }
