@@ -6,8 +6,8 @@
 //============================================================================================//
 
 #let lyceum(
-  // Bibliography metadata
-  // ---------------------
+  // Document metadata
+  // -----------------
   title: (
     value: "Default Lyceum Title",
     short: "Default",
@@ -27,8 +27,8 @@
     "default",
   ),
   date: auto,
-  // Formatting metadata
-  // -------------------
+  // General page specs
+  // ------------------
   page-width: 155mm,
   page-height: 230mm,
   page-margin: (
@@ -37,6 +37,16 @@
   ),
   page-binding: left,
   page-fill-hue: 45deg, // for ivory-like
+  // General font specs
+  // ------------------
+  text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
+  text-font-serif:   (value: "Garamond Libre", fallback: "Linux Libertine"),
+  text-font-serif-2: (value: "Alegreya", fallback: "Crimson Pro"),
+  text-font-sans:    (value: "Fira Sans", fallback: "Liberation Sans"),
+  text-font-mono:    (value: "JuliaMono", fallback: "Inconsolata"),
+  text-font-greek:   (value: "SBL BibLit", fallback: "Linux Libertine"),
+  text-font-math:    (value: "TeX Gyre Termes Math", fallback: "TeX Gyre Termes Math"),
+  text-size: 12pt,
   body
 ) = {
 
@@ -62,22 +72,12 @@
   )
 
   //--------------------------------------------------------------------------------//
-  //                               Formatting - Page                                //
+  //                               Formatting - Fonts                               //
   //--------------------------------------------------------------------------------//
 
-  // page-numbering-function
-  let page-numbering-function() = context {
-    let the-matter = query(selector(<lyceum-matter>).before(here())).last().value
-    if the-matter == "FRONT" {
-      return "i"
-    } else if the-matter == "BODY" {
-      return "--- 1 of 1 ---"
-    } else if the-matter == "BACK" {
-      return "a"
-    }
-  }
-
-  [#page-numbering-function().fields()]
+  //--------------------------------------------------------------------------------//
+  //                               Formatting - Page                                //
+  //--------------------------------------------------------------------------------//
 
   // Page parameters controlled by input arguments
   set page(
@@ -87,9 +87,7 @@
     margin: page-margin,
     binding: page-binding,
     columns: 1,
-    fill: color.hsl(page-fill-hue, 15%, 90%),
-    numbering: n => numbering(page-numbering-function(), n),
-    number-align: center + bottom,
+    fill: color.hsl(page-fill-hue, 20%, 80%),
   )
 
   // Metadata writings
