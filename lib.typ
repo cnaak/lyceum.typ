@@ -155,7 +155,7 @@
 
   show heading.where(level: 1): it => context {
     let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
-    let MEA = (top-gap: 70pt, sq-side: 60pt, it-hgt: 60pt)
+    let MEA = (top-gap: 70pt, sq-side: 60pt, it-hgt: 80pt)
     let COL = (sq-shade: rgb("#00000060"), )
     let SIZ = (it-siz: 2 * the-text.size, sq-num-size: 0.7 * MEA.sq-side)
     pagebreak(weak: true, to: "odd")
