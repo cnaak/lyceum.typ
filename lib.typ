@@ -156,7 +156,7 @@
   show heading.where(level: 1): it => context {
     let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
     let MEA = (top-gap: 70pt, sq-side: 60pt, it-hgt: 80pt)
-    let COL = (sq-shade: rgb("#00000060"), )
+    let COL = (sq-shade: rgb("#00000060"), sq-text: rgb("#00000020"))
     let SIZ = (it-siz: 2 * the-text.size, sq-num-size: 0.7 * MEA.sq-side)
     pagebreak(weak: true, to: "odd")
     if cur-matter == "FRONT" {
@@ -171,9 +171,11 @@
             #text(
               font: "Alegreya",
               size: SIZ.sq-num-size,
-              weight: "extrabold")[
-              #counter(heading).display("1")
-            ]]])
+              weight: "extrabold",
+              fill: COL.sq-text)[#counter(heading).display("1")]
+          ]
+        ]
+      )
       place(top + right, dx: -1.35 * MEA.sq-side,
         rotate(-90deg, origin: top + right)[
           #box(width: MEA.sq-side)[
@@ -181,7 +183,8 @@
               #text(
                 font: "EB Garamond",
                 size: 0.375 * SIZ.sq-num-size,
-                weight: "bold")[Chapter]
+                weight: "bold",
+                fill: COL.sq-text)[Chapter]
             ]
           ]
         ]
@@ -194,9 +197,27 @@
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
           #align(center + horizon)[
-            #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold", fill: COL.sq-shade)[
-              #counter(heading).display("A")
-            ]]])
+            #text(
+              font: "Alegreya",
+              size: SIZ.sq-num-size,
+              weight: "extrabold",
+              fill: COL.sq-text)[#counter(heading).display("A")]
+          ]
+        ]
+      )
+      place(top + right, dx: -1.35 * MEA.sq-side,
+        rotate(-90deg, origin: top + right)[
+          #box(width: MEA.sq-side)[
+            #align(center + horizon)[
+              #text(
+                font: "EB Garamond",
+                size: 0.375 * SIZ.sq-num-size,
+                weight: "bold",
+                fill: COL.sq-text)[Appendix]
+            ]
+          ]
+        ]
+      )
       v(MEA.top-gap)
       set align(center + top)
       set text(font: "EB Garamond", SIZ.it-siz, weight: "extrabold")
