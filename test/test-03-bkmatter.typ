@@ -1,5 +1,18 @@
 #import "@local/lyceum:0.1.0": *
-#show: lyceum.with()
+#show: lyceum.with(
+  authors: (
+    (
+      given-name: "Jos", name: "van-Zijt", email: "joszv@uni.edu",
+      affiliation: "Uni University", location: "Augment, New Crater",
+    ), (
+      given-name: "Pas", name: "Azaval", email: "pasa@oooh.edu",
+      affiliation: "Oooh University", location: "Reductio, Absurdum",
+    ), (
+      given-name: "Jeff", name: "Xynon", email: "xynonj@must.edu",
+      affiliation: "Must Research Center", location: "Ponth, Meridia",
+    ),
+  ),
+)
 
 = Preface
 #lorem(60)

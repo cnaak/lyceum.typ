@@ -66,7 +66,8 @@
     #for the-CHU in CHU {
       grid(
         columns: (1fr,) * PARS.auth-chunk-size,
-        row-gutter: 24pt,
+        column-gutter: 18pt,
+        row-gutter: 36pt,
         ..the-CHU.map(
           auth-indx => [
             #if auth-indx <= META.authors.len() {
@@ -106,7 +107,7 @@
       preffix: "Dr.",
       given-name: "Lyceum",
       name: "Default",
-      suffix: "Jr.", // TODO: implement author email affiliation and location
+      suffix: "Jr.",
       email: "default@organized.org",
       affiliation: "Organized Organization",
       location: "Foo City, Bar Country",
