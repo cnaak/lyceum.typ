@@ -20,6 +20,19 @@
   [#metadata("BODY")<lyceum-matter>]
 }
 
+#let SET-APPENDIX() = context {
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let values-before-here = ()
+  for elem in matter-before-here {
+    values-before-here.push(elem.value)
+  }
+  assert("BODY" in values-before-here,
+    message: "[lyceum]: SET-APPENDIX() must follow SET-BODY-MATTER()")
+  assert("APPENDIX" not in values-before-here,
+    message: "[lyceum]: can't SET-APPENDIX() more than once")
+  [#metadata("APPENDIX")<lyceum-matter>]
+}
+
 #let SET-BACK-MATTER() = context {
   let matter-before-here = query(selector(<lyceum-matter>).before(here()))
   let values-before-here = ()
@@ -93,8 +106,23 @@
   the-text: (
     font: ("EB Garamond", "Linux Libertine"),
     size: 12pt,
-    lang: "en",
   ),
+  lang: (
+    name: "en",
+    chapter: "Chapter",
+    section: "Section",
+    subsection: "Sub-Section",
+    subsubsection: "Sub-Sub-Section",
+    appendix: "Appendix",
+    biblio: "Bibliography",
+    toc: "Contents",
+    lof: "List of Figures",
+    lot: "List of Tables",
+    eq: ("Equation", "Equations"),
+    fig: ("Figure", "Figures"),
+    tab: ("Table", "Tables"),
+    subfig: ("Sub-Figure", "Sub-Figures")
+  )
   /* TODO: place remaining font definitions some place else
   text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
   text-font-serif:   (value: "Garamond Libre", fallback: "Linux Libertine"),
@@ -146,9 +174,10 @@
   set heading(
     numbering: _ => context {
       let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
-      if cur-matter == "FRONT" { none }
-      if cur-matter == "BODY"  { "1.1.1." }
-      if cur-matter == "BACK"  { "A.1.1." }
+      if cur-matter == "FRONT"    { none }
+      if cur-matter == "BODY"     { "1.1.1." }
+      if cur-matter == "APPENDIX" { "A.1.1." }
+      if cur-matter == "BACK"     { none }
     },
     outlined: true,
   )
@@ -162,14 +191,14 @@
     if cur-matter == "FRONT" {
       v(MEA.top-gap)
       set align(center + top)
-      set text(font: "EB Garamond", SIZ.it-siz, weight: "extrabold")
+      set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
       block(width: 100%, height: MEA.it-hgt)[#it.body]
     } else if cur-matter == "BODY" {
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
           #align(center + horizon)[
             #text(
-              font: "Alegreya",
+              font: ("Alegreya", "Linux Libertine"),
               size: SIZ.sq-num-size,
               weight: "extrabold",
               fill: COL.sq-text)[#counter(heading).display("1")]
@@ -181,24 +210,24 @@
           #box(width: MEA.sq-side)[
             #align(center + horizon)[
               #text(
-                font: "EB Garamond",
+                font: ("EB Garamond", "Linux Libertine"),
                 size: 0.275 * SIZ.sq-num-size,
                 weight: "bold",
-                fill: COL.sq-text)[Chapter]
+                fill: COL.sq-text)[#lang.chapter]
             ]
           ]
         ]
       )
       v(MEA.top-gap)
       set align(center + top)
-      set text(font: "EB Garamond", SIZ.it-siz, weight: "extrabold")
+      set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
       block(width: 100%, height: MEA.it-hgt)[#it.body]
-    } else if cur-matter == "BACK" {
+    } else if cur-matter == "APPENDIX" {
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
           #align(center + horizon)[
             #text(
-              font: "Alegreya",
+              font: ("Alegreya", "Linux Libertine"),
               size: SIZ.sq-num-size,
               weight: "extrabold",
               fill: COL.sq-text)[#counter(heading).display("A")]
@@ -210,17 +239,22 @@
           #box(width: MEA.sq-side)[
             #align(center + horizon)[
               #text(
-                font: "EB Garamond",
+                font: ("EB Garamond", "Linux Libertine"),
                 size: 0.275 * SIZ.sq-num-size,
                 weight: "bold",
-                fill: COL.sq-text)[Appendix]
+                fill: COL.sq-text)[#lang.appendix]
             ]
           ]
         ]
       )
       v(MEA.top-gap)
       set align(center + top)
-      set text(font: "EB Garamond", SIZ.it-siz, weight: "extrabold")
+      set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
+      block(width: 100%, height: MEA.it-hgt)[#it.body]
+    } else if cur-matter == "BACK" {
+      v(MEA.top-gap)
+      set align(center + top)
+      set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
       block(width: 100%, height: MEA.it-hgt)[#it.body]
     }
   }
