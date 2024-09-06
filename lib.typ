@@ -147,7 +147,9 @@
     columns: 1,
   )
   if the-page.fill-hue != none {
-    set page.fill(color.hsl(the-page.fill-hue, 20%, 80%))
+    set page(
+      fill: color.hsl(the-page.fill-hue, 20%, 80%),
+    )
   }
 
   // Text parameters controlled by input arguments
