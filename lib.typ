@@ -93,7 +93,7 @@
     size: (width: 155mm, height: 230mm), // TODO: paper name
     margin: (inside: 30mm, rest: 25mm),
     binding: left,
-    fill-hue: 45deg, // for ivory-like
+    fill-hue: 45deg, // 45deg for ivory-like, none for white
   ),
   text: (
     font: ("Garamond Libre", "Linux Libertine"),
@@ -110,11 +110,6 @@
   */
   body
 ) = {
-
-  //--------------------------------------------------------------------------------//
-  //                                    Metadata                                    //
-  //--------------------------------------------------------------------------------//
-
   // Parse metadata information
   let (META, AUTHORS) = meta-parse((
     title: title,
@@ -132,24 +127,18 @@
     keywords: META.keywords,
   )
 
-  //--------------------------------------------------------------------------------//
-  //                               Formatting - Fonts                               //
-  //--------------------------------------------------------------------------------//
-
-  //--------------------------------------------------------------------------------//
-  //                               Formatting - Page                                //
-  //--------------------------------------------------------------------------------//
-
   // Page parameters controlled by input arguments
   set page(
-    width: page-width,
-    height: page-height,
+    width: page.size.width,
+    height: page.size.height,
     flipped: false,
-    margin: page-margin,
-    binding: page-binding,
+    margin: page.margin,
+    binding: page.binding,
     columns: 1,
-    fill: color.hsl(page-fill-hue, 20%, 80%),
   )
+  if page.fill-hue != none {
+    set page.fill(color.hsl(page.fill-hue, 20%, 80%))
+  }
 
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
