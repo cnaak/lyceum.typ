@@ -61,7 +61,6 @@
   #v(3fr)
   // First Author on Title Page
   #block(width: 100%,)[
-    #set text(size: 14pt)
     #let CHU = range(META.authors.len()).chunks(PARS.auth-chunk-size)
     #for the-CHU in CHU {
       grid(
@@ -72,9 +71,12 @@
           auth-indx => [
             #if auth-indx <= META.authors.len() {
               align(center)[
+                #set text(size: 14pt)
                 *#META.authors.at(auth-indx).name,*
                 *#META.authors.at(auth-indx).given-name* \
+                #set text(size: 12pt)
                 #META.authors.at(auth-indx).affiliation \
+                #set text(size: 10pt)
                 #raw(META.authors.at(auth-indx).email) \
                 #META.authors.at(auth-indx).location
               ]
