@@ -162,29 +162,29 @@
     if cur-matter == "FRONT" {
       v(MEA.top-gap)
       set align(center + top)
-      set text(SIZ.it-siz, weight: "bold")
+      set text(font: "EB Garamond", SIZ.it-siz, weight: "extrabold")
       block(width: 100%, height: MEA.it-hgt)[#it.body]
     } else if cur-matter == "BODY" {
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
           #align(center + horizon)[
-            #text(size: SIZ.sq-num-size)[
+            #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold")[
               #counter(heading).display("1")
             ]]])
       v(MEA.top-gap)
       set align(center + top)
-      set text(SIZ.it-siz, weight: "bold")
+      set text(font: "EB Garamond", SIZ.it-siz, weight: "extrabold")
       block(width: 100%, height: MEA.it-hgt)[#it.body]
     } else if cur-matter == "BACK" {
       place(top + right,
         box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
           #align(center + horizon)[
-            #text(size: SIZ.sq-num-size)[
+            #text(font: "Alegreya", size: SIZ.sq-num-size, weight: "extrabold")[
               #counter(heading).display("A")
             ]]])
       v(MEA.top-gap)
       set align(center + top)
-      set text(SIZ.it-siz, weight: "bold")
+      set text(font: "EB Garamond", SIZ.it-siz, weight: "extrabold")
       block(width: 100%, height: MEA.it-hgt)[#it.body]
     }
   }
