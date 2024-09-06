@@ -1,4 +1,4 @@
-#import "src/meta-parsing.typ": meta-parse
+#import "meta-parsing.typ": meta-parse
 
 #let SET-FRONT-MATTER() = context {
   let matter-before-here = query(selector(<lyceum-matter>).before(here()))

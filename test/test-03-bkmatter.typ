@@ -1,4 +1,4 @@
-#import "@local/lyceum:0.1.0": *
+#import "@local/lyceum:0.0.1": *
 #show: lyceum.with(
   authors: (
     (
