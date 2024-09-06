@@ -257,7 +257,7 @@
       #set text(size: (8/3) * the-text.size)
       #align(center)[*#META.title.value*]
     ]
-    #v(5fr)
+    #v(4fr)
     // First Author on Title Page
     #block(width: 100%,)[
       #let CHU = range(META.authors.len()).chunks(PARS.auth-chunk-size)
@@ -285,7 +285,7 @@
         ]
       }
     ]
-    #v(3fr)
+    #v(4fr)
     // Publisher block
     #block(width: 100%,)[
       #set text(size: the-text.size)
