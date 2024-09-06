@@ -186,7 +186,7 @@
         ])
       set align(center + top)
       set text(20pt, weight: "bold")
-      place(top + left, dx = 0mm, dy = 40mm,
+      place(top + left, dx: 0mm, dy: 40mm,
         block(width: 100%, height: 40mm)[#it.body])
     } else if cur-matter == "BACK" {
       place(top + right,
@@ -195,7 +195,7 @@
         ])
       set align(center + top)
       set text(20pt, weight: "bold")
-      place(top + left, dx = 0mm, dy = 40mm,
+      place(top + left, dx: 0mm, dy: 40mm,
         block(width: 100%, height: 40mm)[#it.body])
     }
   }
