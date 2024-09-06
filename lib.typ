@@ -128,15 +128,6 @@
     keywords: META.keywords,
   )
 
-  // Metadata writings
-  [#metadata(META)<lyceum-meta>]
-
-  // Writes the root metadata into the document
-  [#metadata(AUTHORS)<lyceum-auth>]
-
-  // Writes the self-bib-entry
-  [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
-
   // Page parameters controlled by input arguments
   set page(
     width: the-page.size.width,
@@ -203,6 +194,15 @@
   //--------------------------------------------------------------------------------//
   //                                  Front Matter                                  //
   //--------------------------------------------------------------------------------//
+
+  // Metadata writings
+  [#metadata(META)<lyceum-meta>]
+
+  // Writes the root metadata into the document
+  [#metadata(AUTHORS)<lyceum-auth>]
+
+  // Writes the self-bib-entry
+  [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
   // Title page
   MAKE-TITLE-PAGE(META)
