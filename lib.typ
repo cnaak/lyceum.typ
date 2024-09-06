@@ -66,7 +66,7 @@
     #for the-CHU in CHU {
       grid(
         columns: (1fr,) * PARS.auth-chunk-size,
-        column-gutter: 18pt,
+        column-gutter: 0pt,
         row-gutter: 36pt,
         ..the-CHU.map(
           auth-indx => [
