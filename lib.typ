@@ -263,28 +263,26 @@
       #let CHU = range(META.authors.len()).chunks(PARS.auth-chunk-size)
       #for the-CHU in CHU {
         grid(
-          columns: (1fr,) * PARS.auth-chunk-size,
+          columns: (1fr,) * the-CHU.len(),
           gutter: the-text.size,
           ..the-CHU.map(
             auth-indx => [
-              #if auth-indx <= META.authors.len() {
-                align(center)[
-                  #set text(size: (4/3) * the-text.size)
-                  *#META.authors.at(auth-indx).name,*
-                  *#META.authors.at(auth-indx).given-name* \
-                  #set text(size: (3/3) * the-text.size)
-                  #META.authors.at(auth-indx).affiliation \
-                  #set text(size: (5/6) * the-text.size)
-                  #raw(META.authors.at(auth-indx).email) \
-                  #META.authors.at(auth-indx).location
-                ]
-              }
+              align(center)[
+                #set text(size: (4/3) * the-text.size)
+                *#META.authors.at(auth-indx).name,*
+                *#META.authors.at(auth-indx).given-name* \
+                #set text(size: (3/3) * the-text.size)
+                #META.authors.at(auth-indx).affiliation \
+                #set text(size: (5/6) * the-text.size)
+                #raw(META.authors.at(auth-indx).email) \
+                #META.authors.at(auth-indx).location
+              ]
             ]
           )
         )
-        if the-CHU.last() < CHU.flatten.last() {
-          v(the-text.size)
-        }
+        if the-CHU.last() < CHU.flatten().last() [
+          #v(2 * the-text.size)
+        ]
       }
     ]
     #v(3fr)
