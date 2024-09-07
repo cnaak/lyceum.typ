@@ -34,21 +34,13 @@
   keywords: ("igneous", "rocks", "geology", ),
   date: datetime(year: 2024, month: 9, day: 6), // auto => datetime.today()
   // Document general format
-  the-page: (
-    size: (width: 155mm, height: 230mm),
-    margin: (inside: 30mm, rest: 25mm),
-    binding: left,
-    fill-hue: 45deg,
-  ),
-  the-text: (
-    font: ("EB Garamond", "Linux Libertine"),
-    size: 12pt,
-  ),
-  lang: (
-    name: "en",
-    chapter: "Chapter",
-    appendix: "Appendix",
-  ),
+  page-size: "a5",
+  page-margin: (inside: 30mm, rest: 25mm),
+  page-binding: left,
+  page-fill: color.yellow.lighten(80%),
+  text-font: ("EB Garamond", "Linux Libertine"),
+  text-size: 12pt,
+  lang-name: "en",
 )
 
 // The lyceum auto-generates the title page
