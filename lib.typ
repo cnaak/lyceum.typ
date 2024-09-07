@@ -132,10 +132,7 @@
     binding: page-binding,
     columns: 1,
     fill: page-fill,
-    numbering: _ => context {
-      let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
-      if cur-matter == "FRONT" { "i" } else { "\u{2014} 1 \u{2014}" }
-    }
+    numbering: "i"
   )
 
   // Text parameters controlled by input arguments

@@ -87,6 +87,9 @@ Here goes the subject index.
 /* The `lyceum` package auto-generates self-citation information. It is available as document
 `metadata` accessible by Typst's introspection system: */
 
+The following is the _auto-generated_, self bibliography database entry for the `hayagriva`
+manager:
+
 #{
   let self-bib = context query(<self-bib-entry>).first().value
   set par(leading: 0.5em)
