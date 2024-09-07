@@ -60,6 +60,10 @@ Here goes the book preface.
 
 Now this is a regular chapter.
 
+== Motivation
+
+Subsection text.
+
 = Rock Properties
 
 A second chapter.
@@ -70,6 +74,10 @@ A second chapter.
 = Tables of Properties of Igneous Rocks
 
 This is an Appendix.
+
+== Inorganic Salts
+
+Subsection text.
 
 // Bibliography and Indices should be placed in BACK-MATTER
 #SET-BACK-MATTER()
