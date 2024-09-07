@@ -132,7 +132,24 @@
     binding: page-binding,
     columns: 1,
     fill: page-fill,
-    numbering: "i",
+    footer: context {
+      // Get current page number and matter
+      let cur-page-number = counter(page).at(here()).first()
+      let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
+      // Format page footer accordingly
+      if cur-matter == "FRONT" {
+        // Only prints page number after the titlepage
+        if cur-page-number > 1 [
+          #align(center + horizon)[
+            #numbering("i", cur-page-number)
+          ]
+        ] else []
+      } else [
+        #align(center + horizon)[
+          #numbering("\u{2014} 1 \u{2014}", cur-page-number)
+        ]
+      ]
+    }
   )
 
   // Text parameters controlled by input arguments
