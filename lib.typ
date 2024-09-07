@@ -168,10 +168,8 @@
       if cur-matter == "FRONT" {
         ""
       } else if cur-matter == "BODY" {
-        [#nums]
-        numbering("1.1.1", ..nums)
+        numbering("1.1.1", ..nums)  // TODO TODO: find out why isn't this working
       } else if cur-matter == "APPENDIX" {
-        [#nums]
         numbering("A.1.1", ..nums)
       } else if cur-matter == "BACK" {
         ""
