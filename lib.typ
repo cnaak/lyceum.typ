@@ -165,9 +165,9 @@
   set heading(
     numbering: (..nums) => context {
       let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
-      if cur-matter == "FRONT"    { "" }
-      if cur-matter == "BODY"     { numbering("1.1.1.", ..nums) }
-      if cur-matter == "APPENDIX" { numbering("A.1.1.", ..nums) }
+      if cur-matter == "FRONT"    { "" } else
+      if cur-matter == "BODY"     { numbering("1.1.1.", ..nums) } else
+      if cur-matter == "APPENDIX" { numbering("A.1.1.", ..nums) } else
       if cur-matter == "BACK"     { "" }
     },
     outlined: true,
