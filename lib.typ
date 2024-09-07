@@ -132,7 +132,6 @@
     binding: page-binding,
     columns: 1,
     fill: page-fill,
-    numbering: ""
   )
 
   // Text parameters controlled by input arguments
