@@ -132,7 +132,7 @@
     binding: page-binding,
     columns: 1,
     fill: page-fill,
-    numbering: "i"
+    numbering: ""
   )
 
   // Text parameters controlled by input arguments
@@ -249,7 +249,7 @@
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
   // Title page
-  page(numering: none)[
+  page()[
     #let PARS = (auth-chunk-size: 2, )
     #let MEA = (top-gap: 70pt, )
     // Book Title on Title Page
@@ -300,6 +300,11 @@
       #align(center)[#META.date.display()]
     ]
   ]
+
+  // Page set for the remaining FRONT-MATTER portion
+  set page(
+    numbering: "i",
+  )
 
   // Set front matter mark
   SET-FRONT-MATTER()
