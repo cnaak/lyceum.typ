@@ -34,10 +34,10 @@
   keywords: ("igneous", "rocks", "geology", ),
   date: datetime(year: 2024, month: 9, day: 6), // auto => datetime.today()
   // Document general format
-  page-size: "a5",
+  page-size: (width: 155mm, height: 230mm),
   page-margin: (inside: 30mm, rest: 25mm),
   page-binding: left,
-  page-fill: color.yellow.lighten(80%),
+  page-fill: color.hsl(45deg, 15%, 85%),  // ivory
   text-font: ("EB Garamond", "Linux Libertine"),
   text-size: 12pt,
   lang-name: "en",

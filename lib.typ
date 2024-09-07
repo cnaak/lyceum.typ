@@ -83,7 +83,6 @@
   keywords: ("lyceum", "default"),
   date: auto,
   // Document general format
-  page-paper: none,
   page-size: (width: 155mm, height: 230mm),
   page-margin: (inside: 30mm, rest: 25mm),
   page-binding: left,
@@ -125,28 +124,16 @@
   )
 
   // Page parameters controlled by input arguments
-  if page-paper in (none, auto) {
-    set page(
-      width: page-size.width,
-      height: page-size.height,
-      flipped: false,
-      margin: page-margin,
-      binding: page-binding,
-      columns: 1,
-      fill: page-fill,
-      numbering: "i",
-    )
-  } else {
-    set page(
-      paper: page-paper,
-      flipped: false,
-      margin: page-margin,
-      binding: page-binding,
-      columns: 1,
-      fill: page-fill,
-      numbering: "i",
-    )
-  }
+  set page(
+    width: page-size.width,
+    height: page-size.height,
+    flipped: false,
+    margin: page-margin,
+    binding: page-binding,
+    columns: 1,
+    fill: page-fill,
+    numbering: "i",
+  )
 
   // Text parameters controlled by input arguments
   set text(
