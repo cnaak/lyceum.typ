@@ -83,21 +83,15 @@
   keywords: ("lyceum", "default"),
   date: auto,
   // Document general format
-  the-page: (
-    size: (width: 155mm, height: 230mm), // TODO: paper name
-    margin: (inside: 30mm, rest: 25mm),
-    binding: left,
-    fill-hue: 45deg, // 45deg for ivory-like, TODO: allow for white
-  ),
-  the-text: (
-    font: ("EB Garamond", "Linux Libertine"),
-    size: 12pt,
-  ),
-  lang: (
-    name: "en",
-    chapter: "Chapter",
-    appendix: "Appendix",
-  ),
+  page-size: (width: 155mm, height: 230mm), // TODO: paper name
+  page-margin: (inside: 30mm, rest: 25mm),
+  page-binding: left,
+  page-fill: color.hsl(45deg, 15%, 85%),  // ivory
+  text-font: ("EB Garamond", "Linux Libertine"),
+  text-size: 12pt,
+  lang-name: "en",
+  lang-chapter: "Chapter",
+  lang-appendix: "Appendix",
   /* TODO: place remaining font definitions some place else
   text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
   text-font-serif:   (value: "Garamond Libre", fallback: "Linux Libertine"),
@@ -119,7 +113,7 @@
     affiliated: affiliated,
     keywords: keywords,
     date: date,
-    lang: lang.name,
+    lang: lang-name,
   ))
 
   // Sets up document metadata
@@ -131,22 +125,22 @@
 
   // Page parameters controlled by input arguments
   set page(
-    width: the-page.size.width,
-    height: the-page.size.height,
+    width: page-size.width,
+    height: page-size.height,
     flipped: false,
-    margin: the-page.margin,
-    binding: the-page.binding,
+    margin: page-margin,
+    binding: page-binding,
     columns: 1,
-    fill: color.hsl(the-page.fill-hue, 20%, 80%),
+    fill: page-fill,
   )
 
   // Text parameters controlled by input arguments
   set text(
-    font: the-text.font,
+    font: text-font,
     fallback: true,
     weight: "regular",
-    size: the-text.size,
-    lang: lang.name,
+    size: text-size,
+    lang: lang-name,
   )
 
   set heading(
@@ -164,7 +158,7 @@
     let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
     let MEA = (top-gap: 70pt, sq-side: 60pt, it-hgt: 80pt)
     let COL = (sq-shade: rgb("#00000070"), sq-text: rgb("#000000A0"))
-    let SIZ = (it-siz: 2 * the-text.size, sq-num-size: 0.7 * MEA.sq-side)
+    let SIZ = (it-siz: 2 * text-size, sq-num-size: 0.7 * MEA.sq-side)
     pagebreak(weak: true, to: "odd")
     counter(figure.where(kind: image)).update(0)
     counter(figure.where(kind: table)).update(0)
@@ -194,7 +188,7 @@
                 font: ("EB Garamond", "Linux Libertine"),
                 size: 0.275 * SIZ.sq-num-size,
                 weight: "bold",
-                fill: COL.sq-text)[#lang.chapter]
+                fill: COL.sq-text)[#lang-chapter]
             ]
           ]
         ]
@@ -223,7 +217,7 @@
                 font: ("EB Garamond", "Linux Libertine"),
                 size: 0.275 * SIZ.sq-num-size,
                 weight: "bold",
-                fill: COL.sq-text)[#lang.appendix]
+                fill: COL.sq-text)[#lang-appendix]
             ]
           ]
         ]
@@ -260,7 +254,7 @@
     // Book Title on Title Page
     #v(MEA.top-gap)
     #block(width: 100%,)[
-      #set text(size: (8/3) * the-text.size)
+      #set text(size: (8/3) * text-size)
       #align(center)[*#META.title.value*]
     ]
     #v(4fr)
@@ -270,16 +264,16 @@
       #for the-CHU in CHU {
         grid(
           columns: (1fr,) * the-CHU.len(),
-          gutter: the-text.size,
+          gutter: text-size,
           ..the-CHU.map(
             auth-indx => [
               #align(center)[
-                #set text(size: (4/3) * the-text.size)
+                #set text(size: (4/3) * text-size)
                 *#META.authors.at(auth-indx).name,*
                 *#META.authors.at(auth-indx).given-name* \
-                #set text(size: (3/3) * the-text.size)
+                #set text(size: (3/3) * text-size)
                 #META.authors.at(auth-indx).affiliation \
-                #set text(size: (5/6) * the-text.size)
+                #set text(size: (5/6) * text-size)
                 #raw(META.authors.at(auth-indx).email) \
                 #META.authors.at(auth-indx).location
               ]
@@ -287,21 +281,21 @@
           )
         )
         if the-CHU.last() < CHU.flatten().last() [
-          #v((4/3) * the-text.size)
+          #v((4/3) * text-size)
         ]
       }
     ]
     #v(4fr)
     // Publisher block
     #block(width: 100%,)[
-      #set text(size: the-text.size)
+      #set text(size: text-size)
       #META.publisher, \
       #META.location
     ]
     #v(1fr)
     // Date block
     #block(width: 100%,)[
-      #set text(size: the-text.size)
+      #set text(size: text-size)
       #align(center)[#META.date.display()]
     ]
   ]
