@@ -249,7 +249,7 @@
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
   // Title page
-  page()[
+  page(numering: none)[
     #let PARS = (auth-chunk-size: 2, )
     #let MEA = (top-gap: 70pt, )
     // Book Title on Title Page
