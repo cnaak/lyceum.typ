@@ -373,17 +373,17 @@
   )
   for A in META.authors {
     META.self-bib-entry.push("    - name: " + A.name)
-    META.self-bib-entry.push("      given-name: " + A.given-name)
-    META.self-bib-entry.push("      preffix: " + A.preffix)
-    META.self-bib-entry.push("      suffix: " + A.suffix)
+    if A.given-name.len() > 0 { META.self-bib-entry.push("      given-name: " + A.given-name) }
+    if A.preffix.len() > 0    { META.self-bib-entry.push("      preffix: " + A.preffix) }
+    if A.suffix.len() > 0     { META.self-bib-entry.push("      suffix: " + A.suffix) }
   }
   if "editors" in META and META.editors.len() > 0 {
     META.self-bib-entry.push("  editor:")
     for E in META.editors {
       META.self-bib-entry.push("    - name: " + E.name)
-      META.self-bib-entry.push("      given-name: " + E.given-name)
-      META.self-bib-entry.push("      preffix: " + E.preffix)
-      META.self-bib-entry.push("      suffix: " + E.suffix)
+      if E.given-name.len() > 0 { META.self-bib-entry.push("      given-name: " + E.given-name) }
+      if E.preffix.len() > 0    { META.self-bib-entry.push("      preffix: " + E.preffix) }
+      if E.suffix.len() > 0     { META.self-bib-entry.push("      suffix: " + E.suffix) }
     }
   }
   META.self-bib-entry.push("  publisher: " + META.publisher)
