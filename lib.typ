@@ -163,7 +163,7 @@
   )
 
   set heading(
-    numbering: context {
+    numbering: (..nums) => context {
       let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
       if cur-matter == "FRONT"    { none }
       if cur-matter == "BODY"     { "1.1.1." }
