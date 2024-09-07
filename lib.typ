@@ -18,6 +18,7 @@
   assert("BODY" not in values-before-here,
     message: "[lyceum]: can't SET-BODY-MATTER() more than once")
   counter(heading).update(0)
+  [#pagebreak(weak: true)] // As to insert the metadata AFTER the last FRONT-MATTER page
   [#metadata("BODY")<lyceum-matter>]
 }
 
