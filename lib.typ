@@ -140,7 +140,7 @@
       // Format page footer accordingly
       if cur-matter == "FRONT" {
         // Only prints page number after the titlepage
-        if cur-page-number > 1 [
+        if cur-page-number > 0 [
           #align(center + horizon)[
             #numbering("\u{2013} i \u{2013}", cur-page-number)
           ]
