@@ -140,7 +140,7 @@
       // Format page footer accordingly
       if cur-matter == "FRONT" {
         // Only prints page number after the titlepage
-        if cur-page-number > 0 [
+        if cur-page-number > 1 [
           #align(center + horizon)[
             #numbering("\u{2013} i \u{2013}", cur-page-number)
           ]
@@ -150,6 +150,30 @@
           #numbering("\u{2013} 1 \u{2013}", cur-page-number)
         ]
       ]
+    }
+    header: context {
+      // Get current page number and matter
+      let cur-page-number = counter(page).at(here()).first()
+      let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
+      // Format page header accordingly
+      if cur-matter in ("FRONT", "BACK") [] else {
+        // Only prints header in non-chapter pages
+        let main-headings = query(heading.where(level: 1))
+        let past-headings = query(heading.where(level: 1).before(here()))
+        let cur-main-hdng = past-headings.last()
+        let cur-hd-output = smallcaps(
+          if cur-main-hdng.body.len() > 36 [
+            #cur-main-hdng.body.slice(0, count: 36)...
+          ] else [#cur-main-hdng.body]
+        )
+        if main-headings.all(it => it.location().page() != cur-page-number) {
+          if calc.odd(cur-page-number) [
+            #cur-hd-output #h(1fr) #cur-page-number
+          ] else [
+            #cur-page-number #h(1fr) #cur-hd-output
+          ]
+        }
+      }
     }
   )
 
