@@ -167,17 +167,16 @@
         let main-headings = query(heading.where(level: 1))
         let past-headings = query(heading.where(level: 1).before(here()))
         let cur-main-hdng = past-headings.last()
-        let cur-hd-output = smallcaps(
-          if cur-main-hdng.body.len() > 36 [
-            #cur-main-hdng.body.slice(0, count: 36)...
-          ] else [#cur-main-hdng.body]
-        )
         if main-headings.all(it => it.location().page() != cur-page-number) {
-          if calc.odd(cur-page-number) [
-            #cur-hd-output #h(1fr) #cur-page-number
-          ] else [
-            #cur-page-number #h(1fr) #cur-hd-output
-          ]
+          if calc.odd(cur-page-number) {
+            #block(width: 100%, height: (3/2)*text-size)[
+              #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
+            ]
+          } else {
+            #block(width: 100%, height: (3/2)*text-size)[
+              #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
+            ]
+          }
         }
       }
     }
