@@ -150,7 +150,7 @@
           #numbering("\u{2013} 1 \u{2013}", cur-page-number)
         ]
       ]
-    }
+    },
     header: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
