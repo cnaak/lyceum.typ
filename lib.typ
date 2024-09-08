@@ -138,7 +138,7 @@
       let cur-page-number = counter(page).at(here()).first()
       let past-matters = query(selector(<lyceum-matter>).before(here()))
       let cur-matter = if past-matters.len() > 0 {
-        past-maters.last().value
+        past-matters.last().value
       } else { "FRONT" }
       // Format page footer accordingly
       if cur-matter == "FRONT" {
@@ -159,7 +159,7 @@
       let cur-page-number = counter(page).at(here()).first()
       let past-matters = query(selector(<lyceum-matter>).before(here()))
       let cur-matter = if past-matters.len() > 0 {
-        past-maters.last().value
+        past-matters.last().value
       } else { "FRONT" }
       // Format page header accordingly
       if cur-matter in ("FRONT", "BACK") [] else {
