@@ -187,7 +187,7 @@
   set par(
     leading: 0.65em,
     justify: true,
-    line-breaks: "optimized",
+    linebreaks: "optimized",
     first-line-indent: par-indent,
     hanging-indent: 0pt,
   )
