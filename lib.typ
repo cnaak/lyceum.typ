@@ -93,6 +93,7 @@
   lang-name: "en",
   lang-chapter: "Chapter",
   lang-appendix: "Appendix",
+  par-indent: 12mm,
   /* TODO: place remaining font definitions some place else
   text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
   text-font-serif:   (value: "Garamond Libre", fallback: "Linux Libertine"),
@@ -180,6 +181,15 @@
         }
       }
     }
+  )
+
+  // Paragraph settings
+  set par(
+    leading: 0.65em,
+    justify: true,
+    line-breaks: "optimized",
+    first-line-indent: par-indent,
+    hanging-indent: 0pt,
   )
 
   // Text parameters controlled by input arguments
