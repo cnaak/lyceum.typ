@@ -204,7 +204,8 @@
   set heading(
     /* THIS works in BODY fails in APPENDIX and in the OUTLINE
     numbering: "1.1.1.", */
-    /* THIS works in BODY fails in APPENDIX and in the OUTLINE */
+    /* Because of `context`, this returns `content` (rathen than `string`), thus issuing:
+     * error: expected string, function, or none, found content
     numbering: context {
       let past-matters = query(selector(<lyceum-matter>).before(here()))
       let cur-matter = if past-matters.len() > 0 {
@@ -217,10 +218,12 @@
       } else if cur-matter in ("APPENDIX",) {
         "A.1.1"
       }
-    },
-    /*
+    },*/
     numbering: (..nums) => context {
-      let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
+      let past-matters = query(selector(<lyceum-matter>).before(here()))
+      let cur-matter = if past-matters.len() > 0 {
+        past-matters.last().value
+      } else { "FRONT" }
       if cur-matter == "FRONT" {
         ""
       } else if cur-matter == "BODY" {
@@ -231,7 +234,6 @@
         ""
       }
     },
-    */
     outlined: true,
   )
 
