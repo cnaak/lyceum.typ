@@ -142,12 +142,12 @@
         // Only prints page number after the titlepage
         if cur-page-number > 1 [
           #align(center + horizon)[
-            #numbering("i", cur-page-number)
+            #numbering("\u{2013} i \u{2013}", cur-page-number)
           ]
         ] else []
       } else [
         #align(center + horizon)[
-          #numbering("\u{2014} 1 \u{2014}", cur-page-number)
+          #numbering("\u{2013} 1 \u{2013}", cur-page-number)
         ]
       ]
     }
