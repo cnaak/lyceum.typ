@@ -136,7 +136,10 @@
     footer: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
-      let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
+      let past-matters = query(selector(<lyceum-matter>).before(here()))
+      let cur-matter = if past-matters.len() > 0 {
+        past-maters.last().value
+      } else { "FRONT" }
       // Format page footer accordingly
       if cur-matter == "FRONT" {
         // Only prints page number after the titlepage
@@ -154,7 +157,10 @@
     header: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
-      let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
+      let past-matters = query(selector(<lyceum-matter>).before(here()))
+      let cur-matter = if past-matters.len() > 0 {
+        past-maters.last().value
+      } else { "FRONT" }
       // Format page header accordingly
       if cur-matter in ("FRONT", "BACK") [] else {
         // Only prints header in non-chapter pages
