@@ -50,6 +50,8 @@
 
 Here goes the book preface.
 
+#lorem(50)
+
 = Contents
 #outline(title: none)
 
@@ -60,13 +62,21 @@ Here goes the book preface.
 
 Now this is a regular chapter.
 
-== Motivation
+#lorem(60)
 
-Subsection text.
+== Section
+
+#lorem(70)
 
 = Rock Properties
 
 A second chapter.
+
+#lorem(70)
+
+== Section
+
+#lorem(60)
 
 // Appendices should be placed in APPENDIX
 #SET-APPENDIX()
@@ -75,9 +85,13 @@ A second chapter.
 
 This is an Appendix.
 
+#lorem(30)
+
 == Inorganic Salts
 
 Subsection text.
+
+#lorem(100)
 
 // Bibliography and Indices should be placed in BACK-MATTER
 #SET-BACK-MATTER()

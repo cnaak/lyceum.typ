@@ -169,11 +169,11 @@
         let cur-main-hdng = past-headings.last()
         if main-headings.all(it => it.location().page() != cur-page-number) {
           if calc.odd(cur-page-number) {
-            #block(width: 100%, height: (3/2)*text-size)[
+            block(width: 100%, height: (3/2)*text-size)[
               #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
             ]
           } else {
-            #block(width: 100%, height: (3/2)*text-size)[
+            block(width: 100%, height: (3/2)*text-size)[
               #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
             ]
           }
