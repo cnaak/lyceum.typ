@@ -202,7 +202,21 @@
   )
 
   set heading(
-    numbering: "1.1.1.",
+    /* THIS works in BODY fails in APPENDIX and in the OUTLINE
+    numbering: "1.1.1.", */
+    numbering: context {
+      let past-matters = query(selector(<lyceum-matter>).before(here()))
+      let cur-matter = if past-matters.len() > 0 {
+        past-matters.last().value
+      } else { "FRONT" }
+      if cur-matter in ("FRONT", "BACK") {
+        ""
+      } else if cur-matter in ("BODY",) {
+        "1.1.1"
+      } else in cur-matter in ("APPENDIX",) {
+        "A.1.1"
+      }
+    },
     /*
     numbering: (..nums) => context {
       let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
