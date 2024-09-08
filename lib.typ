@@ -202,6 +202,8 @@
   )
 
   set heading(
+    numbering: "1.1.1.",
+    /*
     numbering: (..nums) => context {
       let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
       if cur-matter == "FRONT" {
@@ -214,6 +216,7 @@
         ""
       }
     },
+    */
     outlined: true,
   )
 
