@@ -55,7 +55,6 @@
   let matter-before-here = query(selector(<lyceum-matter>).before(here()))
   assert.eq(matter-before-here.len(), 0,
     message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
-  [#metadata("FRONT")<lyceum-matter>]
 
   // Stateful stuff
   let PARS = state(
@@ -92,6 +91,9 @@
     author: AUTHORS.join(" and "),
     keywords: META.keywords,
   )
+
+  // AFTER document set
+  [#metadata("FRONT")<lyceum-matter>]
 
   // Page parameters controlled by input arguments
   set page(
