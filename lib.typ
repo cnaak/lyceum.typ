@@ -329,7 +329,6 @@
   assert("BODY" not in values-before-here,
     message: "[lyceum]: can't BODY-MATTER() more than once")
   counter(heading).update(0)
-  counter(page).update(1)
 
   // Page settings adjustments
   let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
@@ -379,6 +378,7 @@
   )
 
   // Writes metadata AFTER change in page specs, which engenders automatic page breaking
+  counter(page).update(0)
   [#metadata("BODY")<lyceum-matter>]
 
   // Book body material
