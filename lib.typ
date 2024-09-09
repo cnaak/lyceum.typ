@@ -319,7 +319,7 @@
     numbering: "1",
     number-align: center,
     header: context {
-      // Get current page number and matter
+      // Get current page number
       let cur-page-number = counter(page).at(here()).first()
       // Only prints header in non-chapter pages
       let main-headings = query(heading.where(level: 1))
@@ -338,7 +338,8 @@
       }
     },
     footer: context {
-      // Get current page number and matter
+      // Get current page number
+      let cur-page-number = counter(page).at(here()).first()
       align(center + horizon)[
         #numbering("1", cur-page-number)
       ]
