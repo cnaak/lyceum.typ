@@ -99,7 +99,6 @@
     binding: page-binding,
     columns: 1,
     fill: page-fill,
-    numbering: auto,
     footer: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
