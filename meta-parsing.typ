@@ -132,15 +132,48 @@
   let META = (:)
 
   // META.title
-  if "title" in meta {
+  if type(meta.title) == dictionary {
     META.title = dict-from(
       meta.title, keys: (
         "value",
+        "title",
+        "subtitle",
+        "sep",
         "short",
       )
     )
-  } else {
-    META.title = dict-from(none, keys: ("value", "short"))
+    if META.title.title.len() > 0 {
+      if META.title.subtitle.len() > 0 {
+        META.title.value = (META.title.title, META.title.subtitle).join(META.title.sep)
+      } else {
+        META.title.value = META.title.title
+      }
+    }
+    if META.title.short.len() == 0 {
+      let title-words = META.title.title.split(" ")
+      META.title.short = title-words.at(0) + "-" + initials-of(
+        title.words.slice(1, title-words.len())
+      )
+    }
+  } else if type(meta.title) == type("") {
+    META.title = dict-from(
+      meta.title, keys: (
+        "value",
+        "title",
+        "subtitle",
+        "sep",
+        "short",
+      )
+    )
+    if META.title.title.len() == 0 {
+      META.title.title = META.title.value
+    }
+    if META.title.short.len() == 0 {
+      let title-words = META.title.title.split(" ")
+      META.title.short = title-words.at(0) + "-" + initials-of(
+        title.words.slice(1, title-words.len())
+      )
+    }
   }
 
   // META.authors - Pass 1

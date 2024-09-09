@@ -1,10 +1,16 @@
 // #import "@preview/lyceum:0.0.1": lyceum
-#import "@local/lyceum:0.0.1": lyceum, SET-BODY-MATTER, SET-APPENDIX, SET-BACK-MATTER
+#import "@local/lyceum:0.0.1": FRONT-MATTER, BODY-MATTER, APPENDIX, BACK-MATTER
 
-#show: lyceum.with(
+
+//----------------------------------------------------------------------------//
+//                                FRONT-MATTER                                //
+//----------------------------------------------------------------------------//
+
+#show: FRONT-MATTER.with(
   // Document metadata
   title: (
-    value: "Igneous Rocks \u{2013} The Hard Science",
+    title: "Igneous Rocks",
+    subtitle: "The Hard Science",
     short: "Igneous Rocks",
   ),
   authors: (
@@ -43,8 +49,7 @@
   lang-name: "en",
 )
 
-// The lyceum auto-generates the title page
-// and enters FRONT-MATTER styling
+// The lyceum auto-generates the title page and enters FRONT-MATTER styling
 
 = Preface
 
@@ -53,10 +58,20 @@ Here goes the book preface.
 #lorem(50)
 
 = Contents
+
 #outline(title: none)
 
-// Book contents should be placed in BODY-MATTER
-#SET-BODY-MATTER()
+
+//----------------------------------------------------------------------------//
+//                                BODY-MATTER                                 //
+//----------------------------------------------------------------------------//
+
+#show: doc => BODY-MATTER(doc)
+
+
+//············································································//
+//                                  Chapter                                   //
+//············································································//
 
 = Introduction
 
@@ -66,7 +81,15 @@ Now this is a regular chapter.
 
 == Section
 
-#lorem(70)
+#lorem(200)
+
+== Section
+
+#lorem(200)
+
+//············································································//
+//                                  Chapter                                   //
+//············································································//
 
 = Rock Properties
 
@@ -78,8 +101,19 @@ A second chapter.
 
 #lorem(60)
 
-// Appendices should be placed in APPENDIX
-#SET-APPENDIX()
+#lorem(200)
+
+
+//----------------------------------------------------------------------------//
+//                                  APPENDIX                                  //
+//----------------------------------------------------------------------------//
+
+#show: doc => APPENDIX(doc)
+
+
+//············································································//
+//                              Appendix Chapter                              //
+//············································································//
 
 = Tables of Properties of Igneous Rocks
 
@@ -93,29 +127,72 @@ Subsection text.
 
 #lorem(100)
 
-// Bibliography and Indices should be placed in BACK-MATTER
-#SET-BACK-MATTER()
+#lorem(200)
+
+//············································································//
+//                              Appendix Chapter                              //
+//············································································//
+
+= Tables of Properties of Other Rocks
+
+This is an Appendix.
+
+#lorem(30)
+
+== Inorganic Salts
+
+Subsection text.
+
+#lorem(100)
+
+#lorem(200)
+
+== Organic Salts
+
+Subsection text.
+
+#lorem(100)
+
+#lorem(200)
+
+
+//----------------------------------------------------------------------------//
+//                                BACK-MATTER                                 //
+//----------------------------------------------------------------------------//
+
+#show: doc => BACK-MATTER(doc)
+
+
+//············································································//
+//                                Back Chapter                                //
+//············································································//
 
 = Bibliography
 
 Here goes the bibliography.
 
+//············································································//
+//                                Back Chapter                                //
+//············································································//
+
 = Subject Index
 
 Here goes the subject index.
 
-= Citing This Book
+//············································································//
+//                                Back Chapter                                //
+//············································································//
 
-/* The `lyceum` package auto-generates self-citation information. It is available as document
-`metadata` accessible by Typst's introspection system: */
+= Citing This Book
 
 The following is the _auto-generated_, self bibliography database entry for the `hayagriva`
 manager:
 
-#{
-  let self-bib = context query(<self-bib-entry>).first().value
-  set par(leading: 0.5em)
-  set text(font: "Inconsolata", size: 9pt, weight: "bold", fill: color.blue.darken(50%))
-  self-bib
-}
+#block(width: 100%)[
+  #let self-bib = context query(<self-bib-entry>).first().value
+  #set par(leading: 0.5em)
+  #text(font: "Inconsolata", size: 9pt, weight: "bold", fill: color.blue.darken(50%))[
+    #self-bib
+  ]
+]
 
