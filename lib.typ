@@ -77,9 +77,11 @@
   )
 
   // Assertions and matter-data
-  let matter-before-here = context query(selector(<lyceum-matter>).before(here()))
-  assert.eq(matter-before-here.len(), 0,
-    message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
+  context {
+    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+    assert.eq(matter-before-here.len(), 0,
+      message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
+  }
 
   // Page parameters controlled by input arguments
   set page(
