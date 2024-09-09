@@ -405,13 +405,12 @@
     footer: [],
   )[
     #let MEA = (top-gap: 70pt, )
-    #let MAIN-PARS = context state("PARS").get()
-    #let text-size = MAIN-PARS.text-size
-    #let the-appendix = MAIN-PARS.lang-appendix
+    #let text-size = context state("PARS").get().text-size
+    #let lang-appendix = context state("PARS").get().lang-appendix
     #v(MEA.top-gap)
     #block(width: 100%,)[
       #set text(size: (8/3) * text-size)
-      #align(center)[*#the-appendix*]
+      #align(center)[*#lang-appendix*]
     ]
     #v(1fr)
   ]
