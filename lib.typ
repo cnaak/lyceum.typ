@@ -99,6 +99,7 @@
     binding: page-binding,
     columns: 1,
     fill: page-fill,
+    numbering: "\u{2013} i \u{2013}",
     footer: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
