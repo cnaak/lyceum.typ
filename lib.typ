@@ -492,15 +492,17 @@
   back-matter-material
 ) = {
   // Assertions and matter-data
-  let matter-before-here = context query(selector(<lyceum-matter>).before(here()))
-  let values-before-here = ()
-  for elem in matter-before-here {
-    values-before-here.push(elem.value)
+  context {
+    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+    let values-before-here = ()
+    for elem in matter-before-here {
+      values-before-here.push(elem.value)
+    }
+    assert("BODY" in values-before-here,
+      message: "[lyceum]: BACK-MATTER() must follow BODY-MATTER()")
+    assert("BACK" not in values-before-here,
+      message: "[lyceum]: can't BACK-MATTER() more than once")
   }
-  assert("BODY" in values-before-here,
-    message: "[lyceum]: BACK-MATTER() must follow BODY-MATTER()")
-  assert("BACK" not in values-before-here,
-    message: "[lyceum]: can't BACK-MATTER() more than once")
 
   // Page settings adjustments
   set page(
