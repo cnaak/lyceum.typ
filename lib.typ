@@ -1,56 +1,11 @@
 #import "meta-parsing.typ": meta-parse
 
-#let SET-FRONT-MATTER() = context {
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-  assert.eq(matter-before-here.len(), 0,
-    message: "[lyceum]: can't SET-FRONT-MATTER() more than once")
-  [#metadata("FRONT")<lyceum-matter>]
-}
 
-#let SET-BODY-MATTER() = context {
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-  let values-before-here = ()
-  for elem in matter-before-here {
-    values-before-here.push(elem.value)
-  }
-  assert("FRONT" in values-before-here,
-    message: "[lyceum]: SET-BODY-MATTER() must follow SET-FRONT-MATTER()")
-  assert("BODY" not in values-before-here,
-    message: "[lyceum]: can't SET-BODY-MATTER() more than once")
-  counter(heading).update(0)
-  [#pagebreak(weak: true)] // As to insert the metadata AFTER the last FRONT-MATTER page
-  [#metadata("BODY")<lyceum-matter>]
-}
+//--------------------------------------------------------------------------------------------//
+//                            Fundamental, Front-Matter show rule                             //
+//--------------------------------------------------------------------------------------------//
 
-#let SET-APPENDIX() = context {
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-  let values-before-here = ()
-  for elem in matter-before-here {
-    values-before-here.push(elem.value)
-  }
-  assert("BODY" in values-before-here,
-    message: "[lyceum]: SET-APPENDIX() must follow SET-BODY-MATTER()")
-  assert("APPENDIX" not in values-before-here,
-    message: "[lyceum]: can't SET-APPENDIX() more than once")
-  counter(heading).update(0)
-  [#metadata("APPENDIX")<lyceum-matter>]
-}
-
-#let SET-BACK-MATTER() = context {
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-  let values-before-here = ()
-  for elem in matter-before-here {
-    values-before-here.push(elem.value)
-  }
-  assert("BODY" in values-before-here,
-    message: "[lyceum]: SET-BACK-MATTER() must follow SET-BODY-MATTER()")
-  assert("BACK" not in values-before-here,
-    message: "[lyceum]: can't SET-BACK-MATTER() more than once")
-  [#metadata("BACK")<lyceum-matter>]
-}
-
-
-#let lyceum(
+#let FRONT-MATTER(
   // Document metadata
   title: (value: "Default Lyceum Title", short: "Default"),
   authors: (
@@ -94,17 +49,30 @@
   lang-chapter: "Chapter",
   lang-appendix: "Appendix",
   par-indent: 12mm,
-  /* TODO: place remaining font definitions some place else
-  text-font-display: (value: "Neuton", fallback: "Linux Libertine Display"),
-  text-font-serif:   (value: "Garamond Libre", fallback: "Linux Libertine"),
-  text-font-serif-2: (value: "Alegreya", fallback: "Crimson Pro"),
-  text-font-sans:    (value: "Fira Sans", fallback: "Liberation Sans"),
-  text-font-mono:    (value: "JuliaMono", fallback: "Inconsolata"),
-  text-font-greek:   (value: "SBL BibLit", fallback: "Linux Libertine"),
-  text-font-math:    (value: "TeX Gyre Termes Math", fallback: "TeX Gyre Termes Math"),
-  */
-  body
-) = {
+  front-matter-material
+) = context {
+  // Assertions and matter-data
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  assert.eq(matter-before-here.len(), 0,
+    message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
+  [#metadata("FRONT")<lyceum-matter>]
+
+  // Stateful stuff
+  let PARS = state(
+    "PARS", (
+      page-size:      page-size,
+      page-margin:    page-margin,
+      page-binding:   page-binding,
+      page-fill:      page-fill,
+      text-font:      text-font,
+      text-size:      text-size,
+      lang-name:      lang-name,
+      lang-chapter:   lang-chapter,
+      lang-appendix:  lang-appendix,
+      par-indent:     par-indent,
+    )
+  )
+
   // Parse metadata information
   let (META, AUTHORS) = meta-parse((
     title: title,
@@ -137,50 +105,13 @@
     footer: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
-      let past-matters = query(selector(<lyceum-matter>).before(here()))
-      let cur-matter = if past-matters.len() > 0 {
-        past-matters.last().value
-      } else { "FRONT" }
-      // Format page footer accordingly
-      if cur-matter == "FRONT" {
-        // Only prints page number after the titlepage
-        if cur-page-number > 1 [
-          #align(center + horizon)[
-            #numbering("\u{2013} i \u{2013}", cur-page-number)
-          ]
-        ] else []
-      } else [
+      if cur-page-number > 1 [
         #align(center + horizon)[
-          #numbering("\u{2013} 1 \u{2013}", cur-page-number)
+          #numbering("\u{2013} i \u{2013}", cur-page-number)
         ]
-      ]
+      ] else []
     },
-    header: context {
-      // Get current page number and matter
-      let cur-page-number = counter(page).at(here()).first()
-      let past-matters = query(selector(<lyceum-matter>).before(here()))
-      let cur-matter = if past-matters.len() > 0 {
-        past-matters.last().value
-      } else { "FRONT" }
-      // Format page header accordingly
-      if cur-matter in ("FRONT", "BACK") [] else {
-        // Only prints header in non-chapter pages
-        let main-headings = query(heading.where(level: 1))
-        let past-headings = query(heading.where(level: 1).before(here()))
-        let cur-main-hdng = past-headings.last()
-        if main-headings.all(it => it.location().page() != cur-page-number) {
-          if calc.odd(cur-page-number) {
-            block(width: 100%, height: (3/2)*text-size)[
-              #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
-            ]
-          } else {
-            block(width: 100%, height: (3/2)*text-size)[
-              #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
-            ]
-          }
-        }
-      }
-    }
+    header: [],
   )
 
   // Paragraph settings
@@ -201,42 +132,14 @@
     lang: lang-name,
   )
 
+  // Heading numbering and outlining controls
   set heading(
-    /* THIS works in BODY fails in APPENDIX and in the OUTLINE
-    numbering: "1.1.1.", */
-    /* Because of `context`, this returns `content` (rathen than `string`), thus issuing:
-     * error: expected string, function, or none, found content
-    numbering: context {
-      let past-matters = query(selector(<lyceum-matter>).before(here()))
-      let cur-matter = if past-matters.len() > 0 {
-        past-matters.last().value
-      } else { "FRONT" }
-      if cur-matter in ("FRONT", "BACK") {
-        ""
-      } else if cur-matter in ("BODY",) {
-        "1.1.1"
-      } else if cur-matter in ("APPENDIX",) {
-        "A.1.1"
-      }
-    },*/
-    numbering: (..nums) => context {
-      let past-matters = query(selector(<lyceum-matter>).before(here()))
-      let cur-matter = if past-matters.len() > 0 {
-        past-matters.last().value
-      } else { "FRONT" }
-      if cur-matter == "FRONT" {
-        ""
-      } else if cur-matter == "BODY" {
-        numbering("1.1.1", ..nums)  // TODO TODO: find out why isn't this working
-      } else if cur-matter == "APPENDIX" {
-        numbering("A.1.1", ..nums)
-      } else if cur-matter == "BACK" {
-        ""
-      }
-    },
+    numbering: "",
     outlined: true,
   )
 
+  // This is what's left of the "smart" scheme, which failed to produce thedesired effects
+  // Since it's smart, it need to be defined only once in the document
   show heading.where(level: 1): it => context {
     let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
     let MEA = (top-gap: 70pt, sq-side: 60pt, it-hgt: 80pt)
@@ -317,10 +220,6 @@
     }
   }
 
-  //--------------------------------------------------------------------------------//
-  //                                  Front Matter                                  //
-  //--------------------------------------------------------------------------------//
-
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
 
@@ -386,11 +285,203 @@
     ]
   ]
 
-  // Set front matter mark
-  SET-FRONT-MATTER()
-
-  // Document body
-  body
+  // Front-matter material
+  front-matter-material
 }
+
+
+//--------------------------------------------------------------------------------------------//
+//                                   Body-Matter show rule                                    //
+//--------------------------------------------------------------------------------------------//
+
+#let BODY-MATTER(
+  par-indent: 12mm,
+  body-matter-material
+) = context {
+  // Assertions and matter-data
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let values-before-here = ()
+  for elem in matter-before-here {
+    values-before-here.push(elem.value)
+  }
+  assert("FRONT" in values-before-here,
+    message: "[lyceum]: BODY-MATTER() must follow FRONT-MATTER()")
+  assert("BODY" not in values-before-here,
+    message: "[lyceum]: can't BODY-MATTER() more than once")
+  counter(heading).update(0)
+
+  // Page settings adjustments
+  set page(
+    header: context {
+      // Get current page number and matter
+      let cur-page-number = counter(page).at(here()).first()
+      // Only prints header in non-chapter pages
+      let main-headings = query(heading.where(level: 1))
+      let past-headings = query(heading.where(level: 1).before(here()))
+      let cur-main-hdng = past-headings.last()
+      if main-headings.all(it => it.location().page() != cur-page-number) {
+        if calc.odd(cur-page-number) {
+          block(width: 100%, height: (3/2)*text-size)[
+            #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
+          ]
+        } else {
+          block(width: 100%, height: (3/2)*text-size)[
+            #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
+          ]
+        }
+      }
+    },
+    footer: context {
+      // Get current page number and matter
+      let cur-page-number = counter(page).at(here()).first()
+      align(center + horizon)[
+        #numbering("\u{2013} 1 \u{2013}", cur-page-number)
+      ]
+    },
+  )
+
+  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
+  [#metadata("BODY")<lyceum-matter>]
+
+  // Paragraph settings
+  set par(
+    first-line-indent: par-indent,
+  )
+
+  // Text parameters controlled by input arguments
+  // --- Unnecesssary ---
+
+  // Heading numbering and outlining controls
+  set heading(
+    numbering: "1.1.1.",
+    outlined: true,
+  )
+
+  // Book body material
+  body-matter-material
+}
+
+
+//--------------------------------------------------------------------------------------------//
+//                                Optional, Appendix show rule                                //
+//--------------------------------------------------------------------------------------------//
+
+#let APPENDIX(
+  par-indent: 12mm,
+  appendix-material
+) = context {
+  // Assertions and matter-data
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let values-before-here = ()
+  for elem in matter-before-here {
+    values-before-here.push(elem.value)
+  }
+  assert("BODY" == values-before-here.last(),
+    message: "[lyceum]: APPENDIX() show rule must immediately follow BODY-MATTER() show rule")
+  assert("APPENDIX" not in values-before-here,
+    message: "[lyceum]: can't APPENDIX() more than once")
+  counter(heading).update(0)
+
+  // Page settings adjustments
+  set page(
+    footer: context {
+      // Get current page number and matter
+      let cur-page-number = counter(page).at(here()).first()
+      align(center + horizon)[
+        #numbering("\u{2013} (1) \u{2013}", cur-page-number)
+      ]
+    },
+  )
+
+  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
+  [#metadata("APPENDIX")<lyceum-matter>]
+
+  // Appendix Page
+  pagebreak(weak: true, to: "odd")
+  page(
+    header: [],
+    footer: [],
+  )[
+    #let MEA = (top-gap: 70pt, )
+    #let the-appendix = context state("PARS").get().lang-appendix
+    #v(MEA.top-gap)
+    #block(width: 100%,)[
+      #set text(size: (8/3) * text-size)
+      #align(center)[*#the-appendix*]
+    ]
+    #v(1fr)
+  ]
+
+  // Paragraph settings
+  set par(
+    first-line-indent: par-indent,
+  )
+
+  // Text parameters controlled by input arguments
+  // --- Unnecesssary ---
+
+  // Heading numbering and outlining controls
+  set heading(
+    numbering: "A.1.1.",
+    outlined: true,
+  )
+
+  // Appendix material
+  appendix-material
+}
+
+
+//--------------------------------------------------------------------------------------------//
+//                              Optional, Back-matter show rule                               //
+//--------------------------------------------------------------------------------------------//
+
+#let BACK-MATTER(
+  par-indent: 12mm,
+  back-matter-material
+) = context {
+  // Assertions and matter-data
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let values-before-here = ()
+  for elem in matter-before-here {
+    values-before-here.push(elem.value)
+  }
+  assert("BODY" in values-before-here,
+    message: "[lyceum]: BACK-MATTER() must follow BODY-MATTER()")
+  assert("BACK" not in values-before-here,
+    message: "[lyceum]: can't BACK-MATTER() more than once")
+
+  // Page settings adjustments
+  set page(
+    header: [],
+    footer: context {
+      // Get current page number and matter
+      let cur-page-number = counter(page).at(here()).first()
+      align(center + horizon)[
+        #numbering("\u{2013} (i) \u{2013}", cur-page-number)
+      ]
+    },
+  )
+
+  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
+  [#metadata("BACK")<lyceum-matter>]
+
+  // Paragraph settings
+  set par(
+    first-line-indent: par-indent,
+  )
+
+  // Text parameters controlled by input arguments
+  // --- Unnecesssary ---
+
+  // Heading numbering and outlining controls
+  set heading(
+    numbering: "",
+    outlined: true,
+  )
+
+  // back-matter material
+  back-matter-material
+}
+
 
 
