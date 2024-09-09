@@ -7,7 +7,12 @@
 
 #let FRONT-MATTER(
   // Document metadata
-  title: (value: "Default Lyceum Title", short: "Default"),
+  title: (
+    title: "Default Lyceum Title",
+    subtitle: "A Default Exposition",
+    sep: " \u{2014} ",
+    short: "Default",
+  ),
   authors: (
     (
       preffix: "Dr.",
@@ -241,10 +246,22 @@
     #let MEA = (top-gap: 70pt, )
     // Book Title on Title Page
     #v(MEA.top-gap)
-    #block(width: 100%,)[
-      #set text(size: (8/3) * text-size)
-      #align(center)[*#META.title.value*]
-    ]
+    #if META.title.title.len() > 0 {
+      if META.title.subtitle.len() > 0 {
+        block(width: 100%,)[
+          #align(center, text(size: (8/3) * text-size)[*#META.title.title* \ ])
+          #align(center, text(size: (6/3) * text-size)[*#META.title.subtitle*])
+        ]
+      } else {
+        block(width: 100%,)[
+          #align(center, text(size: (8/3) * text-size)[*#META.title.title*])
+        ]
+      }
+    } else {
+      block(width: 100%,)[
+        #align(center, text(size: (8/3) * text-size)[*#META.title.value*])
+      ]
+    }
     #v(4fr)
     // First Author on Title Page
     #block(width: 100%,)[
