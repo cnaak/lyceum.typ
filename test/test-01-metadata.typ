@@ -1,6 +1,6 @@
 #import "@local/lyceum:0.0.1": *
 
-#show: lyceum.with()
+#show: FRONT-MATTER.with()
 
 = Metadata
 
