@@ -338,7 +338,7 @@
       }
     },
     footer: context {
-      // Get current page number
+      // get current page number
       let cur-page-number = counter(page).at(here()).first()
       align(center + horizon)[
         #numbering("1", cur-page-number)
@@ -412,6 +412,13 @@
         }
       }
     },
+    footer: context {
+      // get current page number
+      let cur-page-number = counter(page).at(here()).first()
+      align(center + horizon)[
+        #numbering("1", cur-page-number)
+      ]
+    },
   )
 
   // Paragraph settings
@@ -480,6 +487,13 @@
     numbering: "1",
     number-align: center,
     header: [],
+    footer: context {
+      // get current page number
+      let cur-page-number = counter(page).at(here()).first()
+      align(center + horizon)[
+        #numbering("1", cur-page-number)
+      ]
+    },
   )
 
   // Paragraph settings
