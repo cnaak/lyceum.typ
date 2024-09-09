@@ -90,9 +90,6 @@
     par-indent:     par-indent,
   )
 
-  // AFTER document set
-  [#metadata("FRONT")<lyceum-matter>]
-
   // Page parameters controlled by input arguments
   set page(
     width: page-size.width,
@@ -219,6 +216,9 @@
       block(width: 100%, height: MEA.it-hgt)[#it.body]
     }
   }
+
+  // AFTER document set
+  [#metadata("FRONT")<lyceum-matter>]
 
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
