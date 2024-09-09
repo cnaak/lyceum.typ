@@ -321,15 +321,17 @@
   body-matter-material
 ) = {
   // Assertions and matter-data
-  let matter-before-here = context query(selector(<lyceum-matter>).before(here()))
-  let values-before-here = ()
-  for elem in matter-before-here {
-    values-before-here.push(elem.value)
+  context {
+    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+    let values-before-here = ()
+    for elem in matter-before-here {
+      values-before-here.push(elem.value)
+    }
+    assert("FRONT" in values-before-here,
+      message: "[lyceum]: BODY-MATTER() must follow FRONT-MATTER()")
+    assert("BODY" not in values-before-here,
+      message: "[lyceum]: can't BODY-MATTER() more than once")
   }
-  assert("FRONT" in values-before-here,
-    message: "[lyceum]: BODY-MATTER() must follow FRONT-MATTER()")
-  assert("BODY" not in values-before-here,
-    message: "[lyceum]: can't BODY-MATTER() more than once")
   counter(heading).update(0)
 
   // Page settings adjustments
@@ -397,15 +399,17 @@
   appendix-material
 ) = {
   // Assertions and matter-data
-  let matter-before-here = context query(selector(<lyceum-matter>).before(here()))
-  let values-before-here = ()
-  for elem in matter-before-here {
-    values-before-here.push(elem.value)
+  context {
+    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+    let values-before-here = ()
+    for elem in matter-before-here {
+      values-before-here.push(elem.value)
+    }
+    assert("BODY" == values-before-here.last(),
+      message: "[lyceum]: APPENDIX() show rule must immediately follow BODY-MATTER() show rule")
+    assert("APPENDIX" not in values-before-here,
+      message: "[lyceum]: can't APPENDIX() more than once")
   }
-  assert("BODY" == values-before-here.last(),
-    message: "[lyceum]: APPENDIX() show rule must immediately follow BODY-MATTER() show rule")
-  assert("APPENDIX" not in values-before-here,
-    message: "[lyceum]: can't APPENDIX() more than once")
   counter(heading).update(0)
 
   // Page settings adjustments
