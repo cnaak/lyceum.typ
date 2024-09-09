@@ -104,7 +104,7 @@
       let cur-page-number = counter(page).at(here()).first()
       if cur-page-number > 1 [
         #align(center + horizon)[
-          #numbering("\u{2013} i \u{2013}", cur-page-number)
+          #numbering("i", cur-page-number)
         ]
       ] else []
     },
@@ -336,6 +336,12 @@
           ]
         }
       }
+    },
+    footer: context {
+      // Get current page number and matter
+      align(center + horizon)[
+        #numbering("1", cur-page-number)
+      ]
     },
   )
 
