@@ -463,8 +463,9 @@
   [#metadata("APPENDIX")<lyceum-matter>]
 
   // Appendix Page
+  let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
+  let lang-appendix = query(selector(<lyceum-fmt>)).last().value.lang-appendix
   pagebreak(weak: true, to: "odd")
-  let lang-appendix = context query(selector(<lyceum-fmt>)).last().value.lang-appendix
   page(
     header: [],
     footer: [],
