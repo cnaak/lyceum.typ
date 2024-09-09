@@ -55,7 +55,7 @@
   lang-appendix: "Appendix",
   par-indent: 12mm,
   front-matter-material
-) = context {
+) = {
   // Parse metadata information
   let (META, AUTHORS) = meta-parse((
     title: title,
@@ -77,7 +77,7 @@
   )
 
   // Assertions and matter-data
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let matter-before-here = context query(selector(<lyceum-matter>).before(here()))
   assert.eq(matter-before-here.len(), 0,
     message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
 
@@ -317,9 +317,9 @@
 #let BODY-MATTER(
   par-indent: 12mm,
   body-matter-material
-) = context {
+) = {
   // Assertions and matter-data
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let matter-before-here = context query(selector(<lyceum-matter>).before(here()))
   let values-before-here = ()
   for elem in matter-before-here {
     values-before-here.push(elem.value)
@@ -331,13 +331,13 @@
   counter(heading).update(0)
 
   // Page settings adjustments
-  let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   set page(
     numbering: "1",
     number-align: center,
     header: context {
       // Get current page number
       let cur-page-number = counter(page).at(here()).first()
+      let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
       // Only prints header in non-chapter pages
       let main-headings = query(heading.where(level: 1))
       let past-headings = query(heading.where(level: 1).before(here()))
@@ -393,9 +393,9 @@
 #let APPENDIX(
   par-indent: 12mm,
   appendix-material
-) = context {
+) = {
   // Assertions and matter-data
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let matter-before-here = context query(selector(<lyceum-matter>).before(here()))
   let values-before-here = ()
   for elem in matter-before-here {
     values-before-here.push(elem.value)
@@ -407,13 +407,13 @@
   counter(heading).update(0)
 
   // Page settings adjustments
-  let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   set page(
     numbering: "1",
     number-align: center,
     header: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
+      let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
       // Only prints header in non-chapter pages
       let main-headings = query(heading.where(level: 1))
       let past-headings = query(heading.where(level: 1).before(here()))
@@ -458,7 +458,7 @@
 
   // Appendix Page
   pagebreak(weak: true, to: "odd")
-  let lang-appendix = query(selector(<lyceum-fmt>)).last().value.lang-appendix
+  let lang-appendix = context query(selector(<lyceum-fmt>)).last().value.lang-appendix
   page(
     header: [],
     footer: [],
@@ -488,9 +488,9 @@
 #let BACK-MATTER(
   par-indent: 12mm,
   back-matter-material
-) = context {
+) = {
   // Assertions and matter-data
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  let matter-before-here = context query(selector(<lyceum-matter>).before(here()))
   let values-before-here = ()
   for elem in matter-before-here {
     values-before-here.push(elem.value)
