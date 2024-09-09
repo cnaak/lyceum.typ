@@ -404,16 +404,20 @@
   pagebreak(weak: true, to: "odd")
   let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   let lang-appendix = query(selector(<lyceum-fmt>)).last().value.lang-appendix
-  let MEA = (top-gap: 70pt, )
   page(
     header: [],
     footer: [],
   )[
-    #v(MEA.top-gap)
-    #block(width: 100%,)[
-      #set text(size: (8/3) * text-size)
-      #align(center)[*#lang-appendix*]
-    ]
+    #v(1fr)
+    #block(
+      width: 100%,
+      align(
+        center,
+        text(size: (8/3) * text-size)[
+          *#lang-appendix*
+        ]
+      )
+    )
     #v(1fr)
   ]
 
