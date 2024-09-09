@@ -316,6 +316,8 @@
   // Page settings adjustments
   let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   set page(
+    numbering: "1",
+    number-align: center + horizon,
     header: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
@@ -335,17 +337,7 @@
         }
       }
     },
-    footer: context {
-      // Get current page number and matter
-      let cur-page-number = counter(page).at(here()).first()
-      align(center + horizon)[
-        #numbering("\u{2013} 1 \u{2013}", cur-page-number)
-      ]
-    },
   )
-
-  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
-  [#metadata("BODY")<lyceum-matter>]
 
   // Paragraph settings
   set par(
@@ -360,6 +352,9 @@
     numbering: "1.1.1.",
     outlined: true,
   )
+
+  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
+  [#metadata("BODY")<lyceum-matter>]
 
   // Book body material
   body-matter-material
@@ -387,14 +382,43 @@
   counter(heading).update(0)
 
   // Page settings adjustments
+  let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   set page(
-    footer: context {
+    numbering: "1",
+    number-align: center + horizon,
+    header: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
-      align(center + horizon)[
-        #numbering("\u{2013} (1) \u{2013}", cur-page-number)
-      ]
+      // Only prints header in non-chapter pages
+      let main-headings = query(heading.where(level: 1))
+      let past-headings = query(heading.where(level: 1).before(here()))
+      let cur-main-hdng = past-headings.last()
+      if main-headings.all(it => it.location().page() != cur-page-number) {
+        if calc.odd(cur-page-number) {
+          block(width: 100%, height: (3/2)*text-size)[
+            #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
+          ]
+        } else {
+          block(width: 100%, height: (3/2)*text-size)[
+            #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
+          ]
+        }
+      }
     },
+  )
+
+  // Paragraph settings
+  set par(
+    first-line-indent: par-indent,
+  )
+
+  // Text parameters controlled by input arguments
+  // --- Unnecesssary ---
+
+  // Heading numbering and outlining controls
+  set heading(
+    numbering: "A.1.1.",
+    outlined: true,
   )
 
   // Writes metadata AFTER change in page specs, which engenders automatic page breaking
@@ -402,7 +426,6 @@
 
   // Appendix Page
   pagebreak(weak: true, to: "odd")
-  let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   let lang-appendix = query(selector(<lyceum-fmt>)).last().value.lang-appendix
   page(
     header: [],
@@ -420,20 +443,6 @@
     )
     #v(1fr)
   ]
-
-  // Paragraph settings
-  set par(
-    first-line-indent: par-indent,
-  )
-
-  // Text parameters controlled by input arguments
-  // --- Unnecesssary ---
-
-  // Heading numbering and outlining controls
-  set heading(
-    numbering: "A.1.1.",
-    outlined: true,
-  )
 
   // Appendix material
   appendix-material
@@ -461,18 +470,10 @@
 
   // Page settings adjustments
   set page(
+    numbering: "1",
+    number-align: center + horizon,
     header: [],
-    footer: context {
-      // Get current page number and matter
-      let cur-page-number = counter(page).at(here()).first()
-      align(center + horizon)[
-        #numbering("\u{2013} (i) \u{2013}", cur-page-number)
-      ]
-    },
   )
-
-  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
-  [#metadata("BACK")<lyceum-matter>]
 
   // Paragraph settings
   set par(
@@ -488,9 +489,11 @@
     outlined: true,
   )
 
+  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
+  [#metadata("BACK")<lyceum-matter>]
+
   // back-matter material
   back-matter-material
 }
-
 
 
