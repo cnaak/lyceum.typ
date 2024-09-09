@@ -134,7 +134,7 @@
 
   // Heading numbering and outlining controls
   set heading(
-    numbering: "",
+    numbering: none,
     outlined: true,
   )
 
@@ -475,7 +475,7 @@
 
   // Heading numbering and outlining controls
   set heading(
-    numbering: "",
+    numbering: none,
     outlined: true,
   )
 
