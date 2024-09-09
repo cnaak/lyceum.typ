@@ -56,22 +56,6 @@
   assert.eq(matter-before-here.len(), 0,
     message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
 
-  // Stateful stuff
-  let PARS = state(
-    "PARS", (
-      page-size:      page-size,
-      page-margin:    page-margin,
-      page-binding:   page-binding,
-      page-fill:      page-fill,
-      text-font:      text-font,
-      text-size:      text-size,
-      lang-name:      lang-name,
-      lang-chapter:   lang-chapter,
-      lang-appendix:  lang-appendix,
-      par-indent:     par-indent,
-    )
-  )
-
   // Parse metadata information
   let (META, AUTHORS) = meta-parse((
     title: title,
@@ -90,6 +74,20 @@
     title: [#META.title.value],
     author: AUTHORS.join(" and "),
     keywords: META.keywords,
+  )
+
+  // Gather formatting parameters
+  let FORMAT = (
+    page-size:      page-size,
+    page-margin:    page-margin,
+    page-binding:   page-binding,
+    page-fill:      page-fill,
+    text-font:      text-font,
+    text-size:      text-size,
+    lang-name:      lang-name,
+    lang-chapter:   lang-chapter,
+    lang-appendix:  lang-appendix,
+    par-indent:     par-indent,
   )
 
   // AFTER document set
@@ -230,6 +228,9 @@
 
   // Writes the self-bib-entry
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
+
+  // Writes formatting parameters into the document
+  [#metadata(FORMAT)<lyceum-fmt>]
 
   // Title page
   page(
@@ -405,8 +406,8 @@
     footer: [],
   )[
     #let MEA = (top-gap: 70pt, )
-    #let text-size = context state("PARS").get().text-size
-    #let lang-appendix = context state("PARS").get().lang-appendix
+    #let text-size = query(selector(<lyceum-fmt>).value.text-size
+    #let lang-appendix = query(selector(<lyceum-fmt>).value.lang-appendix
     #v(MEA.top-gap)
     #block(width: 100%,)[
       #set text(size: (8/3) * text-size)
