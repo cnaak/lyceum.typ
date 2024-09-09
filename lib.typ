@@ -329,6 +329,7 @@
   assert("BODY" not in values-before-here,
     message: "[lyceum]: can't BODY-MATTER() more than once")
   counter(heading).update(0)
+  counter(page).update(1)
 
   // Page settings adjustments
   let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
