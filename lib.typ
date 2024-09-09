@@ -246,7 +246,6 @@
     #let MEA = (top-gap: 70pt, )
     // Book Title on Title Page
     #v(MEA.top-gap)
-    /*
     #if META.title.title.len() > 0 {
       if META.title.subtitle.len() > 0 {
         block(width: 100%,)[
@@ -263,7 +262,6 @@
         #align(center, text(size: (8/3) * text-size)[*#META.title.value*])
       ]
     }
-    */
     #v(4fr)
     // First Author on Title Page
     #block(width: 100%,)[
