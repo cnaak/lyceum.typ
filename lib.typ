@@ -401,8 +401,8 @@
 
   // Appendix Page
   pagebreak(weak: true, to: "odd")
-  let text-size = query(selector(<lyceum-fmt>).value.text-size
-  let lang-appendix = query(selector(<lyceum-fmt>).value.lang-appendix
+  let text-size = query(selector(<lyceum-fmt>)).value.text-size
+  let lang-appendix = query(selector(<lyceum-fmt>)).value.lang-appendix
   let MEA = (top-gap: 70pt, )
   page(
     header: [],
