@@ -171,7 +171,7 @@
     if META.title.short.len() == 0 {
       let title-words = META.title.title.split(" ")
       META.title.short = title-words.at(0) + "-" + initials-of(
-        title-words.slice(1, title-words.len())
+        title-words.slice(1, title-words.len()).join(" ")
       )
     }
   }
