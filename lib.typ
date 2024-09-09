@@ -314,6 +314,7 @@
   counter(heading).update(0)
 
   // Page settings adjustments
+  let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   set page(
     header: context {
       // Get current page number and matter
