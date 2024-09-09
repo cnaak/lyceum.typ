@@ -317,7 +317,7 @@
   let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   set page(
     numbering: "1",
-    number-align: center + horizon,
+    number-align: center,
     header: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
@@ -385,7 +385,7 @@
   let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
   set page(
     numbering: "1",
-    number-align: center + horizon,
+    number-align: center,
     header: context {
       // Get current page number and matter
       let cur-page-number = counter(page).at(here()).first()
@@ -471,7 +471,7 @@
   // Page settings adjustments
   set page(
     numbering: "1",
-    number-align: center + horizon,
+    number-align: center,
     header: [],
   )
 
