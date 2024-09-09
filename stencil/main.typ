@@ -11,7 +11,7 @@
   title: (
     title: "Igneous Rocks",
     subtitle: "The Hard Science",
-    short: "Igneous Rocks",
+    sep: " - ",
   ),
   authors: (
     (
@@ -27,7 +27,7 @@
       suffix: "Jr.",
       affiliation: "Hard University",
       email: "hitchcockej@hard.edu.far",
-      location: "Cambridge, Faraway Country",
+      location: "Rockbridge, Faraway Country",
     ),
   ),
   editors: ("Cenhelm, Erwin", ),
@@ -51,6 +51,13 @@
 
 // The lyceum auto-generates the title page and enters FRONT-MATTER styling
 
+#show outline.entry.where(
+  level: 1
+): it => {
+  v(12pt, weak: true)
+  strong(it)
+}
+
 = Preface
 
 Here goes the book preface.
@@ -59,7 +66,11 @@ Here goes the book preface.
 
 = Contents
 
-#outline(title: none)
+#outline(
+  title: none,
+  target: heading.where(level: 1),
+  indent: auto,
+)
 
 
 //----------------------------------------------------------------------------//
@@ -185,13 +196,13 @@ Here goes the subject index.
 
 = Citing This Book
 
-The following is the _auto-generated_, self bibliography database entry for the `hayagriva`
+The following is the _auto-generated_, self bibliography database entry for the *`hayagriva`*
 manager:
 
 #block(width: 100%)[
   #let self-bib = context query(<self-bib-entry>).first().value
   #set par(leading: 0.5em)
-  #text(font: "Inconsolata", size: 9pt, weight: "bold", fill: color.blue.darken(50%))[
+  #text(font: "Inconsolata", size: 9pt, weight: "bold")[
     #self-bib
   ]
 ]
