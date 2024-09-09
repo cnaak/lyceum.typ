@@ -378,7 +378,7 @@
   )
 
   // Writes metadata AFTER change in page specs, which engenders automatic page breaking
-  counter(page).update(0)
+  counter(page).update(1)
   [#metadata("BODY")<lyceum-matter>]
 
   // Book body material
