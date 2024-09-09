@@ -9,10 +9,14 @@ querying:
 
 #let META = context query(<lyceum-meta>).at(0).value
 #let AUTH = context query(<lyceum-auth>).at(0).value
+#let FMAT = context query(<lyceum-fmt>).at(0).value
 
-The `<lyceum-meta>` metadata tag contains default values: \
+The `<lyceum-meta>` metadata tag contains document metadata: \
 #META.
 
-The `<lyceum-auth>` metadata tag contains default values: \
+The `<lyceum-auth>` metadata tag contains compiled author metadata: \
 #AUTH.
+
+The `<lyceum-fmt>` metadata tag contains document formatting data: \
+#FMAT
 
