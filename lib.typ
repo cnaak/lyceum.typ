@@ -463,25 +463,27 @@
   [#metadata("APPENDIX")<lyceum-matter>]
 
   // Appendix Page
-  let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
-  let lang-appendix = query(selector(<lyceum-fmt>)).last().value.lang-appendix
-  pagebreak(weak: true, to: "odd")
-  page(
-    header: [],
-    footer: [],
-  )[
-    #v(1fr)
-    #block(
-      width: 100%,
-      align(
-        center,
-        text(size: (8/3) * text-size)[
-          *#lang-appendix*
-        ]
+  context {
+    let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
+    let lang-appendix = query(selector(<lyceum-fmt>)).last().value.lang-appendix
+    pagebreak(weak: true, to: "odd")
+    page(
+      header: [],
+      footer: [],
+    )[
+      #v(1fr)
+      #block(
+        width: 100%,
+        align(
+          center,
+          text(size: (8/3) * text-size)[
+            *#lang-appendix*
+          ]
+        )
       )
-    )
-    #v(1fr)
-  ]
+      #v(1fr)
+    ]
+  }
 
   // Appendix material
   appendix-material
