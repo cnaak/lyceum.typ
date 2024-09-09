@@ -56,11 +56,6 @@
   par-indent: 12mm,
   front-matter-material
 ) = context {
-  // Assertions and matter-data
-  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-  assert.eq(matter-before-here.len(), 0,
-    message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
-
   // Parse metadata information
   let (META, AUTHORS) = meta-parse((
     title: title,
@@ -81,19 +76,10 @@
     keywords: META.keywords,
   )
 
-  // Gather formatting parameters
-  let FORMAT = (
-    page-size:      page-size,
-    page-margin:    page-margin,
-    page-binding:   page-binding,
-    page-fill:      page-fill,
-    text-font:      text-font,
-    text-size:      text-size,
-    lang-name:      lang-name,
-    lang-chapter:   lang-chapter,
-    lang-appendix:  lang-appendix,
-    par-indent:     par-indent,
-  )
+  // Assertions and matter-data
+  let matter-before-here = query(selector(<lyceum-matter>).before(here()))
+  assert.eq(matter-before-here.len(), 0,
+    message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
 
   // Page parameters controlled by input arguments
   set page(
@@ -221,6 +207,20 @@
       block(width: 100%, height: MEA.it-hgt)[#it.body]
     }
   }
+
+  // Gather formatting parameters
+  let FORMAT = (
+    page-size:      page-size,
+    page-margin:    page-margin,
+    page-binding:   page-binding,
+    page-fill:      page-fill,
+    text-font:      text-font,
+    text-size:      text-size,
+    lang-name:      lang-name,
+    lang-chapter:   lang-chapter,
+    lang-appendix:  lang-appendix,
+    par-indent:     par-indent,
+  )
 
   // AFTER document set
   [#metadata("FRONT")<lyceum-matter>]
