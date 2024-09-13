@@ -241,6 +241,9 @@
   lang-chapter,
   body-matter-material
 ) = {
+  // New Page
+  pagebreak(to: "odd", weak: false)
+
   // Counter reset
   counter(heading).update(0)
   counter(page).update(1)
@@ -248,7 +251,7 @@
   // Page settings adjustments
   set page(
     numbering: "1",
-    number-align: center,
+    /*
     header: context {
       // Get current page number
       let cur-page-number = counter(page).at(here()).first()
@@ -268,6 +271,7 @@
         }
       }
     },
+    */
     footer: context {
       let cur-pag-num = counter(page).at(here()).first()
       let ALIGN = if calc.even(cur-pag-num) { left } else { right }
@@ -368,6 +372,7 @@
   set page(
     numbering: "1",
     number-align: center,
+    /*
     header: context {
       // Get current page number
       let cur-page-number = counter(page).at(here()).first()
@@ -387,6 +392,7 @@
         }
       }
     },
+    */
     footer: context {
       let cur-pag-num = counter(page).at(here()).first()
       let ALIGN = if calc.even(cur-pag-num) { left } else { right }
