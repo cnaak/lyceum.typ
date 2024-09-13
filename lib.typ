@@ -239,7 +239,7 @@
 #let BODY-MATTER(
   text-size,
   lang-chapter,
-  ship-body-page: true,
+  ship-part-page: true,
   body-matter-material
 ) = {
   // New Page
@@ -287,7 +287,7 @@
   // --- Unnecesssary ---
 
   // Main Body Page
-  if ship-body-page {
+  if ship-part-page {
     pagebreak(weak: true, to: "odd")
     page(
       header: [],
@@ -384,7 +384,7 @@
 #let APPENDIX(
   text-size,
   lang-appendix,
-  ship-appendix-page: true,
+  ship-part-page: true,
   appendix-material
 ) = {
   // New Page
@@ -394,7 +394,7 @@
   counter(heading).update(0)
 
   // Appendix Page
-  if ship-appendix-page {
+  if ship-part-page {
     pagebreak(weak: true, to: "odd")
     page(
       header: [],
@@ -527,7 +527,7 @@
 
 #let BACK-MATTER(
   text-size,
-  ship-back-page: true,
+  ship-part-page: true,
   back-matter-material
 ) = {
   // Page settings adjustments
@@ -549,7 +549,7 @@
   // --- Unnecesssary ---
 
   // Back Part Page
-  if ship-back-page {
+  if ship-part-page {
     pagebreak(weak: true, to: "odd")
     page(
       header: [],
