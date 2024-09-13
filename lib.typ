@@ -3,7 +3,7 @@
 
 #let MEA = (top-gap: 90pt, sq-side: 60pt, it-hgt: 80pt)
 #let COL = (sq-shade: rgb("#00000070"), sq-text: rgb("#000000A0"))
-#let SIZ = (it-siz: 2 * text-size, sq-num-size: 0.7 * MEA.sq-side)
+#let SIZ = (it-siz: 2em, sq-num-size: 0.7 * MEA.sq-side)
 
 
 //--------------------------------------------------------------------------------------------//
@@ -176,17 +176,17 @@
     #if META.title.title.len() > 0 {
       if META.title.subtitle.len() > 0 {
         block(width: 100%,)[
-          #align(center, text(size: (8/3) * text-size)[*#META.title.title* \ ])
-          #align(center, text(size: (6/3) * text-size)[*#META.title.subtitle*])
+          #align(center, text(size: (8/3) * 1em)[*#META.title.title* \ ])
+          #align(center, text(size: (6/3) * 1em)[*#META.title.subtitle*])
         ]
       } else {
         block(width: 100%,)[
-          #align(center, text(size: (8/3) * text-size)[*#META.title.title*])
+          #align(center, text(size: (8/3) * 1em)[*#META.title.title*])
         ]
       }
     } else {
       block(width: 100%,)[
-        #align(center, text(size: (8/3) * text-size)[*#META.title.value*])
+        #align(center, text(size: (8/3) * 1em)[*#META.title.value*])
       ]
     }
     #v(4fr)
@@ -196,16 +196,16 @@
       #for the-CHU in CHU {
         grid(
           columns: (1fr,) * the-CHU.len(),
-          gutter: text-size,
+          gutter: 1em,
           ..the-CHU.map(
             auth-indx => [
               #align(center)[
-                #set text(size: (4/3) * text-size)
+                #set text(size: (4/3) * 1em)
                 *#META.authors.at(auth-indx).name,*
                 *#META.authors.at(auth-indx).given-name* \
-                #set text(size: (3/3) * text-size)
+                #set text(size: (3/3) * 1em)
                 #META.authors.at(auth-indx).affiliation \
-                #set text(size: (5/6) * text-size)
+                #set text(size: (5/6) * 1em)
                 #raw(META.authors.at(auth-indx).email) \
                 #META.authors.at(auth-indx).location
               ]
@@ -213,21 +213,21 @@
           )
         )
         if the-CHU.last() < CHU.flatten().last() [
-          #v((4/3) * text-size)
+          #v((4/3) * 1em)
         ]
       }
     ]
     #v(4fr)
     // Publisher block
     #block(width: 100%,)[
-      #set text(size: text-size)
+      #set text(size: 1em)
       #META.publisher, \
       #META.location
     ]
     #v(1fr)
     // Date block
     #block(width: 100%,)[
-      #set text(size: text-size)
+      #set text(size: 1em)
       #align(center)[#META.date.display()]
     ]
   ]
@@ -256,18 +256,17 @@
     header: context {
       // Get current page number
       let cur-page-number = counter(page).at(here()).first()
-      let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
       // Only prints header in non-chapter pages
       let main-headings = query(heading.where(level: 1))
       let past-headings = query(heading.where(level: 1).before(here()))
       let cur-main-hdng = past-headings.last()
       if main-headings.all(it => it.location().page() != cur-page-number) {
         if calc.odd(cur-page-number) {
-          block(width: 100%, height: (3/2)*text-size)[
+          block(width: 100%, height: (3/2) * 1em)[
             #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
           ]
         } else {
-          block(width: 100%, height: (3/2)*text-size)[
+          block(width: 100%, height: (3/2) * 1em)[
             #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
           ]
         }
@@ -356,18 +355,17 @@
     header: context {
       // Get current page number
       let cur-page-number = counter(page).at(here()).first()
-      let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
       // Only prints header in non-chapter pages
       let main-headings = query(heading.where(level: 1))
       let past-headings = query(heading.where(level: 1).before(here()))
       let cur-main-hdng = past-headings.last()
       if main-headings.all(it => it.location().page() != cur-page-number) {
         if calc.odd(cur-page-number) {
-          block(width: 100%, height: (3/2)*text-size)[
+          block(width: 100%, height: (3/2) * 1em)[
             #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
           ]
         } else {
-          block(width: 100%, height: (3/2)*text-size)[
+          block(width: 100%, height: (3/2) * 1em)[
             #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
           ]
         }
@@ -435,7 +433,6 @@
 
   // Appendix Page
   context {
-    let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
     let lang-appendix = query(selector(<lyceum-fmt>)).last().value.lang-appendix
     pagebreak(weak: true, to: "odd")
     page(
@@ -447,7 +444,7 @@
         width: 100%,
         align(
           center,
-          text(size: (8/3) * text-size)[
+          text(size: (8/3) * 1em)[
             *#lang-appendix*
           ]
         )
