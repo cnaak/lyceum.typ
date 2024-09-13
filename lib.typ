@@ -121,19 +121,6 @@
     outlined: true,
   )
 
-  // Main headings in FRONT-MATTER
-  show heading.where(level: 1): it => {
-    counter(figure.where(kind: image)).update(0)
-    counter(figure.where(kind: table)).update(0)
-    counter(math.equation).update(0)
-    // Layout
-    pagebreak(weak: true, to: "odd")
-    v(MEA.top-gap)
-    set align(center + top)
-    set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
-    block(width: 100%, height: MEA.it-hgt)[#it.body]
-  }
-
   // Gather formatting parameters
   let FORMAT = (
     page-size:      page-size,
@@ -158,6 +145,19 @@
                       sqn-siz: 3.5 * text-size,       // Square-bound number text-size
                     ),
   )
+
+  // Main headings in FRONT-MATTER
+  show heading.where(level: 1): it => {
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(math.equation).update(0)
+    // Layout
+    pagebreak(weak: true, to: "odd")
+    v(FORMAT.MEA.top-gap)
+    set align(center + top)
+    set text(font: ("EB Garamond", "Linux Libertine"), FORMAT.SIZ.it-siz, weight: "extrabold")
+    block(width: 100%, height: FORMAT.MEA.it-hgt)[#it.body]
+  }
 
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
