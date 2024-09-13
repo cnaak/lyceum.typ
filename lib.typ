@@ -155,7 +155,7 @@
                       sq-text:  rgb("#000000A0"),     // Shaded text color
                     ),
     SIZ:            ( it-siz:  2.0 * text-size,       // Level-1 heading text size
-                      sq-num-size: 0.7 * MEA.sq-side, // Square-bound number text-size
+                      sqn-siz: 3.5 * text-size,       // Square-bound number text-size
                     ),
   )
 
@@ -326,7 +326,7 @@
         align(center + horizon,
           text(
             font: ("Alegreya", "Linux Libertine"),
-            size: SIZ.sq-num-size,
+            size: FORMAT.SIZ.sqn-siz,
             weight: "extrabold",
             fill: FORMAT.COL.sq-text
           )[#counter(heading).display("1")]
@@ -339,7 +339,7 @@
           align(center + horizon,
             text(
               font: ("EB Garamond", "Linux Libertine"),
-              size: 0.275 * SIZ.sq-num-size,
+              size: 0.275 * FORMAT.SIZ.sqn-siz,
               weight: "bold",
               fill: FORMAT.COL.sq-text
             )[#lang-chapter]
@@ -349,7 +349,7 @@
     )
     v(FORMAT.MEA.top-gap)
     set align(center + top)
-    set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
+    set text(font: ("EB Garamond", "Linux Libertine"), FORMAT.SIZ.it-siz, weight: "extrabold")
     block(width: 100%, height: FORMAT.MEA.it-hgt)[#it.body]
   }
 
@@ -427,7 +427,7 @@
         #align(center + horizon)[
           #text(
             font: ("Alegreya", "Linux Libertine"),
-            size: SIZ.sq-num-size,
+            size: FORMAT.SIZ.sqn-siz,
             weight: "extrabold",
             fill: FORMAT.COL.sq-text)[#counter(heading).display("A")]
         ]
@@ -439,7 +439,7 @@
           #align(center + horizon)[
             #text(
               font: ("EB Garamond", "Linux Libertine"),
-              size: 0.275 * SIZ.sq-num-size,
+              size: 0.275 * FORMAT.SIZ.sqn-siz,
               weight: "bold",
               fill: FORMAT.COL.sq-text)[#lang-appendix]
           ]
@@ -448,7 +448,7 @@
     )
     v(FORMAT.MEA.top-gap)
     set align(center + top)
-    set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
+    set text(font: ("EB Garamond", "Linux Libertine"), FORMAT.SIZ.it-siz, weight: "extrabold")
     block(width: 100%, height: FORMAT.MEA.it-hgt)[#it.body]
   }
 
@@ -524,7 +524,7 @@
     pagebreak(weak: true, to: "odd")
     v(FORMAT.MEA.top-gap)
     set align(center + top)
-    set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
+    set text(font: ("EB Garamond", "Linux Libertine"), FORMAT.SIZ.it-siz, weight: "extrabold")
     block(width: 100%, height: FORMAT.MEA.it-hgt)[#it.body]
   }
 
