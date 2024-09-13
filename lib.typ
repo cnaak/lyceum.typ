@@ -1,5 +1,18 @@
 #import "meta-parsing.typ": meta-parse
 
+// Auxiliary FMT function
+#let FMT(w, size: 12pt) = {
+  if type(w) == type("") {
+    if      w == "top-gap" { return 7.5 * size }        // Shared by all level-1 headings
+    else if w == "sq-side" { return 5.0 * size }        // Shaded square within the top-gap
+    else if w == "it-hght" { return 6.5 * size }        // Room for level-1 heading bodies
+    else if w == "it-size" { return 2.0 * size }        // Level-1 heading text size
+    else if w == "sn-size" { return 3.5 * size }        // Square-bound number text-size
+    else if w == "sq-shad" { return rgb("#00000070") }  // Shaded square shade color
+    else if w == "sq-text" { return rgb("#000000A0") }  // Shaded text color
+  }
+  return none
+}
 
 //--------------------------------------------------------------------------------------------//
 //                            Fundamental, Front-Matter show rule                             //
@@ -51,8 +64,6 @@
   text-font: ("EB Garamond", "Linux Libertine"),
   text-size: 12pt,
   lang-name: "en",
-  lang-chapter: "Chapter",
-  lang-appendix: "Appendix",
   par-indent: 12mm,
   front-matter-material
 ) = {
@@ -76,13 +87,6 @@
     keywords: META.keywords,
   )
 
-  // Assertions and matter-data
-  context {
-    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-    assert.eq(matter-before-here.len(), 0,
-      message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
-  }
-
   // Page parameters controlled by input arguments
   set page(
     width: page-size.width,
@@ -93,7 +97,7 @@
     columns: 1,
     fill: page-fill,
     footer: context {
-      // Get current page number and matter
+      // Get current page number
       let cur-page-number = counter(page).at(here()).first()
       if cur-page-number > 1 [
         #align(center + horizon)[
@@ -128,104 +132,27 @@
     outlined: true,
   )
 
-  // This is what's left of the "smart" scheme, which failed to produce thedesired effects
-  // Since it's smart, it need to be defined only once in the document
-  show heading.where(level: 1): it => context {
-    let cur-matter = query(selector(<lyceum-matter>).before(here())).last().value
-    let MEA = (top-gap: 70pt, sq-side: 60pt, it-hgt: 80pt)
-    let COL = (sq-shade: rgb("#00000070"), sq-text: rgb("#000000A0"))
-    let SIZ = (it-siz: 2 * text-size, sq-num-size: 0.7 * MEA.sq-side)
-    pagebreak(weak: true, to: "odd")
+  // Main headings in FRONT-MATTER
+  show heading.where(level: 1): it => {
     counter(figure.where(kind: image)).update(0)
     counter(figure.where(kind: table)).update(0)
     counter(math.equation).update(0)
-    if cur-matter == "FRONT" {
-      v(MEA.top-gap)
-      set align(center + top)
-      set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
-      block(width: 100%, height: MEA.it-hgt)[#it.body]
-    } else if cur-matter == "BODY" {
-      place(top + right,
-        box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
-          #align(center + horizon)[
-            #text(
-              font: ("Alegreya", "Linux Libertine"),
-              size: SIZ.sq-num-size,
-              weight: "extrabold",
-              fill: COL.sq-text)[#counter(heading).display("1")]
-          ]
-        ]
+    // Layout
+    pagebreak(weak: true, to: "odd")
+    v(FMT("top-gap", size: text-size))
+    block(
+      width: 100%,
+      height: FMT("it-hght", size: text-size),
+      align(
+        center + top,
+        text(
+          font: ("EB Garamond", "Linux Libertine"),
+          size: FMT("it-size", size: text-size),
+          weight: "extrabold",
+        )[#it.body]
       )
-      place(top + right, dx: -1.275 * MEA.sq-side,
-        rotate(-90deg, origin: top + right)[
-          #box(width: MEA.sq-side)[
-            #align(center + horizon)[
-              #text(
-                font: ("EB Garamond", "Linux Libertine"),
-                size: 0.275 * SIZ.sq-num-size,
-                weight: "bold",
-                fill: COL.sq-text)[#lang-chapter]
-            ]
-          ]
-        ]
-      )
-      v(MEA.top-gap)
-      set align(center + top)
-      set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
-      block(width: 100%, height: MEA.it-hgt)[#it.body]
-    } else if cur-matter == "APPENDIX" {
-      place(top + right,
-        box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
-          #align(center + horizon)[
-            #text(
-              font: ("Alegreya", "Linux Libertine"),
-              size: SIZ.sq-num-size,
-              weight: "extrabold",
-              fill: COL.sq-text)[#counter(heading).display("A")]
-          ]
-        ]
-      )
-      place(top + right, dx: -1.275 * MEA.sq-side,
-        rotate(-90deg, origin: top + right)[
-          #box(width: MEA.sq-side)[
-            #align(center + horizon)[
-              #text(
-                font: ("EB Garamond", "Linux Libertine"),
-                size: 0.275 * SIZ.sq-num-size,
-                weight: "bold",
-                fill: COL.sq-text)[#lang-appendix]
-            ]
-          ]
-        ]
-      )
-      v(MEA.top-gap)
-      set align(center + top)
-      set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
-      block(width: 100%, height: MEA.it-hgt)[#it.body]
-    } else if cur-matter == "BACK" {
-      v(MEA.top-gap)
-      set align(center + top)
-      set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
-      block(width: 100%, height: MEA.it-hgt)[#it.body]
-    }
+    )
   }
-
-  // Gather formatting parameters
-  let FORMAT = (
-    page-size:      page-size,
-    page-margin:    page-margin,
-    page-binding:   page-binding,
-    page-fill:      page-fill,
-    text-font:      text-font,
-    text-size:      text-size,
-    lang-name:      lang-name,
-    lang-chapter:   lang-chapter,
-    lang-appendix:  lang-appendix,
-    par-indent:     par-indent,
-  )
-
-  // AFTER document set
-  [#metadata("FRONT")<lyceum-matter>]
 
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
@@ -236,18 +163,14 @@
   // Writes the self-bib-entry
   [#metadata(META.self-bib-entry.join("\n"))<self-bib-entry>]
 
-  // Writes formatting parameters into the document
-  [#metadata(FORMAT)<lyceum-fmt>]
-
   // Title page
   page(
     header: [],
     footer: [],
   )[
     #let PARS = (auth-chunk-size: 2, )
-    #let MEA = (top-gap: 70pt, )
     // Book Title on Title Page
-    #v(MEA.top-gap)
+    // #v(1fr)
     #if META.title.title.len() > 0 {
       if META.title.subtitle.len() > 0 {
         block(width: 100%,)[
@@ -271,7 +194,7 @@
       #for the-CHU in CHU {
         grid(
           columns: (1fr,) * the-CHU.len(),
-          gutter: text-size,
+          gutter: 1em,
           ..the-CHU.map(
             auth-indx => [
               #align(center)[
@@ -317,22 +240,13 @@
 //--------------------------------------------------------------------------------------------//
 
 #let BODY-MATTER(
-  par-indent: 12mm,
+  text-size,
+  lang-chapter,
   body-matter-material
 ) = {
-  // Assertions and matter-data
-  context {
-    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-    let values-before-here = ()
-    for elem in matter-before-here {
-      values-before-here.push(elem.value)
-    }
-    assert("FRONT" in values-before-here,
-      message: "[lyceum]: BODY-MATTER() must follow FRONT-MATTER()")
-    assert("BODY" not in values-before-here,
-      message: "[lyceum]: can't BODY-MATTER() more than once")
-  }
+  // Counter reset
   counter(heading).update(0)
+  counter(page).update(1)
 
   // Page settings adjustments
   set page(
@@ -341,18 +255,17 @@
     header: context {
       // Get current page number
       let cur-page-number = counter(page).at(here()).first()
-      let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
       // Only prints header in non-chapter pages
       let main-headings = query(heading.where(level: 1))
       let past-headings = query(heading.where(level: 1).before(here()))
       let cur-main-hdng = past-headings.last()
       if main-headings.all(it => it.location().page() != cur-page-number) {
         if calc.odd(cur-page-number) {
-          block(width: 100%, height: (3/2)*text-size)[
+          block(width: 100%, height: (3/2) * 1em)[
             #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
           ]
         } else {
-          block(width: 100%, height: (3/2)*text-size)[
+          block(width: 100%, height: (3/2) * 1em)[
             #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
           ]
         }
@@ -368,9 +281,7 @@
   )
 
   // Paragraph settings
-  set par(
-    first-line-indent: par-indent,
-  )
+  // --- Unnecesssary ---
 
   // Text parameters controlled by input arguments
   // --- Unnecesssary ---
@@ -381,9 +292,64 @@
     outlined: true,
   )
 
-  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
-  counter(page).update(1)
-  [#metadata("BODY")<lyceum-matter>]
+  // Main headings in BODY-MATTER
+  show heading.where(level: 1): it => {
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(math.equation).update(0)
+    // Layout
+    pagebreak(weak: true, to: "odd")
+    place( // Shaded square
+      top + right,
+      box(
+        width: FMT("sq-side", size: text-size),
+        height: FMT("sq-side", size: text-size),
+        fill: FMT("sq-shad", size: text-size), radius: 4pt, inset: 0pt,
+        align(
+          center + horizon,
+          text(
+            font: ("Alegreya", "Linux Libertine"),
+            size: FMT("sn-size", size: text-size),
+            weight: "extrabold",
+            fill: FMT("sq-text", size: text-size)
+          )[#counter(heading).display("1")]
+        )
+      )
+    )
+    place( // Rotated "Chapter"
+      top + right,
+      dx: -1.275 * FMT("sq-side", size: text-size),
+      rotate(
+        -90deg,
+        origin: top + right,
+        box(
+          width: FMT("sq-side", size: text-size),
+          align(
+            center + horizon,
+            text(
+              font: ("EB Garamond", "Linux Libertine"),
+              size: 0.275 * FMT("sn-size", size: text-size),
+              weight: "bold",
+              fill: FMT("sq-text", size: text-size)
+            )[#lang-chapter]
+          )
+        )
+      )
+    )
+    v(FMT("top-gap", size: text-size))
+    block( // Chapter title
+      width: 100%,
+      height: FMT("it-hght", size: text-size),
+      align(
+        center + top,
+        text(
+          font: ("EB Garamond", "Linux Libertine"),
+          size: FMT("it-size", size: text-size),
+          weight: "extrabold",
+        )[#it.body]
+      )
+    )
+  }
 
   // Book body material
   body-matter-material
@@ -395,21 +361,11 @@
 //--------------------------------------------------------------------------------------------//
 
 #let APPENDIX(
-  par-indent: 12mm,
+  text-size,
+  lang-appendix,
   appendix-material
 ) = {
-  // Assertions and matter-data
-  context {
-    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-    let values-before-here = ()
-    for elem in matter-before-here {
-      values-before-here.push(elem.value)
-    }
-    assert("BODY" == values-before-here.last(),
-      message: "[lyceum]: APPENDIX() show rule must immediately follow BODY-MATTER() show rule")
-    assert("APPENDIX" not in values-before-here,
-      message: "[lyceum]: can't APPENDIX() more than once")
-  }
+  // Counter reset
   counter(heading).update(0)
 
   // Page settings adjustments
@@ -417,20 +373,19 @@
     numbering: "1",
     number-align: center,
     header: context {
-      // Get current page number and matter
+      // Get current page number
       let cur-page-number = counter(page).at(here()).first()
-      let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
       // Only prints header in non-chapter pages
       let main-headings = query(heading.where(level: 1))
       let past-headings = query(heading.where(level: 1).before(here()))
       let cur-main-hdng = past-headings.last()
       if main-headings.all(it => it.location().page() != cur-page-number) {
         if calc.odd(cur-page-number) {
-          block(width: 100%, height: (3/2)*text-size)[
+          block(width: 100%, height: (3/2) * 1em)[
             #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
           ]
         } else {
-          block(width: 100%, height: (3/2)*text-size)[
+          block(width: 100%, height: (3/2) * 1em)[
             #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
           ]
         }
@@ -446,9 +401,7 @@
   )
 
   // Paragraph settings
-  set par(
-    first-line-indent: par-indent,
-  )
+  // --- Unnecesssary ---
 
   // Text parameters controlled by input arguments
   // --- Unnecesssary ---
@@ -459,31 +412,83 @@
     outlined: true,
   )
 
-  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
-  [#metadata("APPENDIX")<lyceum-matter>]
-
-  // Appendix Page
-  context {
-    let text-size = query(selector(<lyceum-fmt>)).last().value.text-size
-    let lang-appendix = query(selector(<lyceum-fmt>)).last().value.lang-appendix
+  // Main headings in APPENDIX
+  show heading.where(level: 1): it => context {
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(math.equation).update(0)
+    // Layout
     pagebreak(weak: true, to: "odd")
-    page(
-      header: [],
-      footer: [],
-    )[
-      #v(1fr)
-      #block(
-        width: 100%,
+    place( // Shaded square
+      top + right,
+      box(
+        width: FMT("sq-side", size: text-size),
+        height: FMT("sq-side", size: text-size),
+        fill: FMT("sq-shad", size: text-size), radius: 4pt, inset: 0pt,
         align(
-          center,
-          text(size: (8/3) * text-size)[
-            *#lang-appendix*
-          ]
+          center + horizon,
+          text(
+            font: ("Alegreya", "Linux Libertine"),
+            size: FMT("sn-size", size: text-size),
+            weight: "extrabold",
+            fill: FMT("sq-text", size: text-size)
+          )[#counter(heading).display("A")]
         )
       )
-      #v(1fr)
-    ]
+    )
+    place( // Rotated "Appendix"
+      top + right,
+      dx: -1.275 * FMT("sq-side", size: text-size),
+      rotate(
+        -90deg,
+        origin: top + right,
+        box(
+          width: FMT("sq-side", size: text-size),
+          align(
+            center + horizon,
+            text(
+              font: ("EB Garamond", "Linux Libertine"),
+              size: 0.275 * FMT("sn-size", size: text-size),
+              weight: "bold",
+              fill: FMT("sq-text", size: text-size)
+            )[#lang-appendix]
+          )
+        )
+      )
+    )
+    v(FMT("top-gap", size: text-size))
+    block( // Appendix title
+      width: 100%,
+      height: FMT("it-hght", size: text-size),
+      align(
+        center + top,
+        text(
+          font: ("EB Garamond", "Linux Libertine"),
+          size: FMT("it-size", size: text-size),
+          weight: "extrabold",
+        )[#it.body]
+      )
+    )
   }
+
+  // Appendix Page
+  pagebreak(weak: true, to: "odd")
+  page(
+    header: [],
+    footer: [],
+  )[
+    #v(1fr)
+    #block(
+      width: 100%,
+      align(
+        center,
+        text(size: (8/3) * 1em)[
+          *#lang-appendix*
+        ]
+      )
+    )
+    #v(1fr)
+  ]
 
   // Appendix material
   appendix-material
@@ -495,22 +500,9 @@
 //--------------------------------------------------------------------------------------------//
 
 #let BACK-MATTER(
-  par-indent: 12mm,
+  text-size,
   back-matter-material
 ) = {
-  // Assertions and matter-data
-  context {
-    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-    let values-before-here = ()
-    for elem in matter-before-here {
-      values-before-here.push(elem.value)
-    }
-    assert("BODY" in values-before-here,
-      message: "[lyceum]: BACK-MATTER() must follow BODY-MATTER()")
-    assert("BACK" not in values-before-here,
-      message: "[lyceum]: can't BACK-MATTER() more than once")
-  }
-
   // Page settings adjustments
   set page(
     numbering: "1",
@@ -526,9 +518,7 @@
   )
 
   // Paragraph settings
-  set par(
-    first-line-indent: par-indent,
-  )
+  // --- Unnecesssary ---
 
   // Text parameters controlled by input arguments
   // --- Unnecesssary ---
@@ -539,8 +529,27 @@
     outlined: true,
   )
 
-  // Writes metadata AFTER change in page specs, which engenders automatic page breaking
-  [#metadata("BACK")<lyceum-matter>]
+  // Main headings in BACK-MATTER
+  show heading.where(level: 1): it => {
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(math.equation).update(0)
+    // Layout
+    pagebreak(weak: true, to: "odd")
+    v(FMT("top-gap", size: text-size))
+    block(
+      width: 100%,
+      height: FMT("it-hght", size: text-size),
+      align(
+        center + top,
+        text(
+          font: ("EB Garamond", "Linux Libertine"),
+          size: FMT("it-size", size: text-size),
+          weight: "extrabold",
+        )[#it.body]
+      )
+    )
+  }
 
   // back-matter material
   back-matter-material
