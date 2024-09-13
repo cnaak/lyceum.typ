@@ -1,9 +1,9 @@
 #import "meta-parsing.typ": meta-parse
 
 // Auxiliary FMT function
-#let FMT(w) = {
+#let FMT(w, size: 12pt) = {
   if type(w) == type("") {
-    if      w == "top-gap" { return 7.5 * context text.size }        // Shared by all level-1 headings
+    if      w == "top-gap" { return 7.5 * size }        // Shared by all level-1 headings
     else if w == "sq-side" { return 5.0 * size }        // Shaded square within the top-gap
     else if w == "it-hght" { return 6.5 * size }        // Room for level-1 heading bodies
     else if w == "it-size" { return 2.0 * size }        // Level-1 heading text size
@@ -139,15 +139,15 @@
     counter(math.equation).update(0)
     // Layout
     pagebreak(weak: true, to: "odd")
-    v(FMT("top-gap"))
+    v(FMT("top-gap", size: text-size))
     block(
       width: 100%,
-      height: FMT("it-hght"),
+      height: FMT("it-hght", size: text-size),
       align(
         center + top,
         text(
           font: ("EB Garamond", "Linux Libertine"),
-          size: FMT("it-size"),
+          size: FMT("it-size", size: text-size),
           weight: "extrabold",
         )[#it.body]
       )
@@ -240,6 +240,8 @@
 //--------------------------------------------------------------------------------------------//
 
 #let BODY-MATTER(
+  text-size,
+  lang-chapter,
   body-matter-material
 ) = {
   // Counter reset
@@ -300,49 +302,49 @@
     place( // Shaded square
       top + right,
       box(
-        width: FMT("sq-side"),
-        height: FMT("sq-side"),
-        fill: FMT("sq-shad"), radius: 4pt, inset: 0pt,
+        width: FMT("sq-side", size: text-size),
+        height: FMT("sq-side", size: text-size),
+        fill: FMT("sq-shad", size: text-size), radius: 4pt, inset: 0pt,
         align(
           center + horizon,
           text(
             font: ("Alegreya", "Linux Libertine"),
-            size: FMT("sn-size"),
+            size: FMT("sn-size", size: text-size),
             weight: "extrabold",
-            fill: FMT("sq-text")
+            fill: FMT("sq-text", size: text-size)
           )[#counter(heading).display("1")]
         )
       )
     )
     place( // Rotated "Chapter"
       top + right,
-      dx: -1.275 * FMT("sq-side"),
+      dx: -1.275 * FMT("sq-side", size: text-size),
       rotate(
         -90deg,
         origin: top + right,
         box(
-          width: FMT("sq-side"),
+          width: FMT("sq-side", size: text-size),
           align(
             center + horizon,
             text(
               font: ("EB Garamond", "Linux Libertine"),
-              size: 0.275 * FMT("sn-size"),
+              size: 0.275 * FMT("sn-size", size: text-size),
               weight: "bold",
-              fill: FMT("sq-text")
-            )[#INST.lang-chapter]
+              fill: FMT("sq-text", size: text-size)
+            )[#lang-chapter]
           )
         )
       )
     )
-    v(FMT("top-gap"))
+    v(FMT("top-gap", size: text-size))
     block( // Chapter title
       width: 100%,
-      height: FMT("it-hght"),
+      height: FMT("it-hght", size: text-size),
       align(
         center + top,
         text(
           font: ("EB Garamond", "Linux Libertine"),
-          size: FMT("it-size"),
+          size: FMT("it-size", size: text-size),
           weight: "extrabold",
         )[#it.body]
       )
@@ -359,6 +361,8 @@
 //--------------------------------------------------------------------------------------------//
 
 #let APPENDIX(
+  text-size,
+  lang-appendix,
   appendix-material
 ) = {
   // Counter reset
@@ -418,49 +422,49 @@
     place( // Shaded square
       top + right,
       box(
-        width: FMT("sq-side"),
-        height: FMT("sq-side"),
-        fill: FMT("sq-shad"), radius: 4pt, inset: 0pt,
+        width: FMT("sq-side", size: text-size),
+        height: FMT("sq-side", size: text-size),
+        fill: FMT("sq-shad", size: text-size), radius: 4pt, inset: 0pt,
         align(
           center + horizon,
           text(
             font: ("Alegreya", "Linux Libertine"),
-            size: FMT("sn-size"),
+            size: FMT("sn-size", size: text-size),
             weight: "extrabold",
-            fill: FMT("sq-text")
+            fill: FMT("sq-text", size: text-size)
           )[#counter(heading).display("A")]
         )
       )
     )
     place( // Rotated "Appendix"
       top + right,
-      dx: -1.275 * FMT("sq-side"),
+      dx: -1.275 * FMT("sq-side", size: text-size),
       rotate(
         -90deg,
         origin: top + right,
         box(
-          width: FMT("sq-side"),
+          width: FMT("sq-side", size: text-size),
           align(
             center + horizon,
             text(
               font: ("EB Garamond", "Linux Libertine"),
-              size: 0.275 * FMT("sn-size"),
+              size: 0.275 * FMT("sn-size", size: text-size),
               weight: "bold",
-              fill: FMT("sq-text")
-            )[#INST.lang-appendix]
+              fill: FMT("sq-text", size: text-size)
+            )[#lang-appendix]
           )
         )
       )
     )
-    v(FMT("top-gap"))
+    v(FMT("top-gap", size: text-size))
     block( // Appendix title
       width: 100%,
-      height: FMT("it-hght"),
+      height: FMT("it-hght", size: text-size),
       align(
         center + top,
         text(
           font: ("EB Garamond", "Linux Libertine"),
-          size: FMT("it-size"),
+          size: FMT("it-size", size: text-size),
           weight: "extrabold",
         )[#it.body]
       )
@@ -496,6 +500,7 @@
 //--------------------------------------------------------------------------------------------//
 
 #let BACK-MATTER(
+  text-size,
   back-matter-material
 ) = {
   // Page settings adjustments
@@ -531,15 +536,15 @@
     counter(math.equation).update(0)
     // Layout
     pagebreak(weak: true, to: "odd")
-    v(FMT("top-gap"))
+    v(FMT("top-gap", size: text-size))
     block(
       width: 100%,
-      height: FMT("it-hght"),
+      height: FMT("it-hght", size: text-size),
       align(
         center + top,
         text(
           font: ("EB Garamond", "Linux Libertine"),
-          size: FMT("it-size"),
+          size: FMT("it-size", size: text-size),
           weight: "extrabold",
         )[#it.body]
       )
