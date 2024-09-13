@@ -391,6 +391,9 @@
   // New Page
   pagebreak(to: "odd", weak: false)
 
+  // Counter reset
+  counter(heading).update(0)
+
   // Appendix Page
   if ship-appendix-page {
     pagebreak(weak: true, to: "odd")
@@ -411,9 +414,6 @@
       #v(1fr)
     ]
   }
-
-  // Counter reset
-  counter(heading).update(0)
 
   // Page settings adjustments
   set page(
@@ -529,6 +529,7 @@
 
 #let BACK-MATTER(
   text-size,
+  ship-back-page: true,
   back-matter-material
 ) = {
   // Page settings adjustments
@@ -548,6 +549,27 @@
 
   // Text parameters controlled by input arguments
   // --- Unnecesssary ---
+
+  // Back Part Page
+  if ship-back-page {
+    pagebreak(weak: true, to: "odd")
+    page(
+      header: [],
+      footer: [],
+    )[
+      #v(1fr)
+      #block(
+        width: 100%,
+        align(
+          center,
+          text(size: (8/3) * 1em)[
+            *Back Part*
+          ]
+        )
+      )
+      #v(1fr)
+    ]
+  }
 
   // Heading numbering and outlining controls
   set heading(
