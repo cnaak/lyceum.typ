@@ -1,14 +1,7 @@
 #import "meta-parsing.typ": meta-parse
 
-// Adjustable instance-constants
-#let INST = (
-  text-size: 12pt,
-  lang-chapter: "Chapter",
-  lang-appendix: "Appendix",
-)
-
 // Auxiliary FMT function
-#let FMT(w, size: INST.text-size) = {
+#let FMT(w, size: context {text.size}) = {
   if type(w) == type("") {
     if      w == "top-gap" { return 7.5 * size }        // Shared by all level-1 headings
     else if w == "sq-side" { return 5.0 * size }        // Shaded square within the top-gap
@@ -93,9 +86,6 @@
     author: AUTHORS.join(" and "),
     keywords: META.keywords,
   )
-
-  // Back-writes on INST
-  INST.text-size = text-size
 
   // Page parameters controlled by input arguments
   set page(
