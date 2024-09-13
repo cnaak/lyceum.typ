@@ -172,21 +172,21 @@
   )[
     #let PARS = (auth-chunk-size: 2, )
     // Book Title on Title Page
-    #v(1fr)
+    // #v(1fr)
     #if META.title.title.len() > 0 {
       if META.title.subtitle.len() > 0 {
         block(width: 100%,)[
-          #align(center, text(size: (8/3) * 1em)[*#META.title.title* \ ])
-          #align(center, text(size: (6/3) * 1em)[*#META.title.subtitle*])
+          #align(center, text(size: (8/3) * text-size)[*#META.title.title* \ ])
+          #align(center, text(size: (6/3) * text-size)[*#META.title.subtitle*])
         ]
       } else {
         block(width: 100%,)[
-          #align(center, text(size: (8/3) * 1em)[*#META.title.title*])
+          #align(center, text(size: (8/3) * text-size)[*#META.title.title*])
         ]
       }
     } else {
       block(width: 100%,)[
-        #align(center, text(size: (8/3) * 1em)[*#META.title.value*])
+        #align(center, text(size: (8/3) * text-size)[*#META.title.value*])
       ]
     }
     #v(4fr)
@@ -200,12 +200,12 @@
           ..the-CHU.map(
             auth-indx => [
               #align(center)[
-                #set text(size: (4/3) * 1em)
+                #set text(size: (4/3) * text-size)
                 *#META.authors.at(auth-indx).name,*
                 *#META.authors.at(auth-indx).given-name* \
-                #set text(size: (3/3) * 1em)
+                #set text(size: (3/3) * text-size)
                 #META.authors.at(auth-indx).affiliation \
-                #set text(size: (5/6) * 1em)
+                #set text(size: (5/6) * text-size)
                 #raw(META.authors.at(auth-indx).email) \
                 #META.authors.at(auth-indx).location
               ]
@@ -213,21 +213,21 @@
           )
         )
         if the-CHU.last() < CHU.flatten().last() [
-          #v((4/3) * 1em)
+          #v((4/3) * text-size)
         ]
       }
     ]
     #v(4fr)
     // Publisher block
     #block(width: 100%,)[
-      #set text(size: 1em)
+      #set text(size: text-size)
       #META.publisher, \
       #META.location
     ]
     #v(1fr)
     // Date block
     #block(width: 100%,)[
-      #set text(size: 1em)
+      #set text(size: text-size)
       #align(center)[#META.date.display()]
     ]
   ]
