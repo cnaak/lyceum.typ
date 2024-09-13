@@ -239,6 +239,7 @@
 #let BODY-MATTER(
   text-size,
   lang-chapter,
+  ship-body-page: true,
   body-matter-material
 ) = {
   // New Page
@@ -285,6 +286,27 @@
 
   // Text parameters controlled by input arguments
   // --- Unnecesssary ---
+
+  // Main Body Page
+  if ship-body-page {
+    pagebreak(weak: true, to: "odd")
+    page(
+      header: [],
+      footer: [],
+    )[
+      #v(1fr)
+      #block(
+        width: 100%,
+        align(
+          center,
+          text(size: (8/3) * 1em)[
+            *Main Part*
+          ]
+        )
+      )
+      #v(1fr)
+    ]
+  }
 
   // Heading numbering and outlining controls
   set heading(
@@ -363,10 +385,32 @@
 #let APPENDIX(
   text-size,
   lang-appendix,
+  ship-appendix-page: true,
   appendix-material
 ) = {
   // New Page
   pagebreak(to: "odd", weak: false)
+
+  // Appendix Page
+  if ship-appendix-page {
+    pagebreak(weak: true, to: "odd")
+    page(
+      header: [],
+      footer: [],
+    )[
+      #v(1fr)
+      #block(
+        width: 100%,
+        align(
+          center,
+          text(size: (8/3) * 1em)[
+            *#lang-appendix*
+          ]
+        )
+      )
+      #v(1fr)
+    ]
+  }
 
   // Counter reset
   counter(heading).update(0)
@@ -473,25 +517,6 @@
       )
     )
   }
-
-  // Appendix Page
-  pagebreak(weak: true, to: "odd")
-  page(
-    header: [],
-    footer: [],
-  )[
-    #v(1fr)
-    #block(
-      width: 100%,
-      align(
-        center,
-        text(size: (8/3) * 1em)[
-          *#lang-appendix*
-        ]
-      )
-    )
-    #v(1fr)
-  ]
 
   // Appendix material
   appendix-material
