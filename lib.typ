@@ -11,7 +11,7 @@
 #let FMT(w, size: INST.text-size) = {
   if type(w) == type("") {
     if      w == "top-gap" { return 7.5 * size }        // Shared by all level-1 headings
-    else if w == "sqr-sid" { return 5.0 * size }        // Shaded square within the top-gap
+    else if w == "sq-side" { return 5.0 * size }        // Shaded square within the top-gap
     else if w == "it-hght" { return 6.5 * size }        // Room for level-1 heading bodies
     else if w == "it-size" { return 2.0 * size }        // Level-1 heading text size
     else if w == "sn-size" { return 3.5 * size }        // Square-bound number text-size
