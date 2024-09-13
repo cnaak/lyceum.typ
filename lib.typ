@@ -276,7 +276,7 @@
       let cur-pag-num = counter(page).at(here()).first()
       let ALIGN = if calc.even(cur-pag-num) { left } else { right }
       set align(ALIGN)
-      [#counter(page).display("i")]
+      [#counter(page).display("1")]
     },
   )
 
