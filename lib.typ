@@ -1,7 +1,14 @@
 #import "meta-parsing.typ": meta-parse
 
+// Adjustable instance-constants
+#let INST = (
+  text-size: 12pt,
+  lang-chapter: "Chapter",
+  lang-appendix: "Appendix",
+)
+
 // Auxiliary FMT function
-#let FMT(w, size: 12pt) = {
+#let FMT(w, size: INST.text-size) = {
   if type(w) == type("") {
     if      w == "top-gap" { return 7.5 * size }        // Shared by all level-1 headings
     else if w == "sqr-sid" { return 5.0 * size }        // Shaded square within the top-gap
@@ -62,7 +69,7 @@
   page-binding: left,
   page-fill: color.hsl(45deg, 15%, 85%),  // ivory
   text-font: ("EB Garamond", "Linux Libertine"),
-  text-size: 12pt,
+  text-size: INST.text-size,
   lang-name: "en",
   par-indent: 12mm,
   front-matter-material
@@ -139,15 +146,15 @@
     counter(math.equation).update(0)
     // Layout
     pagebreak(weak: true, to: "odd")
-    v(FMT("top-gap", text-size))
+    v(FMT("top-gap"))
     block(
       width: 100%,
-      height: FMT("it-hght", text-size),
+      height: FMT("it-hght"),
       align(
         center + top,
         text(
           font: ("EB Garamond", "Linux Libertine"),
-          size: FMT("it-size", text-size),
+          size: FMT("it-size"),
           weight: "extrabold",
         )[#it.body]
       )
@@ -240,9 +247,6 @@
 //--------------------------------------------------------------------------------------------//
 
 #let BODY-MATTER(
-  par-indent: 12mm,
-  text-size: 12pt,
-  lang-chapter: "Chapter",
   body-matter-material
 ) = {
   // Counter reset
@@ -302,29 +306,36 @@
     counter(math.equation).update(0)
     // Layout
     pagebreak(weak: true, to: "odd")
-    place(top + right, // Shaded square
-      box(width: FMT("sq-side", text-size),
-        height: FMT("sq-side", text-size),
-        fill: FMT("sq-shad"),
-        radius: 4pt,
-        inset: 0pt,
-        align(center + horizon,
+    place( // Shaded square
+      top + right,
+      box(
+        width: FMT("sq-side"),
+        height: FMT("sq-side"),
+        fill: FMT("sq-shad"), radius: 4pt, inset: 0pt,
+        align(
+          center + horizon,
           text(
             font: ("Alegreya", "Linux Libertine"),
-            size: FMT("sn-size", text-size),
+            size: FMT("sn-size"),
             weight: "extrabold",
             fill: FMT("sq-text")
           )[#counter(heading).display("1")]
         )
       )
     )
-    place(top + right, dx: -1.275 * FMT("sq-side", text-size), // Rotated "Chapter"
-      rotate(-90deg, origin: top + right,
-        box(width: FMT("sq-side", text-size),
-          align(center + horizon,
+    place( // Rotated "Chapter"
+      top + right,
+      dx: -1.275 * FMT("sq-side"),
+      rotate(
+        -90deg,
+        origin: top + right,
+        box(
+          width: FMT("sq-side"),
+          align(
+            center + horizon,
             text(
               font: ("EB Garamond", "Linux Libertine"),
-              size: 0.275 * FMT("sn-size", text-size),
+              size: 0.275 * FMT("sn-size"),
               weight: "bold",
               fill: FMT("sq-text")
             )[#lang-chapter]
@@ -332,10 +343,19 @@
         )
       )
     )
-    v(FMT("top-gap", text-size))
-    set align(center + top)
-    set text(font: ("EB Garamond", "Linux Libertine"), FMT("it-size", text-size), weight: "extrabold")
-    block(width: 100%, height: FMT("it-hght", text-size))[#it.body]
+    v(FMT("top-gap"))
+    block( // Chapter title
+      width: 100%,
+      height: FMT("it-hght"),
+      align(
+        center + top,
+        text(
+          font: ("EB Garamond", "Linux Libertine"),
+          size: FMT("it-size"),
+          weight: "extrabold",
+        )[#it.body]
+      )
+    )
   }
 
   // Book body material
@@ -348,9 +368,6 @@
 //--------------------------------------------------------------------------------------------//
 
 #let APPENDIX(
-  par-indent: 12mm,
-  text-size: 12pt,
-  lang-appendix: "Appendix",
   appendix-material
 ) = {
   // Counter reset
@@ -409,34 +426,56 @@
     counter(math.equation).update(0)
     // Layout
     pagebreak(weak: true, to: "odd")
-    place(top + right, // Shaded square
-      box(width: FMT("sq-side", text-size), height: FMT("sq-side", text-size), fill: FMT("sq-shad"), radius: 4pt, inset: 0pt)[
-        #align(center + horizon)[
-          #text(
+    place( // Shaded square
+      top + right,
+      box(
+        width: FMT("sq-side"),
+        height: FMT("sq-side"),
+        fill: FMT("sq-shad"), radius: 4pt, inset: 0pt,
+        align(
+          center + horizon,
+          text(
             font: ("Alegreya", "Linux Libertine"),
-            size: FMT("sn-size", text-size),
+            size: FMT("sn-size"),
             weight: "extrabold",
-            fill: FMT("sq-text"))[#counter(heading).display("A")]
-        ]
-      ]
+            fill: FMT("sq-text")
+          )[#counter(heading).display("A")]
+        )
+      )
     )
-    place(top + right, dx: -1.275 * FMT("sq-side", text-size), // Rotated "Appendix"
-      rotate(-90deg, origin: top + right)[
-        #box(width: FMT("sq-side", text-size))[
-          #align(center + horizon)[
-            #text(
+    place( // Rotated "Appendix"
+      top + right,
+      dx: -1.275 * FMT("sq-side"),
+      rotate(
+        -90deg,
+        origin: top + right,
+        box(
+          width: FMT("sq-side"),
+          align(
+            center + horizon,
+            text(
               font: ("EB Garamond", "Linux Libertine"),
-              size: 0.275 * FMT("sn-size", text-size),
+              size: 0.275 * FMT("sn-size"),
               weight: "bold",
-              fill: FMT("sq-text"))[#lang-appendix]
-          ]
-        ]
-      ]
+              fill: FMT("sq-text")
+            )[#lang-appendix]
+          )
+        )
+      )
     )
-    v(FMT("top-gap", text-size))
-    set align(center + top)
-    set text(font: ("EB Garamond", "Linux Libertine"), FMT("it-size", text-size), weight: "extrabold")
-    block(width: 100%, height: FMT("it-hght", text-size))[#it.body]
+    v(FMT("top-gap"))
+    block( // Appendix title
+      width: 100%,
+      height: FMT("it-hght"),
+      align(
+        center + top,
+        text(
+          font: ("EB Garamond", "Linux Libertine"),
+          size: FMT("it-size"),
+          weight: "extrabold",
+        )[#it.body]
+      )
+    )
   }
 
   // Appendix Page
@@ -468,8 +507,6 @@
 //--------------------------------------------------------------------------------------------//
 
 #let BACK-MATTER(
-  par-indent: 12mm,
-  text-size: 12pt,
   back-matter-material
 ) = {
   // Page settings adjustments
@@ -507,10 +544,19 @@
     counter(math.equation).update(0)
     // Layout
     pagebreak(weak: true, to: "odd")
-    v(FMT("top-gap", text-size))
-    set align(center + top)
-    set text(font: ("EB Garamond", "Linux Libertine"), FMT("it-size", text-size), weight: "extrabold")
-    block(width: 100%, height: FMT("it-hght", text-size))[#it.body]
+    v(FMT("top-gap"))
+    block(
+      width: 100%,
+      height: FMT("it-hght"),
+      align(
+        center + top,
+        text(
+          font: ("EB Garamond", "Linux Libertine"),
+          size: FMT("it-size"),
+          weight: "extrabold",
+        )[#it.body]
+      )
+    )
   }
 
   // back-matter material
