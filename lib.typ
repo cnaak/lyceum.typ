@@ -94,6 +94,9 @@
     keywords: META.keywords,
   )
 
+  // Back-writes on INST
+  INST.text-size = text-size
+
   // Page parameters controlled by input arguments
   set page(
     width: page-size.width,
