@@ -1,11 +1,6 @@
 #import "meta-parsing.typ": meta-parse
 
 
-#let MEA = (top-gap: 90pt, sq-side: 60pt, it-hgt: 80pt)
-#let COL = (sq-shade: rgb("#00000070"), sq-text: rgb("#000000A0"))
-#let SIZ = (it-siz: 2em, sq-num-size: 0.7 * MEA.sq-side)
-
-
 //--------------------------------------------------------------------------------------------//
 //                            Fundamental, Front-Matter show rule                             //
 //--------------------------------------------------------------------------------------------//
@@ -151,6 +146,17 @@
     lang-chapter:   lang-chapter,
     lang-appendix:  lang-appendix,
     par-indent:     par-indent,
+    // Composed layouts
+    MEA:            ( top-gap: 7.5 * text-size,       // Shared by all level-1 headings
+                      sq-side: 5.0 * text-size,       // Shaded square within the top-gap
+                      it-hgt:  6.5 * text-size,       // Room for level-1 heading bodies
+                    ),
+    COL:            ( sq-shade: rgb("#00000070"),     // Shaded square shade color
+                      sq-text:  rgb("#000000A0"),     // Shaded text color
+                    ),
+    SIZ:            ( it-siz:  2.0 * text-size,       // Level-1 heading text size
+                      sq-num-size: 0.7 * MEA.sq-side, // Square-bound number text-size
+                    ),
   )
 
   // Metadata writings
@@ -249,6 +255,15 @@
   counter(heading).update(0)
   counter(page).update(1)
 
+  // Format loading
+  let FORMAT = (:)
+  context {
+    let q-format = query(selector(<lyceum-fmt>)).first().value
+    for (KEY, VAL) in q-format {
+      FORMAT.insert(KEY, VAL)
+    }
+  }
+
   // Page settings adjustments
   set page(
     numbering: "1",
@@ -303,33 +318,39 @@
     // Layout
     pagebreak(weak: true, to: "odd")
     place(top + right, // Shaded square
-      box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
-        #align(center + horizon)[
-          #text(
+      box(width: FORMAT.MEA.sq-side,
+        height: FORMAT.MEA.sq-side,
+        fill: FORMAT.COL.sq-shade,
+        radius: 4pt,
+        inset: 0pt,
+        align(center + horizon,
+          text(
             font: ("Alegreya", "Linux Libertine"),
             size: SIZ.sq-num-size,
             weight: "extrabold",
-            fill: COL.sq-text)[#counter(heading).display("1")]
-        ]
-      ]
+            fill: FORMAT.COL.sq-text
+          )[#counter(heading).display("1")]
+        )
+      )
     )
-    place(top + right, dx: -1.275 * MEA.sq-side, // Rotated "Chapter"
-      rotate(-90deg, origin: top + right)[
-        #box(width: MEA.sq-side)[
-          #align(center + horizon)[
-            #text(
+    place(top + right, dx: -1.275 * FORMAT.MEA.sq-side, // Rotated "Chapter"
+      rotate(-90deg, origin: top + right,
+        box(width: FORMAT.MEA.sq-side,
+          align(center + horizon,
+            text(
               font: ("EB Garamond", "Linux Libertine"),
               size: 0.275 * SIZ.sq-num-size,
               weight: "bold",
-              fill: COL.sq-text)[#lang-chapter]
-          ]
-        ]
-      ]
+              fill: FORMAT.COL.sq-text
+            )[#lang-chapter]
+          )
+        )
+      )
     )
-    v(MEA.top-gap)
+    v(FORMAT.MEA.top-gap)
     set align(center + top)
     set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
-    block(width: 100%, height: MEA.it-hgt)[#it.body]
+    block(width: 100%, height: FORMAT.MEA.it-hgt)[#it.body]
   }
 
   // Book body material
@@ -402,33 +423,33 @@
     // Layout
     pagebreak(weak: true, to: "odd")
     place(top + right, // Shaded square
-      box(width: MEA.sq-side, height: MEA.sq-side, fill: COL.sq-shade, radius: 4pt, inset: 0pt)[
+      box(width: FORMAT.MEA.sq-side, height: FORMAT.MEA.sq-side, fill: FORMAT.COL.sq-shade, radius: 4pt, inset: 0pt)[
         #align(center + horizon)[
           #text(
             font: ("Alegreya", "Linux Libertine"),
             size: SIZ.sq-num-size,
             weight: "extrabold",
-            fill: COL.sq-text)[#counter(heading).display("A")]
+            fill: FORMAT.COL.sq-text)[#counter(heading).display("A")]
         ]
       ]
     )
-    place(top + right, dx: -1.275 * MEA.sq-side, // Rotated "Appendix"
+    place(top + right, dx: -1.275 * FORMAT.MEA.sq-side, // Rotated "Appendix"
       rotate(-90deg, origin: top + right)[
-        #box(width: MEA.sq-side)[
+        #box(width: FORMAT.MEA.sq-side)[
           #align(center + horizon)[
             #text(
               font: ("EB Garamond", "Linux Libertine"),
               size: 0.275 * SIZ.sq-num-size,
               weight: "bold",
-              fill: COL.sq-text)[#lang-appendix]
+              fill: FORMAT.COL.sq-text)[#lang-appendix]
           ]
         ]
       ]
     )
-    v(MEA.top-gap)
+    v(FORMAT.MEA.top-gap)
     set align(center + top)
     set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
-    block(width: 100%, height: MEA.it-hgt)[#it.body]
+    block(width: 100%, height: FORMAT.MEA.it-hgt)[#it.body]
   }
 
   // Appendix Page
@@ -501,10 +522,10 @@
     counter(math.equation).update(0)
     // Layout
     pagebreak(weak: true, to: "odd")
-    v(MEA.top-gap)
+    v(FORMAT.MEA.top-gap)
     set align(center + top)
     set text(font: ("EB Garamond", "Linux Libertine"), SIZ.it-siz, weight: "extrabold")
-    block(width: 100%, height: MEA.it-hgt)[#it.body]
+    block(width: 100%, height: FORMAT.MEA.it-hgt)[#it.body]
   }
 
   // back-matter material
