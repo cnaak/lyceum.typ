@@ -286,9 +286,7 @@
   )
 
   // Paragraph settings
-  set par(
-    first-line-indent: par-indent,
-  )
+  // --- Unnecesssary ---
 
   // Text parameters controlled by input arguments
   // --- Unnecesssary ---
@@ -406,9 +404,7 @@
   )
 
   // Paragraph settings
-  set par(
-    first-line-indent: par-indent,
-  )
+  // --- Unnecesssary ---
 
   // Text parameters controlled by input arguments
   // --- Unnecesssary ---
@@ -524,9 +520,7 @@
   )
 
   // Paragraph settings
-  set par(
-    first-line-indent: par-indent,
-  )
+  // --- Unnecesssary ---
 
   // Text parameters controlled by input arguments
   // --- Unnecesssary ---
