@@ -62,7 +62,7 @@
   page-binding: left,
   page-fill: color.hsl(45deg, 15%, 85%),  // ivory
   text-font: ("EB Garamond", "Linux Libertine"),
-  text-size: INST.text-size,
+  text-size: 12pt,
   lang-name: "en",
   par-indent: 12mm,
   front-matter-material
