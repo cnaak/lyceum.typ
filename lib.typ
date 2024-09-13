@@ -1,9 +1,9 @@
 #import "meta-parsing.typ": meta-parse
 
 // Auxiliary FMT function
-#let FMT(w, size: context {text.size}) = {
+#let FMT(w) = {
   if type(w) == type("") {
-    if      w == "top-gap" { return 7.5 * size }        // Shared by all level-1 headings
+    if      w == "top-gap" { return 7.5 * context text.size }        // Shared by all level-1 headings
     else if w == "sq-side" { return 5.0 * size }        // Shaded square within the top-gap
     else if w == "it-hght" { return 6.5 * size }        // Room for level-1 heading bodies
     else if w == "it-size" { return 2.0 * size }        // Level-1 heading text size
