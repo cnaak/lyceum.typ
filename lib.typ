@@ -76,13 +76,6 @@
     keywords: META.keywords,
   )
 
-  // Assertions and matter-data
-  context {
-    let matter-before-here = query(selector(<lyceum-matter>).before(here()))
-    assert.eq(matter-before-here.len(), 0,
-      message: "[lyceum]: FRONT-MATTER() should be used as the first show rule!")
-  }
-
   // Page parameters controlled by input arguments
   set page(
     width: page-size.width,
@@ -93,7 +86,7 @@
     columns: 1,
     fill: page-fill,
     footer: context {
-      // Get current page number and matter
+      // Get current page number
       let cur-page-number = counter(page).at(here()).first()
       if cur-page-number > 1 [
         #align(center + horizon)[
@@ -223,9 +216,6 @@
     lang-appendix:  lang-appendix,
     par-indent:     par-indent,
   )
-
-  // AFTER document set
-  [#metadata("FRONT")<lyceum-matter>]
 
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
