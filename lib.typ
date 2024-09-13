@@ -172,7 +172,7 @@
   )[
     #let PARS = (auth-chunk-size: 2, )
     // Book Title on Title Page
-    #v(MEA.top-gap)
+    #v(1fr)
     #if META.title.title.len() > 0 {
       if META.title.subtitle.len() > 0 {
         block(width: 100%,)[
