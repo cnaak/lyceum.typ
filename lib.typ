@@ -97,13 +97,10 @@
     columns: 1,
     fill: page-fill,
     footer: context {
-      // Get current page number
-      let cur-page-number = counter(page).at(here()).first()
-      if cur-page-number > 1 [
-        #align(center + horizon)[
-          #numbering("i", cur-page-number)
-        ]
-      ] else []
+      let cur-pag-num = counter(page).at(here()).first()
+      let ALIGN = if calc.even(cur-pag-num) { left } else { right }
+      set align(ALIGN)
+      [#counter(page).display("i")]
     },
     header: [],
   )
@@ -272,11 +269,10 @@
       }
     },
     footer: context {
-      // get current page number
-      let cur-page-number = counter(page).at(here()).first()
-      align(center + horizon)[
-        #numbering("1", cur-page-number)
-      ]
+      let cur-pag-num = counter(page).at(here()).first()
+      let ALIGN = if calc.even(cur-pag-num) { left } else { right }
+      set align(ALIGN)
+      [#counter(page).display("i")]
     },
   )
 
@@ -392,11 +388,10 @@
       }
     },
     footer: context {
-      // get current page number
-      let cur-page-number = counter(page).at(here()).first()
-      align(center + horizon)[
-        #numbering("1", cur-page-number)
-      ]
+      let cur-pag-num = counter(page).at(here()).first()
+      let ALIGN = if calc.even(cur-pag-num) { left } else { right }
+      set align(ALIGN)
+      [#counter(page).display("i")]
     },
   )
 
@@ -507,14 +502,13 @@
   set page(
     numbering: "1",
     number-align: center,
-    header: [],
     footer: context {
-      // get current page number
-      let cur-page-number = counter(page).at(here()).first()
-      align(center + horizon)[
-        #numbering("1", cur-page-number)
-      ]
+      let cur-pag-num = counter(page).at(here()).first()
+      let ALIGN = if calc.even(cur-pag-num) { left } else { right }
+      set align(ALIGN)
+      [#counter(page).display("i")]
     },
+    header: [],
   )
 
   // Paragraph settings
