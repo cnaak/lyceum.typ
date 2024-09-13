@@ -336,7 +336,7 @@
               size: 0.275 * FMT("sn-size"),
               weight: "bold",
               fill: FMT("sq-text")
-            )[#lang-chapter]
+            )[#INST.lang-chapter]
           )
         )
       )
@@ -454,7 +454,7 @@
               size: 0.275 * FMT("sn-size"),
               weight: "bold",
               fill: FMT("sq-text")
-            )[#lang-appendix]
+            )[#INST.lang-appendix]
           )
         )
       )
