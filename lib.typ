@@ -251,6 +251,12 @@
   // Page settings adjustments
   set page(
     numbering: "1",
+    footer: context {
+      let cur-pag-num = counter(page).at(here()).first()
+      let ALIGN = if calc.even(cur-pag-num) { left } else { right }
+      set align(ALIGN)
+      [#counter(page).display("1")]
+    },
     /*
     header: context {
       // Get current page number
@@ -272,12 +278,6 @@
       }
     },
     */
-    footer: context {
-      let cur-pag-num = counter(page).at(here()).first()
-      let ALIGN = if calc.even(cur-pag-num) { left } else { right }
-      set align(ALIGN)
-      [#counter(page).display("1")]
-    },
   )
 
   // Paragraph settings
@@ -365,13 +365,21 @@
   lang-appendix,
   appendix-material
 ) = {
+  // New Page
+  pagebreak(to: "odd", weak: false)
+
   // Counter reset
   counter(heading).update(0)
 
   // Page settings adjustments
   set page(
     numbering: "1",
-    number-align: center,
+    footer: context {
+      let cur-pag-num = counter(page).at(here()).first()
+      let ALIGN = if calc.even(cur-pag-num) { left } else { right }
+      set align(ALIGN)
+      [#counter(page).display("1")]
+    },
     /*
     header: context {
       // Get current page number
@@ -393,12 +401,6 @@
       }
     },
     */
-    footer: context {
-      let cur-pag-num = counter(page).at(here()).first()
-      let ALIGN = if calc.even(cur-pag-num) { left } else { right }
-      set align(ALIGN)
-      [#counter(page).display("i")]
-    },
   )
 
   // Paragraph settings
@@ -507,12 +509,11 @@
   // Page settings adjustments
   set page(
     numbering: "1",
-    number-align: center,
     footer: context {
       let cur-pag-num = counter(page).at(here()).first()
       let ALIGN = if calc.even(cur-pag-num) { left } else { right }
       set align(ALIGN)
-      [#counter(page).display("i")]
+      [#counter(page).display("1")]
     },
     header: [],
   )
