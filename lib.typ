@@ -96,6 +96,7 @@
     binding: page-binding,
     columns: 1,
     fill: page-fill,
+    numbering: "i",
     footer: context {
       let cur-pag-num = counter(page).at(here()).first()
       let ALIGN = if calc.even(cur-pag-num) { left } else { right }
@@ -251,6 +252,7 @@
 
   // Page settings adjustments
   set page(
+    numbering: "1",
     footer: context {
       let cur-pag-num = counter(page).at(here()).first()
       let ALIGN = if calc.even(cur-pag-num) { left } else { right }
