@@ -259,12 +259,28 @@
       set align(ALIGN)
       [#counter(page).display("1")]
     },
+    header: context {
+      let META = query(<lyceum-meta>).first().value
+      let AUTH = query(<lyceum-auth>).first().value.join(" and ")
+      let cur-pag-num = counter(page).at(here()).first()
+      let l1-headings = query(heading.where(level: 1))
+      if l1-headings.any(it => it.location().page() == cur-pag-num) {
+        []
+      } else {
+        if calc.even(cur-pag-num) {
+          set align(left)
+          [#META.title.value]
+        } else {
+          set align(right)
+          [#AUTH]
+        }
+      }
+    },
     /*
     header: context {
       // Get current page number
       let cur-page-number = counter(page).at(here()).first()
       // Only prints header in non-chapter pages
-      let main-headings = query(heading.where(level: 1))
       let past-headings = query(heading.where(level: 1).before(here()))
       let cur-main-hdng = past-headings.last()
       if main-headings.all(it => it.location().page() != cur-page-number) {
