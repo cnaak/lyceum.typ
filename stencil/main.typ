@@ -80,23 +80,23 @@ Here goes the book preface. #lorem(50)
 
 = Introduction
 
-#lorem(120)
+#lorem(520)
 
 == Sub-Section
 
-#lorem(130)
+#lorem(530)
 
 == Sub-Section
 
-#lorem(130)
-
-== Sub-Section
-
-#lorem(130)
+#lorem(530)
 
 = Methodology
 
-#lorem(50)
+#lorem(750)
+
+== Sub-Section
+
+#lorem(730)
 
 
 //----------------------------------------------------------------------------//
