@@ -1,7 +1,7 @@
 // #import "@preview/lyceum:0.1.0": FRONT-MATTER
 #import "@local/lyceum:0.1.0": FRONT-MATTER, BODY-MATTER, APPENDIX, BACK-MATTER
 
-#let TEXT-SIZE = 12pt
+#let TEXT-SIZE = 10pt
 
 //----------------------------------------------------------------------------//
 //                                FRONT-MATTER                                //
@@ -76,7 +76,7 @@ Here goes the book preface. #lorem(50)
 //                                BODY-MATTER                                 //
 //----------------------------------------------------------------------------//
 
-#show: BODY-MATTER.with(TEXT-SIZE, "Chapter")
+#show: BODY-MATTER.with(TEXT-SIZE, "Chapter", ship-part-page: false)
 
 = Introduction
 
@@ -95,7 +95,7 @@ Here goes the book preface. #lorem(50)
 //                                  APPENDIX                                  //
 //----------------------------------------------------------------------------//
 
-#show: APPENDIX.with(TEXT-SIZE, "Appendix")
+#show: APPENDIX.with(TEXT-SIZE, "Appendix", ship-part-page: true)
 
 = Tables of Properties
 
@@ -106,7 +106,7 @@ Here goes the book preface. #lorem(50)
 //                                BACK-MATTER                                 //
 //----------------------------------------------------------------------------//
 
-#show: BACK-MATTER.with(TEXT-SIZE)
+#show: BACK-MATTER.with(TEXT-SIZE, ship-part-page: false)
 
 = Citing This Book
 
