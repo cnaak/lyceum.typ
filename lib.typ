@@ -266,6 +266,8 @@
       set align(ALIGN)
       [#counter(page).display("1")]
     },
+    header: [],
+    /*
     header: context {
       let META = query(<lyceum-meta>).first().value
       let AUTH = query(<lyceum-auth>).first().value.join(" and ")
@@ -280,25 +282,6 @@
         } else {
           set align(left)
           [#smallcaps(AUTH)]
-        }
-      }
-    },
-    /*
-    header: context {
-      // Get current page number
-      let cur-page-number = counter(page).at(here()).first()
-      // Only prints header in non-chapter pages
-      let past-headings = query(heading.where(level: 1).before(here()))
-      let cur-main-hdng = past-headings.last()
-      if main-headings.all(it => it.location().page() != cur-page-number) {
-        if calc.odd(cur-page-number) {
-          block(width: 100%, height: (3/2) * 1em)[
-            #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
-          ]
-        } else {
-          block(width: 100%, height: (3/2) * 1em)[
-            #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
-          ]
         }
       }
     },
@@ -448,23 +431,22 @@
       set align(ALIGN)
       [#counter(page).display("1")]
     },
+    header: [],
     /*
     header: context {
-      // Get current page number
-      let cur-page-number = counter(page).at(here()).first()
-      // Only prints header in non-chapter pages
-      let main-headings = query(heading.where(level: 1))
-      let past-headings = query(heading.where(level: 1).before(here()))
-      let cur-main-hdng = past-headings.last()
-      if main-headings.all(it => it.location().page() != cur-page-number) {
-        if calc.odd(cur-page-number) {
-          block(width: 100%, height: (3/2) * 1em)[
-            #smallcaps(cur-main-hdng.body) #h(1fr) #cur-page-number
-          ]
+      let META = query(<lyceum-meta>).first().value
+      let AUTH = query(<lyceum-auth>).first().value.join(" and ")
+      let cur-pag-num = counter(page).at(here()).first()
+      let l1-headings = query(heading.where(level: 1))
+      if l1-headings.any(it => it.location().page() == cur-pag-num) {
+        [(level-1 heading detected)]
+      } else {
+        if calc.even(cur-pag-num) {
+          set align(left)
+          [#smallcaps(META.title.value)]
         } else {
-          block(width: 100%, height: (3/2) * 1em)[
-            #cur-page-number #h(1fr) #smallcaps(cur-main-hdng.body)
-          ]
+          set align(left)
+          [#smallcaps(AUTH)]
         }
       }
     },
