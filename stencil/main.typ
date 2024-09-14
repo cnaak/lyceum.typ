@@ -84,7 +84,15 @@ Here goes the book preface. #lorem(50)
 
 == Sub-Section
 
-#lorem(30)
+#lorem(130)
+
+== Sub-Section
+
+#lorem(130)
+
+== Sub-Section
+
+#lorem(130)
 
 = Methodology
 
