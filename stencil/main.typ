@@ -50,14 +50,7 @@
   lang-name: "en",
 )
 
-// The lyceum auto-generates the title page and enters FRONT-MATTER styling
-
-#show outline.entry.where(
-  level: 1
-): it => {
-  v(12pt, weak: true)
-  strong(it)
-}
+// The lyceum auto-generates the title page
 
 = Preface
 
@@ -81,6 +74,8 @@ Here goes the book preface. #lorem(50)
 = Introduction
 
 #lorem(520)
+
+$ e = m c^2 $
 
 == Sub-Section
 
