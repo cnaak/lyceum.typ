@@ -265,14 +265,14 @@
       let cur-pag-num = counter(page).at(here()).first()
       let l1-headings = query(heading.where(level: 1))
       if l1-headings.any(it => it.location().page() == cur-pag-num) {
-        []
+        [(level-1 heading detected)]
       } else {
         if calc.even(cur-pag-num) {
           set align(left)
-          [#META.title.value]
+          [#smallcaps(META.title.value)]
         } else {
-          set align(right)
-          [#AUTH]
+          set align(left)
+          [#smallcaps(AUTH)]
         }
       }
     },
