@@ -152,6 +152,13 @@
     )
   }
 
+  // Math equation numbering and layout settings
+  set math.equation(
+    block: true,
+    numbering: "(1.1)",
+    number-align: right,
+  )
+
   // Metadata writings
   [#metadata(META)<lyceum-meta>]
 
