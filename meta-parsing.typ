@@ -150,10 +150,16 @@
       }
     }
     if META.title.short.len() == 0 {
-      let title-words = META.title.title.split(" ")
-      META.title.short = title-words.at(0) + "-" + initials-of(
-        title-words.slice(1, title-words.len()).join(" ")
-      )
+      if META.title.subtitle.len() > 0 {
+        META.title.short = META.title.title
+      } else {
+        let title-words = META.title.title.split(" ")
+        if title-words.len() > 1 {
+          META.title.short = title-words.slice(0, count: 2)
+        } else {
+          META.title.short = META.title.title
+        }
+      }
     }
   } else if type(meta.title) == type("") {
     META.title = dict-from(
@@ -323,7 +329,7 @@
     }
   }
 
-  // META.affiliated - Pass 1
+  // META.affiliated
   META.affiliated = (:)
   if "affiliated" in meta {
     if type(meta.affiliated) == dictionary {
@@ -393,7 +399,7 @@
     str(META.date.year()) + "-" + (AUTHORS.first(), AUTHORS.last()).join("+")
   }
   if META.title.short.len() > 0 {
-    META.bibkey += "-" + META.title.short
+    META.bibkey += "-" + META.title.short.join("")
   } else {
     META.bibkey += "-" + initials-of(META.title.value)
   }
