@@ -142,20 +142,29 @@
         "short",
       )
     )
-    if META.title.title.len() > 0 {
-      if META.title.subtitle.len() > 0 {
-        META.title.value = (META.title.title, META.title.subtitle).join(META.title.sep)
-      } else {
-        META.title.value = META.title.title
+    // value processing
+    if META.title.value.len() == 0 {
+      if META.title.title.len() > 0 {
+        if META.title.subtitle.len() > 0 {
+          if META.title.sep.len() > 0 {
+            META.title.value = (META.title.title, META.title.subtitle).join(META.title.sep)
+          } else {
+            META.title.sep = " "
+            META.title.value = (META.title.title, META.title.subtitle).join(META.title.sep)
+          }
+        } else {
+          META.title.value = META.title.title
+        }
       }
     }
+    // short processing
     if META.title.short.len() == 0 {
       if META.title.subtitle.len() > 0 {
         META.title.short = META.title.title
       } else {
         let title-words = META.title.title.split(" ")
         if title-words.len() > 1 {
-          META.title.short = title-words.slice(0, count: 2)
+          META.title.short = title-words.slice(0, count: 2).join(" ")
         } else {
           META.title.short = META.title.title
         }
@@ -171,14 +180,18 @@
         "short",
       )
     )
+    // title processing
     if META.title.title.len() == 0 {
       META.title.title = META.title.value
     }
+    // short processing
     if META.title.short.len() == 0 {
       let title-words = META.title.title.split(" ")
-      META.title.short = title-words.at(0) + "-" + initials-of(
-        title-words.slice(1, title-words.len()).join(" ")
-      )
+      if title-words.len() > 1 {
+        META.title.short = title-words.slice(0, count: 2).join(" ")
+      } else {
+        META.title.short = META.title.title
+      }
     }
   }
 
