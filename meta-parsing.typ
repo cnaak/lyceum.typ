@@ -399,7 +399,7 @@
     str(META.date.year()) + "-" + (AUTHORS.first(), AUTHORS.last()).join("+")
   }
   if META.title.short.len() > 0 {
-    META.bibkey += "-" + META.title.short.join("")
+    META.bibkey += "-" + META.title.short.split(" ").join("")
   } else {
     META.bibkey += "-" + initials-of(META.title.value)
   }
