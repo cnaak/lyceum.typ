@@ -10,7 +10,9 @@
 #show: FRONT-MATTER.with(
   // Document metadata
   title: (
-    title: "Igneous Rocks of Faraway - The Hard Science",
+    title: "Igneous Rocks of Faraway",
+    subtitle: "The Hard Science",
+    sep: " - "
   ),
   authors: (
     (
