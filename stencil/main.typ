@@ -1,7 +1,7 @@
 // #import "@preview/lyceum:0.1.0": FRONT-MATTER
 #import "@local/lyceum:0.1.0": FRONT-MATTER, BODY-MATTER, APPENDIX, BACK-MATTER
 
-#let TEXT-SIZE = 10pt
+#let TEXT-SIZE = 11pt
 
 //----------------------------------------------------------------------------//
 //                                FRONT-MATTER                                //
@@ -10,7 +10,7 @@
 #show: FRONT-MATTER.with(
   // Document metadata
   title: (
-    title: "Igneous Rocks of Faraway",
+    title: "Igneous Rocks",
     subtitle: "The Hard Science",
     sep: " - "
   ),
@@ -55,6 +55,15 @@
 = Preface
 
 Here goes the book preface. #lorem(50)
+
+// Show rule for the outline
+#show outline.entry.where(
+  level: 1
+): it => {
+  v(12pt, weak: true)
+  strong(it)
+}
+
 
 = Contents
 
